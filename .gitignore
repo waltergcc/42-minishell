@@ -1,1 +1,6 @@
 tests/
+out/
+*.o
+*.so
+*.a
+minishell
