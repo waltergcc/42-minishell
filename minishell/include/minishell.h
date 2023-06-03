@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 17:28:47 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:39:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define STOP 1
 
-extern int	global_exit;
+extern int	g_exit;
 
 typedef struct s_envp
 {

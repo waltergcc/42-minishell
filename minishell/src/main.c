@@ -6,13 +6,13 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 17:27:43 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:39:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	global_exit;
+int	g_exit;
 
 void	get_input(t_shell *msh)
 {
@@ -30,7 +30,7 @@ void	get_input(t_shell *msh)
 
 void	set_environment_and_paths(t_shell *msh)
 {
-	global_exit = 0;
+	g_exit = 0;
 	msh->last_redirection = 0;
 	msh->tokens = NULL;
 	create_msh_environment(msh, __environ);
@@ -51,5 +51,5 @@ int	main(void)
 		break ;
 	}
 	puts("working til here");
-	return (global_exit);
+	return (g_exit);
 }
