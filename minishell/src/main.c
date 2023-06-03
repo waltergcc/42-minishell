@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 15:37:07 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:27:43 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,42 @@
 
 int	global_exit;
 
+void	get_input(t_shell *msh)
+{
+	char	*prompt;
 
+	prompt = NULL;
+	prompt = getcwd(prompt, 2000);
+	prompt = ft_strjoin(prompt, "$ ");
+	set_signal(STOP);
+	msh->user_input = readline(prompt);
+	if (msh->user_input && msh->user_input)
+		add_history(msh->user_input);
+	free(prompt);
+}
 
-void	start_preparation(t_shell *msh)
+void	set_environment_and_paths(t_shell *msh)
 {
 	global_exit = 0;
 	msh->last_redirection = 0;
 	msh->tokens = NULL;
 	create_msh_environment(msh, __environ);
-	print_new_envp(msh);
 	get_paths(msh);
-	print_paths(msh);
 	msh->home_path = ft_strdup(envp_content(msh, "HOME"));
-	puts(msh->home_path);
-	puts("working til here");
 }
 
 int	main(void)
 {
 	t_shell	msh;
 
-	start_preparation(&msh);
+	set_environment_and_paths(&msh);
+	while (1)
+	{
+		msh.fdin = STDIN_FILENO;
+		msh.fdout = STDOUT_FILENO;
+		get_input(&msh);
+		break ;
+	}
+	puts("working til here");
 	return (global_exit);
 }
