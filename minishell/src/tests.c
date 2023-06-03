@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:58:49 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 12:23:28 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:11:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,13 @@ void	print_paths(t_shell *msh)
 	i = -1;
 	while (msh->paths[++i])
 		printf("path: %s\n", msh->paths[i]);
+}
+
+void	print_commands(t_shell *msh)
+{
+	int	i;
+
+	i = -1;
+	while (msh->commands[++i])
+		printf("command: %s\n", msh->commands[i]);
 }

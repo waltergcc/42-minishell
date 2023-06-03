@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 17:39:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:15:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,19 @@ int	main(void)
 		msh.fdin = STDIN_FILENO;
 		msh.fdout = STDOUT_FILENO;
 		get_input(&msh);
-		break ;
+		if (msh.user_input)
+		{
+			if (ft_strlen(msh.user_input))
+			{
+				parse_input(&msh, msh.user_input, -1);
+				print_commands(&msh);
+				puts("working til here");
+				break ;
+			}
+			free(msh.user_input);
+		}
+		else
+			set_signal(EXIT);
 	}
-	puts("working til here");
 	return (g_exit);
 }

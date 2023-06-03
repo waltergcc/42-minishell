@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:26:51 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 17:40:18 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:47:18 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ void	set_signal(int sg)
 	{
 		signal(SIGINT, reset_prompt);
 		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sg == EXIT)
+	{
+		printf("exit\n");
+		exit(EXIT_SUCCESS);
 	}
 }
