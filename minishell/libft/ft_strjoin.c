@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:15:03 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/03/19 01:36:57 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:28:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memcpy(concat, s1, len1);
 	ft_memcpy(concat + len1, s2, len2);
 	concat[len1 + len2] = '\0';
+	free((char *)s1);
 	return (concat);
 }

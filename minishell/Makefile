@@ -6,13 +6,16 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/03 10:18:37 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/03 11:58:38 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = 
+SRC = src/main.c \
+		src/environment.c \
+		src/clean.c \
+		src/tests.c
 
 OBJS = ${SRC:.c=.o}
 
