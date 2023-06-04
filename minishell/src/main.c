@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 15:27:38 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:11:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_input(t_shell *msh)
 	prompt = NULL;
 	prompt = getcwd(prompt, 2000);
 	prompt = ft_strjoin(prompt, "$ ");
-	set_signal(STOP);
+	set_signal(STOP_RESTORE);
 	msh->user_input = readline(prompt);
 	if (msh->user_input && msh->user_input)
 		add_history(msh->user_input);
@@ -56,7 +56,7 @@ int	main(void)
 				if (msh.parse.cmd > 0 && msh.commands[0][0] != '|')
 					commands_manager(&msh);
 				if (msh.commands[0] && msh.commands[0][0] == '|')
-					ft_putstr_fd(ERROR_PIPE, STDERR_FILENO);
+					printf(ERROR_PIPE);
 				free_split(msh.commands, NO);
 				puts("working til here");
 				break ;

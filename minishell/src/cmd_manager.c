@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 15:29:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:17:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	run_command(t_shell *msh)
 	if (msh->commands && msh->commands[0][0] != '>')
 	{
 		get_tokens(msh);
+		if (msh->tokens[0])
+			is_builtin(msh, msh->tokens[0]);
+		if (msh->fdin != -1)
+			exec_process(msh);
+		free_split(msh->tokens, YES);
+		free(msh->token.print);
+		free(msh->token.exec);
 	}
 	if (msh->file_name)
 		unlink(msh->file_name);

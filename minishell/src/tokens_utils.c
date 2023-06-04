@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 12:53:52 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:26:48 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_token	*create_token(void)
 	return (token);
 }
 
-int	manipulate_quotes(t_shell *msh, char c, char *tmp, int j)
+int	quotes_handler(t_shell *msh, char c, char *tmp, int j)
 {
 	if (msh->token.quote == 0 && (c == D_QUOTE || c == QUOTE))
 		msh->token.quote = c;
@@ -104,7 +104,7 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 		i++;
 	while (s[i])
 	{
-		j = manipulate_quotes(msh, s[i], tmp, j);
+		j = quotes_handler(msh, s[i], tmp, j);
 		i++;
 	}
 	tmp[j] = '\0';

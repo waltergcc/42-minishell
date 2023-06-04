@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:58:49 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 00:11:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 15:35:08 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ void	print_commands(t_shell *msh)
 	i = -1;
 	while (msh->commands[++i])
 		printf("command: %s\n", msh->commands[i]);
+}
+
+void	print_tokens(t_shell *msh)
+{
+	int	i;
+
+	i = -1;
+	while (msh->tokens[++i])
+		printf("token: %s\n", msh->tokens[i]);
 }
