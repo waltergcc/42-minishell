@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 00:17:23 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 03:12:38 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define NO 0
+# define YES 1
+
+
 # define STOP 1
 # define EXIT 3
 
 # define D_QUOTE '\"'
 # define QUOTE '\''
+
+# define ERROR_PIPE "minishell: syntax error near unexpected token `|'\n"
+# define ERROR_DIR "No such file or directory\n"
 
 extern int	g_exit;
 
@@ -55,6 +62,11 @@ typedef struct s_shell
 	char	*user_input;
 	t_parse	parse;
 	char	*commands[50];
+	int		cmd_id;
+	char	*cmd;
+	char	*file_name;
+	char	*file_error;
+	int		is_append;
 	char	**tokens;
 }			t_shell;
 
@@ -64,7 +76,7 @@ void	print_paths(t_shell *msh);
 void	print_commands(t_shell *msh);
 
 /*clean.c*/
-void	free_split(char **str);
+void	free_split(char **str, int free_str);
 
 /*environment.c*/
 void	create_msh_environment(t_shell *msh, char **system_envp);
@@ -81,5 +93,17 @@ void	reset_prompt(int sg);
 int		count_redirections(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
+
+/*cmd_manager.c*/
+void	commands_manager(t_shell *msh);
+void	run_command(t_shell *msh);
+void	check_redirections(t_shell *msh);
+
+/*redirections.c*/
+void	redirect_out(t_shell *msh, int i);
+void	redirect_in(t_shell *msh, int i);
+char	**double_redirect_in(t_shell *msh, char **file, int i);
+void	prompt_write_mode_until(char *end);
+char	*new_command(int i, char **s);
 
 #endif

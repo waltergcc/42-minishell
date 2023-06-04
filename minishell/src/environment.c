@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 15:37:07 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:31:21 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	create_msh_environment(t_shell *msh, char **system_envp)
 			msh->environment.content[i] = ft_strdup(tmp[1]);
 		else
 			msh->environment.content[i] = ft_strdup("");
-		free_split(tmp);
+		free_split(tmp, YES);
 		tmp = NULL;
 	}
 	msh->environment.key[i] = NULL;

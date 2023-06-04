@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 00:15:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:51:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ int	main(void)
 			if (ft_strlen(msh.user_input))
 			{
 				parse_input(&msh, msh.user_input, -1);
-				print_commands(&msh);
+				if (msh.parse.cmd > 0 && msh.commands[0][0] != '|')
+					commands_manager(&msh);
+				if (msh.commands[0] && msh.commands[0][0] == '|')
+					ft_putstr_fd(ERROR_PIPE, STDERR_FILENO);
+				free_split(msh.commands, NO);
 				puts("working til here");
 				break ;
 			}

@@ -6,13 +6,13 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:58:47 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/03 15:22:08 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:29:11 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_split(char **str)
+void	free_split(char **str, int free_str)
 {
 	int	i;
 
@@ -22,5 +22,6 @@ void	free_split(char **str)
 		free(str[i]);
 		str[i] = NULL;
 	}
-	free(str);
+	if (free_str)
+		free(str);
 }
