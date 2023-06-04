@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:54:25 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/04/12 23:48:21 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:42:40 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s || !*s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

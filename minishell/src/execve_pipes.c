@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 17:15:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:55:03 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd)
 		&& (msh->tokens[i][0] == QUOTE || msh->tokens[i][0] == D_QUOTE)
 		&& ft_strncmp(msh->tokens[i - 1], "sed", 3))
 	{
-		tmp = ft_strtrim(msh->tokens[i - 1], STR_D_QUOTE);
-		free_split(&msh->tokens[i - 1], NO);
+		tmp = ft_strtrim(msh->token.print, STR_D_QUOTE);
+		free_split(&msh->tokens[i + 1], NO);
 	}
 	else
 		tmp = ft_strtrim(msh->tokens[i], STR_D_QUOTE);
@@ -51,37 +51,35 @@ void	execve_error(t_shell *msh)
 {
 	g_exit = 127;
 	if (msh->tokens[0][0] != '|')
-		printf("minishell: %s: %s\n", msh->tokens[0], ERROR_CMD);
+		printf("minishell: %s: %s", msh->tokens[0], ERROR_CMD);
 	else if (msh->tokens[1])
-		printf("minishell: %s: %s\n", msh->tokens[1], ERROR_CMD);
+		printf("minishell: %s: %s", msh->tokens[1], ERROR_CMD);
 }
 
-void	execve_pipe(t_shell *msh, int i, char *cmd)
+void	execve_pipe(t_shell *msh, int i, char *cmd_path)
 {
 	if (msh->tokens[0])
 	{
 		g_exit = execve(msh->tokens[0], &msh->tokens[0], msh->environment.envp);
-		while (msh->paths && msh->paths[++i])
+		while (msh->paths && msh->paths[i] != NULL)
 		{
-			cmd = ft_strdup(msh->paths[i]);
+			cmd_path = ft_strdup(msh->paths[i]);
 			if (msh->tokens[0][0] == '|' && msh->tokens[1])
 			{
 				if (!msh->tokens[0][1])
-					handle_spaces_and_execve(msh, 2, cmd);
+					handle_spaces_and_execve(msh, 2, cmd_path);
 				else
-					handle_spaces_and_execve(msh, 1, cmd);
+					handle_spaces_and_execve(msh, 1, cmd_path);
 			}
 			else
-			{
-				msh->tokens[0] = &msh->tokens[0][1];
-				handle_spaces_and_execve(msh, 1, cmd);
-			}
+				handle_spaces_and_execve(msh, 1, cmd_path);
+			i++;
 		}
 		execve_error(msh);
 	}
 }
 
-void	exec_process(t_shell *msh)
+void	exec_process(t_shell *msh, int in, int out)
 {
 	pid_t	pid;
 
@@ -93,14 +91,14 @@ void	exec_process(t_shell *msh)
 		set_signal(STOP_QUIT);
 		if (pid < 0)
 		{
-			printf("minishell: fork error\n");
+			printf("Fork error\n");
 			g_exit = 127;
 		}
 		else if (pid == 0)
 		{
-			fd_handler(msh->fdin, msh->fdout);
+			fd_handler(in, out);
 			g_exit = 127;
-			execve_pipe(msh, -1, "");
+			execve_pipe(msh, 0, "");
 			exit(g_exit);
 		}
 		else

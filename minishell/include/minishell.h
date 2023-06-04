@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 17:17:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:44:10 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,6 @@ int		fd_handler(int in, int out);
 void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd);
 void	execve_error(t_shell *msh);
 void	execve_pipe(t_shell *msh, int i, char *cmd);
-void	exec_process(t_shell *msh);
+void	exec_process(t_shell *msh, int in, int out);
 
 #endif

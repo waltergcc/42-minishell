@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 17:17:56 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:48:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	run_command(t_shell *msh)
 		if (msh->tokens[0])
 			is_builtin(msh, msh->tokens[0]);
 		if (msh->fdin != -1)
-			exec_process(msh);
+			exec_process(msh, msh->fdin, msh->fdout);
 		free_split(msh->tokens, YES);
 		free(msh->token.print);
 		free(msh->token.exec);
