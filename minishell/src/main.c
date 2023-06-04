@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 00:51:13 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 10:53:00 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ int	main(void)
 		else
 			set_signal(EXIT);
 	}
-	return (g_exit);
+	clean_exit(&msh);
 }

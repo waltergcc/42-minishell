@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 03:12:38 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 10:53:17 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	print_commands(t_shell *msh);
 
 /*clean.c*/
 void	free_split(char **str, int free_str);
+void	clean_exit(t_shell *msh);
 
 /*environment.c*/
 void	create_msh_environment(t_shell *msh, char **system_envp);

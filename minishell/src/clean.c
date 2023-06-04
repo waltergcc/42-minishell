@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:58:47 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 00:29:11 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 10:57:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,12 @@ void	free_split(char **str, int free_str)
 	}
 	if (free_str)
 		free(str);
+}
+
+void	clean_exit(t_shell *msh)
+{
+	free_split(msh->paths, YES);
+	free(msh->user_input);
+	free(msh->home_path);
+	exit(g_exit);
 }
