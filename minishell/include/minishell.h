@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 10:53:17 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 12:50:20 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,26 @@ typedef struct s_parse
 	int		q;
 	int		pipes;
 }			t_parse;
+
+typedef struct s_token
+{
+	char	*print;
+	char	*exec;
+	char	quote;
+	char	*end;
+	char	*new;
+	int		i;
+	int		size;
+	int		start;
+	int		position;
+}			t_token;
+
 typedef struct s_shell
 {
 	int		last_redirection;
+	char	**tokens;
 	t_envp	environment;
-	t_envp	tmp;
+	// t_envp	tmp;
 	char	**paths;
 	char	*home_path;
 	int		fdin;
@@ -62,12 +77,13 @@ typedef struct s_shell
 	char	*user_input;
 	t_parse	parse;
 	char	*commands[50];
-	int		cmd_id;
+	int		cid;
 	char	*cmd;
 	char	*file_name;
 	char	*file_error;
 	int		is_append;
-	char	**tokens;
+	t_token	token;
+	int		has_flag;
 }			t_shell;
 
 /*tests.c*/
@@ -106,5 +122,18 @@ void	redirect_in(t_shell *msh, int i);
 char	**double_redirect_in(t_shell *msh, char **file, int i);
 void	prompt_write_mode_until(char *end);
 char	*new_command(int i, char **s);
+
+/*tokens.c*/
+void	get_tokens(t_shell *msh);
+void	get_dollar_sign(t_shell *msh, t_token *token);
+void	get_home_sign(t_shell *msh, t_token *token);
+void	close_current_tokens(t_shell *msh, t_token *token);
+
+/*tokens_utils.c*/
+void	free_tokens(t_token *token);
+int		search_token_position(char *s, char c);
+t_token	*create_token(void);
+int		manipulate_quotes(t_shell *msh, char c, char *tmp, int j);
+void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 
 #endif

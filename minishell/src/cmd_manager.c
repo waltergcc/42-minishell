@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 02:53:19 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/04 12:50:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	check_redirections(t_shell *msh)
 {
-	msh->cmd = ft_strdup(msh->commands[msh->cmd_id]);
+	msh->cmd = ft_strdup(msh->commands[msh->cid]);
 	if (msh->parse.cmd > 1)
-		msh->cmd_id++;
+		msh->cid++;
 	msh->file_error = NULL;
-	while (msh->commands[msh->cmd_id] && msh->commands[msh->cmd_id][0] != '|')
+	while (msh->commands[msh->cid] && msh->commands[msh->cid][0] != '|')
 	{
-		redirect_out(msh, msh->cmd_id);
-		redirect_in(msh, msh->cmd_id);
-		msh->cmd_id++;
+		redirect_out(msh, msh->cid);
+		redirect_in(msh, msh->cid);
+		msh->cid++;
 	}
 	if (msh->file_error)
 	{
@@ -35,6 +35,12 @@ void	check_redirections(t_shell *msh)
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
+	if (msh->commands[0][0] != '>')
+	{
+		get_tokens(msh);
+	}
+	if (msh->file_name)
+		unlink(msh->file_name);
 }
 
 void	commands_manager(t_shell *msh)
@@ -43,7 +49,7 @@ void	commands_manager(t_shell *msh)
 	int	fd[2];
 
 	i = -1;
-	msh->cmd_id = 0;
+	msh->cid = 0;
 	msh->last_redirection = 0;
 	while (++i < msh->parse.pipes)
 	{

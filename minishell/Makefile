@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/04 02:52:19 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/04 12:51:26 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC = src/main.c \
 		src/parse.c \
 		src/cmd_manager.c \
 		src/redirections.c \
+		src/tokens.c src/tokens_utils.c \
 		src/tests.c
 
 OBJS = ${SRC:.c=.o}
