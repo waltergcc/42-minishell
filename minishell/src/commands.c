@@ -1,16 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_manager.c                                      :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 20:48:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 01:38:54 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	run_builtin(t_shell *msh)
+{
+	if (!ft_strncmp(msh->tokens[0], "exit", 4))
+		exit_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "echo", 4))
+		echo_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "cd", 2))
+		cd_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
+		pwd_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "export", 6))
+		export_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "unset", 5))
+		unset_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "env", 3))
+		env_builtin(msh);
+}
+
+void	is_builtin(t_shell *msh, char *cmd)
+{
+	int	size;
+
+	size = ft_strlen(cmd);
+	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
+		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
+		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
+		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
+		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
+		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
+		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
+		msh->is_builtin = YES;
+	else
+		msh->is_builtin = NO;
+}
 
 void	check_redirections(t_shell *msh)
 {

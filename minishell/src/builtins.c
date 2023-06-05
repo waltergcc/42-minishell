@@ -6,43 +6,111 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 17:14:00 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 02:31:19 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_builtin(t_shell *msh)
+void	env_builtin(t_shell *msh)
 {
-	if (!ft_strncmp(msh->tokens[0], "exit", 4))
-		printf("exit\n");
-	if (!ft_strncmp(msh->tokens[0], "echo", 4))
-		printf("echo\n");
-	if (!ft_strncmp(msh->tokens[0], "cd", 2))
-		printf("cd\n");
-	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
-		printf("pwd\n");
-	if (!ft_strncmp(msh->tokens[0], "export", 6))
-		printf("export\n");
-	if (!ft_strncmp(msh->tokens[0], "unset", 5))
-		printf("unset\n");
-	if (!ft_strncmp(msh->tokens[0], "env", 3))
-		printf("env\n");
+	int	i;
+
+	i = 0;
+	while (i < msh->environment.size)
+	{
+		ft_putstr_fd(msh->environment.key[i], msh->fdout);
+		ft_putchar_fd('=', msh->fdout);
+		ft_putendl_fd(msh->environment.content[i], msh->fdout);
+		i++;
+	}
+	g_exit = 0;
 }
 
-void	is_builtin(t_shell *msh, char *cmd)
+void	echo_builtin(t_shell *msh)
 {
-	int	size;
-
-	size = ft_strlen(cmd);
-	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
-		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
-		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
-		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
-		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
-		msh->is_builtin = YES;
+	if (msh->tokens[1])
+	{
+		if (!ft_strncmp(msh->token.print, "$?", 2))
+			ft_putnbr_fd(g_exit, msh->fdout);
+		else
+		{
+			ft_putstr_fd(msh->token.print, msh->fdout);
+			g_exit = 0;
+		}
+		if (!msh->has_flag)
+			ft_putstr_fd("\n", msh->fdout);
+	}
 	else
-		msh->is_builtin = NO;
+		ft_putstr_fd("\n", msh->fdout);
+}
+
+int	cd_builtin(t_shell *msh)
+{
+	char	*tmp;
+
+	if (msh->tokens[1])
+		tmp = ft_strdup(msh->token.print);
+	else
+	{
+		if (envp_content(msh, "HOME"))
+			tmp = ft_strdup(envp_content(msh, "HOME"));
+		else
+		{
+			g_exit = 1;
+			printf(ERROR_HOME);
+			return (1);
+		}
+	}
+	g_exit = chdir(tmp);
+	if (g_exit == -1)
+		printf("minishell: cd: %s: %s", msh->tokens[1], ERROR_DIR);
+	free(tmp);
+	return (0);
+}
+
+void	export_builtin(t_shell *msh)
+{
+	int		i;
+	char	**tmp;
+
+	i = 1;
+	while (msh->tokens[i])
+	{
+		tmp = ft_split(msh->tokens[i], '=');
+		if (tmp[1])
+			check_envp(msh, tmp, i);
+		else if (msh->tokens[i][ft_strlen(msh->tokens[1]) - 1] == '=')
+		{
+			tmp[1] = ft_strdup("");
+			check_envp(msh, tmp, i);
+		}
+		free(tmp[0]);
+		free(tmp[1]);
+		free(tmp);
+		tmp = NULL;
+		i++;
+	}
+	g_exit = 0;
+}
+
+void	unset_builtin(t_shell *msh)
+{
+	int	i;
+
+	i = 1;
+	while (msh->tokens[i])
+	{
+		if (envp_content(msh, msh->tokens[i]))
+		{
+			remove_envp(msh);
+			if (!ft_strncmp(msh->tokens[i], "PATH", 4))
+			{
+				free_split(msh->paths, YES);
+				msh->paths = NULL;
+			}
+		}
+		i++;
+	}
+	g_exit = 0;
 }

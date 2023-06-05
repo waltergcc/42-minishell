@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/04 17:18:40 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/05 03:01:29 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,21 +14,18 @@ NAME = minishell
 
 SRC = src/main.c \
 		src/environment.c \
-		src/clean.c \
 		src/signals.c \
 		src/parse.c \
-		src/cmd_manager.c \
 		src/redirections.c \
+		src/commands.c src/commands_utils.c \
 		src/tokens.c src/tokens_utils.c \
-		src/builtins.c \
-		src/execve_pipes.c \
-		src/tests.c
+		src/builtins.c src/builtins_utils.c
 
 OBJS = ${SRC:.c=.o}
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -g# -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g
 INCLUDE = -I include
 MAKE = make -C
 LIBFT_PATH = libft

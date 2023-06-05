@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 19:44:10 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 03:07:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERROR_PIPE "minishell: syntax error near unexpected token `|'\n"
 # define ERROR_DIR "No such file or directory\n"
 # define ERROR_CMD "command not found\n"
+# define ERROR_HOME "minishell: cd: HOME not set\n"
 
 extern int	g_exit;
 
@@ -73,7 +74,7 @@ typedef struct s_shell
 	int		last_redirection;
 	char	**tokens;
 	t_envp	environment;
-	// t_envp	tmp;
+	t_envp	tmp_envp;
 	char	**paths;
 	char	*home_path;
 	int		fdin;
@@ -91,36 +92,43 @@ typedef struct s_shell
 	int		is_builtin;
 }			t_shell;
 
-/*tests.c*/
-void	print_new_envp(t_shell *msh);
-void	print_paths(t_shell *msh);
-void	print_commands(t_shell *msh);
-void	print_tokens(t_shell *msh);
-
-/*clean.c*/
+/*main.c*/
+void	get_input(t_shell *msh);
+void	set_environment_and_paths(t_shell *msh);
 void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh);
 
 /*environment.c*/
 void	create_msh_environment(t_shell *msh, char **system_envp);
 void	get_envp_size(t_shell *msh);
-void	key_content_alloc(t_shell *msh);
 int		get_paths(t_shell *msh);
 char	*envp_content(t_shell *msh, char *key);
+void	alloc_key_content(t_envp *envp, int size);
 
 /*signals.c*/
 void	set_signal(int sg);
 void	reset_prompt(int sg);
+void	ctrl_c(int sig);
+void	back_slash(int sig);
 
 /*parse.c*/
 int		count_redirections(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
 
-/*cmd_manager.c*/
+/*commands.c*/
 void	commands_manager(t_shell *msh);
 void	run_command(t_shell *msh);
 void	check_redirections(t_shell *msh);
+void	is_builtin(t_shell *msh, char *cmd);
+void	run_builtin(t_shell *msh);
+
+/*commands_utils.c*/
+int		fd_handler(int in, int out);
+void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd);
+void	execve_error(t_shell *msh);
+void	execve_pipe(t_shell *msh, int i, char *cmd);
+void	exec_process(t_shell *msh, int in, int out);
 
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i);
@@ -143,14 +151,17 @@ int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 
 /*builtins.c*/
-void	is_builtin(t_shell *msh, char *cmd);
-void	run_builtin(t_shell *msh);
+void	echo_builtin(t_shell *msh);
+int		cd_builtin(t_shell *msh);
+void	env_builtin(t_shell *msh);
+void	export_builtin(t_shell *msh);
+void	unset_builtin(t_shell *msh);
 
-/*builtins.c*/
-int		fd_handler(int in, int out);
-void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd);
-void	execve_error(t_shell *msh);
-void	execve_pipe(t_shell *msh, int i, char *cmd);
-void	exec_process(t_shell *msh, int in, int out);
+/*builtins_utils.c*/
+void	check_envp(t_shell *msh, char **new, int i);
+void	add_envp(t_shell *msh, char *new_key, char *new_content);
+void	remove_envp(t_shell *msh);
+void	exit_builtin(t_shell *msh);
+void	pwd_builtin(t_shell *msh);
 
 #endif

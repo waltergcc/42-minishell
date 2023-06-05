@@ -1,4 +1,5 @@
-tests/
+tests/kichkiro/
+tests/minishell_tester/
 out/
 *.o
 *.a

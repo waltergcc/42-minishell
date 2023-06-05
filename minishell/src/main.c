@@ -6,13 +6,35 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 20:52:30 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 02:58:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit;
+
+void	free_split(char **str, int free_str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		free(str[i]);
+		str[i] = NULL;
+	}
+	if (free_str)
+		free(str);
+}
+
+void	clean_exit(t_shell *msh)
+{
+	free_split(msh->paths, YES);
+	free(msh->user_input);
+	free(msh->home_path);
+	exit(g_exit);
+}
 
 void	get_input(t_shell *msh)
 {
@@ -58,8 +80,6 @@ int	main(void)
 				if (msh.commands[0] && msh.commands[0][0] == '|')
 					printf(ERROR_PIPE);
 				free_split(msh.commands, NO);
-				// puts("working til here");
-				break ;
 			}
 			free(msh.user_input);
 		}
