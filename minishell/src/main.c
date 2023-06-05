@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 21:15:08 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 00:23:44 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	set_environment_and_paths(t_shell *msh)
 	get_paths(msh);
 	msh->home_path = ft_strdup(envp_content(msh, "HOME"));
 }
-
-
 
 int	main(void)
 {

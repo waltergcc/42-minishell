@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 21:33:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 00:20:12 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	execve_error(t_shell *msh)
 	if (msh->tokens[0][0] == '.' && msh->tokens[0][1] == '/')
 		print_error(ERROR_DIR, msh->tokens[0], 126);
 	else if (msh->tokens[0][0] != '|')
-		print_error(ERROR_DIR, msh->tokens[0], 127);
+		print_error(ERROR_CMD, msh->tokens[0], 127);
 	else if (msh->tokens[1])
-		print_error(ERROR_DIR, msh->tokens[0], 127);
+		print_error(ERROR_CMD, msh->tokens[0], 127);
 }
 
 void	execve_pipe(t_shell *msh, int i, char *cmd_path)
@@ -64,7 +64,7 @@ void	execve_pipe(t_shell *msh, int i, char *cmd_path)
 	{
 		g_exit = execve(msh->tokens[0], &msh->tokens[0], msh->environment.envp);
 		while (msh->paths && msh->paths[i] != NULL)
-		{
+		{	
 			cmd_path = ft_strdup(msh->paths[i]);
 			if (msh->tokens[0][0] == '|' && msh->tokens[1])
 			{
