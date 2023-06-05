@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 16:26:48 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:07:11 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 	msh->has_flag = 0;
 	if (s[0] == '-' && s[1] == 'n')
 	{
-		msh->has_flag = 0;
+		msh->has_flag = 1;
 		i += 2;
 	}
 	while (s[i] == ' ')
