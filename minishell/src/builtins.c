@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 02:31:19 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:39:32 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,13 @@ int	cd_builtin(t_shell *msh)
 			tmp = ft_strdup(envp_content(msh, "HOME"));
 		else
 		{
-			g_exit = 1;
-			printf(ERROR_HOME);
+			print_error(ERROR_HOME, "cd", 1);
 			return (1);
 		}
 	}
 	g_exit = chdir(tmp);
 	if (g_exit == -1)
-		printf("minishell: cd: %s: %s", msh->tokens[1], ERROR_DIR);
+		print_error(ERROR_DIR, msh->tokens[1], 1);
 	free(tmp);
 	return (0);
 }

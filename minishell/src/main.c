@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 02:58:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:15:08 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ void	set_environment_and_paths(t_shell *msh)
 	g_exit = 0;
 	msh->last_redirection = 0;
 	msh->tokens = (char **) NULL;
+	msh->error_flag = NO;
 	create_msh_environment(msh, __environ);
 	get_paths(msh);
 	msh->home_path = ft_strdup(envp_content(msh, "HOME"));
 }
+
+
 
 int	main(void)
 {
@@ -78,7 +81,7 @@ int	main(void)
 				if (msh.parse.cmd > 0 && msh.commands[0][0] != '|')
 					commands_manager(&msh);
 				if (msh.commands[0] && msh.commands[0][0] == '|')
-					printf(ERROR_PIPE);
+					print_error(ERROR_PIPE, NULL, 2);
 				free_split(msh.commands, NO);
 			}
 			free(msh.user_input);

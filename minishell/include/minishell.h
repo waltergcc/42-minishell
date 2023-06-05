@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 03:07:13 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:46:16 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@
 # define STR_QUOTE "\'"
 # define STR_D_QUOTE "\""
 
-# define ERROR_PIPE "minishell: syntax error near unexpected token `|'\n"
-# define ERROR_DIR "No such file or directory\n"
-# define ERROR_CMD "command not found\n"
-# define ERROR_HOME "minishell: cd: HOME not set\n"
+# define ERROR_TITLE "minishell"
+# define ERROR_FORK "fork error"
+# define ERROR_PIPE "syntax error near unexpected token `|'"
+# define ERROR_DIR "No such file or directory"
+# define ERROR_CMD "command not found"
+# define ERROR_HOME "HOME not set"
+# define ERROR_PID "pipe error"
 
 extern int	g_exit;
 
@@ -89,6 +92,7 @@ typedef struct s_shell
 	int		is_append;
 	t_token	token;
 	int		has_flag;
+	int		error_flag;
 	int		is_builtin;
 }			t_shell;
 
@@ -115,6 +119,7 @@ void	back_slash(int sig);
 int		count_redirections(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
+void	print_error(char *msg, char *key, int exit_code);
 
 /*commands.c*/
 void	commands_manager(t_shell *msh);

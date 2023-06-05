@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 00:44:59 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:33:58 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd)
 void	execve_error(t_shell *msh)
 {
 	g_exit = 127;
-	if (msh->tokens[0][0] != '|')
-		printf("minishell: %s: %s", msh->tokens[0], ERROR_CMD);
+	if (msh->tokens[0][0] == '.' && msh->tokens[0][1] == '/')
+		print_error(ERROR_DIR, msh->tokens[0], 126);
+	else if (msh->tokens[0][0] != '|')
+		print_error(ERROR_DIR, msh->tokens[0], 127);
 	else if (msh->tokens[1])
-		printf("minishell: %s: %s", msh->tokens[1], ERROR_CMD);
+		print_error(ERROR_DIR, msh->tokens[0], 127);
 }
 
 void	execve_pipe(t_shell *msh, int i, char *cmd_path)
@@ -90,10 +92,7 @@ void	exec_process(t_shell *msh, int in, int out)
 		pid = fork();
 		set_signal(STOP_QUIT);
 		if (pid < 0)
-		{
-			printf("Fork error\n");
-			g_exit = 127;
-		}
+			print_error(ERROR_FORK, NULL, 127);
 		else if (pid == 0)
 		{
 			fd_handler(in, out);

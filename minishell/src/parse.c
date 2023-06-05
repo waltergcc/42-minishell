@@ -6,11 +6,20 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:15:03 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 00:17:00 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:37:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_error(char *msg, char *key, int exit_code)
+{
+	if (key)
+		printf("%s: %s: %s\n", ERROR_TITLE, key, msg);
+	else
+		printf("%s: %s\n", ERROR_TITLE, msg);
+	g_exit = exit_code;
+}
 
 int	count_redirections(t_shell *msh, char *s, int i)
 {

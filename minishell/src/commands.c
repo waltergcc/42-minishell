@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 01:38:54 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:46:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	is_builtin(t_shell *msh, char *cmd)
 void	check_redirections(t_shell *msh)
 {
 	msh->cmd = ft_strdup(msh->commands[msh->cid]);
-	if (msh->parse.cmd > 1)
+	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<')
 		msh->cid++;
 	msh->file_name = NULL;
 	msh->file_error = NULL;
@@ -58,13 +58,14 @@ void	check_redirections(t_shell *msh)
 	{
 		redirect_out(msh, msh->cid);
 		redirect_in(msh, msh->cid);
+		if (msh->file_error)
+		{
+			msh->error_flag = YES;
+			print_error(ERROR_DIR, msh->file_error, 1);
+			free(msh->file_error);
+			break ;
+		}
 		msh->cid++;
-	}
-	if (msh->file_error)
-	{
-		g_exit = 1;
-		printf("minishell: %s: %s\n", msh->file_error, ERROR_DIR);
-		free(msh->file_error);
 	}
 }
 
@@ -97,10 +98,7 @@ void	commands_manager(t_shell *msh)
 	while (++i < msh->parse.pipes)
 	{
 		if (pipe(fd) < 0)
-		{
-			ft_putstr_fd("minishell: pipe error\n", STDERR_FILENO);
-			g_exit = 127;
-		}
+			print_error(ERROR_PID, NULL, 127);
 		msh->fdout = fd[1];
 		run_command(msh);
 		close(msh->fdout);
@@ -109,4 +107,5 @@ void	commands_manager(t_shell *msh)
 		msh->fdin = fd[0];
 	}
 	run_command(msh);
+	msh->error_flag = NO;
 }
