@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 13:43:00 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:53:27 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	get_dollar_sign(t_shell *msh, t_token *token)
 	free(key);
 	token->size = 1;
 	token->start = token->i;
+	if (msh->token.quote == D_QUOTE)
+		msh->token.quote = 0;
 }
 
 void	get_home_sign(t_shell *msh, t_token *token)
