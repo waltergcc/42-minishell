@@ -1,0 +1,43 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+	
+		{
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minishell/minishell",
+            "args": [
+				"poem.txt", "cat", "wc -l", "out.txt"
+			],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+				{
+					"name": "PATH",
+					"value": "/home/wcorrea-/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin"
+				}
+			],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+				{
+					"description":"In this mode GDB will be attached to both processes after a call to fork() or vfork().",
+					"text": "-gdb-set detach-on-fork off",
+					"ignoreFailures": true
+				},
+				{
+					"description": "The new process is debugged after a fork. The parent process runs unimpeded.",
+					"text": "-gdb-set follow-fork-mode child",
+					"ignoreFailures": true
+				}
+            ],
+			"preLaunchTask": "build",
+        }
+	]
+}

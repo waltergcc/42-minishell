@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 00:23:44 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 01:59:19 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	set_environment_and_paths(t_shell *msh)
 	msh->last_redirection = 0;
 	msh->tokens = (char **) NULL;
 	msh->error_flag = NO;
+	msh->has_flag = NO;
 	create_msh_environment(msh, __environ);
 	get_paths(msh);
 	msh->home_path = ft_strdup(envp_content(msh, "HOME"));

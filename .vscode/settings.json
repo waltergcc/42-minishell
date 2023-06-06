@@ -1,10 +1,6 @@
 {
 	"files.associations": {
-		"minishell.h": "c",
-		"libft.h": "c",
-		"array": "c",
-		"*.tcc": "c",
-		"functional": "c",
-		"tuple": "c"
+		"wait.h": "c",
+		"fcntl.h": "c"
 	}
 }

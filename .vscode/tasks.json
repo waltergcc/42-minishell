@@ -1,0 +1,14 @@
+{
+	"tasks": [
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "make -C minishell/",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	],
+	"version": "2.0.0"
+}

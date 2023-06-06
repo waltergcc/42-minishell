@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/04 12:53:24 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 02:12:05 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 {
 	token->new = ft_substr(msh->cmd, token->start, token->size);
 	token->end = ft_strjoin(token->end, token->new);
-	token->position = search_token_position(token->end, ' ');
+	token->position = search_position(token->end, ' ', NULL);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
 	msh->token.exec = ft_substr(token->end, token->i, token->position);
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
@@ -33,7 +33,7 @@ void	get_dollar_sign(t_shell *msh, t_token *token)
 	token->new = ft_substr(msh->cmd, token->start, token->size - 1);
 	token->end = ft_strjoin(token->end, token->new);
 	free(token->new);
-	token->position = search_token_position(msh->cmd + token->i + 1, ' ');
+	token->position = search_position(msh->cmd + token->i + 1, ' ', token);
 	key = ft_substr(msh->cmd, token->i + 1, token->position);
 	if (msh->cmd[token->i + 1] != '?' && envp_content(msh, key))
 		content = ft_strdup(envp_content(msh, key));
@@ -64,6 +64,16 @@ void	get_home_sign(t_shell *msh, t_token *token)
 	token->start = token->i;
 }
 
+void	check_remain_dollar(t_token *token)
+{
+	if (!token->dollar_remain)
+	{
+		token->i++;
+		token->size++;
+	}
+	token->dollar_remain = 0;
+}
+
 void	get_tokens(t_shell *msh)
 {
 	t_token	*token;
@@ -83,11 +93,11 @@ void	get_tokens(t_shell *msh)
 					msh->token.quote = 0;
 				if (msh->cmd[token->i] == '~' && msh->token.quote == 0)
 					get_home_sign(msh, token);
-				else if (msh->cmd[token->i] == '$' && msh->token.quote == 0)
+				else if (msh->cmd[token->i] == '$'
+					&& msh->cmd[token->i + 1] && msh->token.quote == 0)
 					get_dollar_sign(msh, token);
 			}
-			token->i++;
-			token->size++;
+			check_remain_dollar(token);
 		}
 		close_current_tokens(msh, token);
 	}
