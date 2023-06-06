@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 09:44:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:51:30 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd)
 		tmp = ft_strtrim(msh->token.print, STR_D_QUOTE);
 		free_split(&msh->tokens[i + 1], NO);
 	}
+	else if (!ft_strncmp(msh->tokens[i - 1], "sed", 3))
+		tmp = ft_strtrim(msh->tokens[i], STR_QUOTE);
 	else
 		tmp = ft_strtrim(msh->tokens[i], STR_D_QUOTE);
 	free(msh->tokens[i]);
