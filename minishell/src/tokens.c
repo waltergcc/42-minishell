@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 03:10:42 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 04:46:09 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,14 @@
 void	close_current_tokens(t_shell *msh, t_token *token)
 {
 	token->new = ft_substr(msh->cmd, token->start, token->size);
-	printf("token->new: %s\n", token->new);
 	token->end = ft_strjoin(token->end, token->new);
-	printf("token->end: %s\n", token->end);
 	token->position = search_position(token->end, ' ', NULL);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
-	printf("msh->token.print: %s\n", msh->token.print);
 	msh->token.exec = ft_substr(token->end, token->i, token->position);
-	printf("msh->token.end: %s - token->i: %d - token->position: %d\n", token->end, token->i, token->position);
-	printf("msh->token.exec: %s\n", msh->token.exec);
+	msh->token.quote = 0;
+	msh->has_flag = 0;
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
-	printf("msh->token.print: %s\n", msh->token.print);
 	msh->tokens = ft_split(token->end, ' ');
-	for (int i = 0; msh->tokens[i]; i++)
-		printf("msh->tokens[%d]: %s\n", i, msh->tokens[i]);
 	free_tokens(token);
 	free (msh->cmd);
 }
@@ -105,12 +99,8 @@ void	get_tokens(t_shell *msh)
 					get_home_sign(msh, token);
 				else if (msh->cmd[token->i] == '$'
 					&& msh->cmd[token->i + 1] && msh->token.quote == 0)
-				{
-					puts("get this line?");	
 					get_dollar_sign(msh, token);
-				}
 			}
-			printf("msh->cmd[token->i]: %c - token->quote: %d\n", msh->cmd[token->i], msh->token.quote);
 			check_remain_dollar(msh, token);
 		}
 		close_current_tokens(msh, token);
