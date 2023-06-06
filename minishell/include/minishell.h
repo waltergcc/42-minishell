@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 03:11:07 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:40:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,12 @@ void	get_tokens(t_shell *msh);
 void	get_dollar_sign(t_shell *msh, t_token *token);
 void	get_home_sign(t_shell *msh, t_token *token);
 void	close_current_tokens(t_shell *msh, t_token *token);
-void	check_remain_dollar(t_shell *msh, t_token *token);
+void	check_remain_dollar(t_token *token);
 
 /*tokens_utils.c*/
 void	free_tokens(t_token *token);
 int		search_position(char *s, char c, t_token *token);
-t_token	*create_token(void);
+t_token	*create_token(t_shell *msh);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 04:51:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:39:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	search_position(char *s, char c, t_token *token)
 		if (s[i] == c || s[i] == D_QUOTE
 			|| s[i] == QUOTE || (s[i] == '$' && token))
 		{
-			if (token && s[i] == '$')
+			if (token && (s[i + 1] == '$' || s[i] == '$'))
 				token->dollar_remain = 1;
 			return (i);
 		}
@@ -57,7 +57,7 @@ int	search_position(char *s, char c, t_token *token)
 	return (i);
 }
 
-t_token	*create_token(void)
+t_token	*create_token(t_shell *msh)
 {
 	t_token	*token;
 
@@ -74,6 +74,7 @@ t_token	*create_token(void)
 	token->position = 0;
 	token->size = 1;
 	token->dollar_remain = 0;
+	msh->token.quote = 0;
 	return (token);
 }
 

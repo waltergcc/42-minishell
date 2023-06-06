@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 04:46:09 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:43:00 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ void	get_home_sign(t_shell *msh, t_token *token)
 	token->start = token->i;
 }
 
-void	check_remain_dollar(t_shell *msh, t_token *token)
+void	check_remain_dollar(t_token *token)
 {
-	if (msh->token.quote == 0 && (msh->cmd[token->i] == QUOTE))
-			msh->token.quote = msh->cmd[token->i];
 	if (!token->dollar_remain)
 	{
 		token->i++;
@@ -82,14 +80,14 @@ void	get_tokens(t_shell *msh)
 {
 	t_token	*token;
 
-	token = create_token();
-	msh->token.quote = 0;
+	token = create_token(msh);
 	token->end = ft_strdup("");
 	if (msh->cmd)
 	{
 		while ((int)ft_strlen(msh->cmd) > token->i)
 		{
-			if (msh->token.quote == 0 && (msh->cmd[token->i] == QUOTE))
+			if (msh->token.quote == 0 && (msh->cmd[token->i] == QUOTE
+					|| msh->cmd[token->i] == D_QUOTE))
 				msh->token.quote = msh->cmd[token->i];
 			else
 			{
@@ -97,11 +95,11 @@ void	get_tokens(t_shell *msh)
 					msh->token.quote = 0;
 				if (msh->cmd[token->i] == '~' && msh->token.quote == 0)
 					get_home_sign(msh, token);
-				else if (msh->cmd[token->i] == '$'
-					&& msh->cmd[token->i + 1] && msh->token.quote == 0)
+				else if (msh->cmd[token->i] == '$' && msh->cmd[token->i + 1]
+					&& (msh->token.quote == 0 || msh->token.quote == D_QUOTE))
 					get_dollar_sign(msh, token);
 			}
-			check_remain_dollar(msh, token);
+			check_remain_dollar(token);
 		}
 		close_current_tokens(msh, token);
 	}
