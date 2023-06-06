@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 01:59:19 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/07 00:52:24 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_input(t_shell *msh)
 
 	prompt = NULL;
 	prompt = getcwd(prompt, 2000);
-	prompt = ft_strjoin(prompt, "$ ");
+	prompt = ft_strjoin(prompt, ":$ ");
 	set_signal(STOP_RESTORE);
 	msh->user_input = readline(prompt);
 	if (msh->user_input && msh->user_input)
