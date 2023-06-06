@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 21:46:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:07:46 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	is_builtin(t_shell *msh, char *cmd)
 void	check_redirections(t_shell *msh)
 {
 	msh->cmd = ft_strdup(msh->commands[msh->cid]);
-	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<')
+	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<'
+		&& msh->commands[msh->cid][0] != '>')
 		msh->cid++;
 	msh->file_name = NULL;
 	msh->file_error = NULL;
