@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 13:39:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:25:57 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 		i++;
 	while (s[i])
 	{
-		if (s[i] == ' ' && s[i + 1] == ' '
-			&& msh->token.quote != QUOTE && msh->token.quote != D_QUOTE)
+		if (s[i] == ' ' && s[i + 1] == ' ' && msh->token.quote == 0)
 		{
 			i++;
 			continue ;
