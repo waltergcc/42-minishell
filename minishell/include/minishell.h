@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 13:40:13 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:16:59 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_token
 	char	*end;
 	char	*new;
 	int		i;
+	int		lock;
 	int		size;
 	int		start;
 	int		position;
@@ -148,7 +149,7 @@ void	get_tokens(t_shell *msh);
 void	get_dollar_sign(t_shell *msh, t_token *token);
 void	get_home_sign(t_shell *msh, t_token *token);
 void	close_current_tokens(t_shell *msh, t_token *token);
-void	check_remain_dollar(t_token *token);
+void	check_quotes(t_shell *msh, t_token *token);
 
 /*tokens_utils.c*/
 void	free_tokens(t_token *token);
