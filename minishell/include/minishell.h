@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 20:16:59 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 23:30:44 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int		count_redirections(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
+void	free_tokens(t_token *token);
 
 /*commands.c*/
 void	commands_manager(t_shell *msh);
@@ -152,11 +153,11 @@ void	close_current_tokens(t_shell *msh, t_token *token);
 void	check_quotes(t_shell *msh, t_token *token);
 
 /*tokens_utils.c*/
-void	free_tokens(t_token *token);
 int		search_position(char *s, char c, t_token *token);
 t_token	*create_token(t_shell *msh);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
+void	fix_cut_with_space_char(t_shell *msh);
 
 /*builtins.c*/
 void	echo_builtin(t_shell *msh);

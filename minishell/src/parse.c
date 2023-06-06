@@ -6,11 +6,36 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:15:03 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 21:37:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 23:31:41 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_tokens(t_token *token)
+{
+	if (token->end)
+	{
+		free(token->end);
+		token->end = NULL;
+	}
+	if (token->new)
+	{
+		free(token->new);
+		token->new = NULL;
+	}
+	if (token->print)
+	{
+		free(token->print);
+		token->print = NULL;
+	}
+	if (token->exec)
+	{
+		free(token->exec);
+		token->exec = NULL;
+	}
+	free(token);
+}
 
 void	print_error(char *msg, char *key, int exit_code)
 {

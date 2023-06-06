@@ -6,36 +6,11 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 19:59:15 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/06 23:39:20 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_tokens(t_token *token)
-{
-	if (token->end)
-	{
-		free(token->end);
-		token->end = NULL;
-	}
-	if (token->new)
-	{
-		free(token->new);
-		token->new = NULL;
-	}
-	if (token->print)
-	{
-		free(token->print);
-		token->print = NULL;
-	}
-	if (token->exec)
-	{
-		free(token->exec);
-		token->exec = NULL;
-	}
-	free(token);
-}
 
 int	search_position(char *s, char c, t_token *token)
 {
@@ -121,4 +96,27 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 	tmp[j] = '\0';
 	free(msh->token.print);
 	msh->token.print = tmp;
+}
+
+void	fix_cut_with_space_char(t_shell *msh)
+{
+	int	i;
+
+	if (!ft_strncmp(msh->tokens[0], "|", 1)
+		&& !ft_strncmp(msh->tokens[1], "cut", 3)
+		&& !ft_strncmp(msh->tokens[2], "-d", 2)
+		&& !ft_strncmp(msh->tokens[3], STR_D_QUOTE, 1)
+		&& !ft_strncmp(msh->tokens[4], STR_D_QUOTE, 1))
+	{
+		free(msh->tokens[3]);
+		free(msh->tokens[4]);
+		msh->tokens[3] = ft_strdup(" ");
+		i = 4;
+		while (msh->tokens[i])
+		{
+			msh->tokens[i] = msh->tokens[i + 1];
+			i++;
+		}
+		msh->tokens[i] = NULL;
+	}
 }
