@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/07 09:41:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/07 09:47:58 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_redirections(t_shell *msh)
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
-	if (/* msh->commands[0] &&  */msh->commands[0][0] != '>')
+	if (msh->commands[0][0] != '>')
 	{
 		get_tokens(msh);
 		if (msh->tokens[0])
