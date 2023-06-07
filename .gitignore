@@ -8,3 +8,4 @@ out/
 minishell/minishell
 minishell/<
 minishell/b echo que tal
+*.nfs*
