@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 10:51:30 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:13:34 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void	execve_pipe(t_shell *msh, int i, char *cmd_path)
 				if (!msh->tokens[0][1])
 					handle_spaces_and_execve(msh, 2, cmd_path);
 				else
+				{
+					msh->tokens[0] = &msh->tokens[0][1];	
 					handle_spaces_and_execve(msh, 1, cmd_path);
+				}
 			}
 			else
 				handle_spaces_and_execve(msh, 1, cmd_path);
