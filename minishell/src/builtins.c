@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 03:28:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:06:22 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	echo_builtin(t_shell *msh)
 	{
 		ft_putstr_fd(msh->token.print, msh->fdout);
 		g_exit = 0;
-		if (!msh->has_flag)
+		if (!msh->has_flag_n)
 			ft_putstr_fd("\n", msh->fdout);
 	}
 	else

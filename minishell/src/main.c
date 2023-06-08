@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 22:43:21 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:20:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clean_exit(t_shell *msh)
 {
 	free_split(msh->paths, YES);
 	free(msh->user_input);
-	free(msh->home_path);
+	free(msh->home);
 	exit(g_exit);
 }
 
@@ -40,9 +40,9 @@ void	parse_input(t_shell *msh, char *s, int i)
 		msh->parse.size++;
 	}
 	if (ft_strlen(s) > 0)
-		msh->commands[msh->parse.cmd++] = ft_substr(s, msh->parse.start, i);
+		msh->cmds[msh->parse.id++] = ft_substr(s, msh->parse.start, i);
 	free (s);
-	msh->commands[msh->parse.cmd] = NULL;
+	msh->cmds[msh->parse.id] = NULL;
 }
 
 void	get_input(t_shell *msh)
@@ -54,7 +54,7 @@ void	get_input(t_shell *msh)
 	prompt = ft_strjoin(prompt, ":$ ");
 	set_signal(STOP_RESTORE);
 	msh->user_input = readline(prompt);
-	if (msh->user_input && msh->user_input)
+	if (msh->user_input)
 		add_history(msh->user_input);
 	free(prompt);
 }
@@ -62,13 +62,13 @@ void	get_input(t_shell *msh)
 void	set_environment_and_paths(t_shell *msh)
 {
 	g_exit = 0;
-	msh->last_redirection = 0;
+	msh->is_last_redirection = NO;
+	msh->file_error_flag = NO;
+	msh->has_flag_n = NO;
 	msh->tokens = (char **) NULL;
-	msh->error_flag = NO;
-	msh->has_flag = NO;
 	create_msh_environment(msh, __environ);
 	get_paths(msh);
-	msh->home_path = ft_strdup(envp_content(msh, "HOME"));
+	msh->home = ft_strdup(envp_content(msh, "HOME"));
 }
 
 int	main(void)
@@ -86,11 +86,11 @@ int	main(void)
 			if (ft_strlen(msh.user_input))
 			{
 				parse_input(&msh, msh.user_input, -1);
-				if (msh.parse.cmd > 0 && msh.commands[0][0] != '|')
+				if (msh.parse.id > 0 && msh.cmds[0][0] != '|')
 					commands_manager(&msh, -1);
-				if (msh.commands[0] && msh.commands[0][0] == '|')
+				if (msh.cmds[0] && msh.cmds[0][0] == '|')
 					print_error(ERROR_PIPE, NULL, 2);
-				free_split(msh.commands, NO);
+				free_split(msh.cmds, NO);
 			}
 			free(msh.user_input);
 		}

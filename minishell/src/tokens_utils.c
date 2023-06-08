@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 12:10:01 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:34:01 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ t_token	*create_token(t_shell *msh)
 	token->print = NULL;
 	token->quote = '\0';
 	token->i = 0;
-	token->lock = 0;
 	token->start = 0;
 	token->position = 0;
 	token->size = 1;
-	token->dollar_remain = 0;
+	token->lock = 0;
+	token->dollar_remain = NO;
 	msh->token.quote = 0;
 	return (token);
 }
@@ -77,7 +77,7 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 	tmp = ft_strtrim(s, " ");
 	if (s[0] == '-' && s[1] == 'n')
 	{
-		msh->has_flag = 1;
+		msh->has_flag_n = 1;
 		i += 2;
 	}
 	while (s[i] == ' ')

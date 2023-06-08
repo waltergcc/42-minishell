@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 22:47:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:30:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # define YES 1
 # define NO 0
+
+# define NO_START 0
+# define COMMON 1
+# define SPECIAL 2
 
 # define STOP_RESTORE 1
 # define STOP_QUIT 2
@@ -52,7 +56,7 @@ typedef struct s_envp
 
 typedef struct s_parse
 {
-	int		cmd;
+	int		id;
 	int		start;
 	int		size;
 	int		q;
@@ -75,27 +79,27 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	int		last_redirection;
+	int		is_last_redirection;
 	char	**tokens;
 	t_envp	environment;
 	t_envp	tmp_envp;
 	char	**paths;
-	char	*home_path;
+	char	*home;
 	int		fdin;
 	int		fdout;
 	char	*user_input;
 	t_parse	parse;
-	char	*commands[50];
-	int		cid;
-	char	*cmd;
-	int		pick;
-	int		pick_flag;
+	char	*cmds[50];
+	int		id;
+	char	*part;
+	int		control;
+	int		is_first_time;
 	char	*file_name;
 	char	*file_error;
 	int		is_append;
 	t_token	token;
-	int		has_flag;
-	int		error_flag;
+	int		has_flag_n;
+	int		file_error_flag;
 	int		is_builtin;
 }			t_shell;
 

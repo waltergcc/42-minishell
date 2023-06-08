@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 22:49:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:30:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,36 +32,36 @@ void	run_builtin(t_shell *msh)
 
 void	check_redirections(t_shell *msh)
 {
-	msh->cmd = ft_strdup(msh->commands[msh->cid]);
-	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<'
-		&& msh->commands[msh->cid][0] != '>')
-		msh->cid++;
+	msh->part = ft_strdup(msh->cmds[msh->id]);
+	if (msh->parse.id > 1 && msh->cmds[msh->id][0] != '<'
+		&& msh->cmds[msh->id][0] != '>')
+		msh->id++;
 	msh->file_name = NULL;
 	msh->file_error = NULL;
-	while (msh->commands[msh->cid] && msh->commands[msh->cid][0] != '|')
+	while (msh->cmds[msh->id] && msh->cmds[msh->id][0] != '|')
 	{
-		redirect_out(msh, msh->cid);
-		redirect_in(msh, msh->cid);
+		redirect_out(msh, msh->id);
+		redirect_in(msh, msh->id);
 		if (msh->file_error)
 		{
-			msh->error_flag = YES;
+			msh->file_error_flag = YES;
 			print_error(ERROR_DIR, msh->file_error, 1);
 			free(msh->file_error);
 			break ;
 		}
-		msh->cid++;
+		msh->id++;
 	}
 }
 
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
-	if (msh->pick == 1 || msh->pick == 2)
+	if (msh->control == COMMON || msh->control == SPECIAL)
 	{
-		if (msh->pick_flag && msh->pick == 2)
+		if (msh->is_first_time && msh->control == SPECIAL)
 		{
-			msh->pick_flag = 0;
-			free (msh->cmd);
+			msh->is_first_time = NO;
+			free (msh->part);
 			return ;
 		}
 		get_tokens(msh);
@@ -78,15 +78,14 @@ void	run_command(t_shell *msh)
 
 void	init_control_flags(t_shell *msh)
 {
-	msh->cid = 0;
-	msh->last_redirection = 0;
-	msh->pick = 0;
-	msh->pick_flag = 1;
-	if (msh->commands[0][0] != '>')
-		msh->pick = 1;
-	else if (msh->commands[0][0] == '>'
-		&& msh->commands[1] && msh->commands[1][0] == '|')
-		msh->pick = 2;
+	msh->id = 0;
+	msh->is_last_redirection = NO;
+	msh->control = NO_START;
+	msh->is_first_time = YES;
+	if (msh->cmds[0][0] != '>')
+		msh->control = COMMON;
+	else if (msh->cmds[0][0] == '>' && msh->cmds[1] && msh->cmds[1][0] == '|')
+		msh->control = SPECIAL;
 }
 
 void	commands_manager(t_shell *msh, int i)
@@ -110,7 +109,7 @@ void	commands_manager(t_shell *msh, int i)
 		close(msh->fdin);
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
-	msh->error_flag = NO;
-	msh->pick = 0;
-	msh->pick_flag = 0;
+	msh->file_error_flag = NO;
+	msh->control = NO_START;
+	msh->is_first_time = NO;
 }
