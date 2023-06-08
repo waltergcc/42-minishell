@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 12:10:30 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:36:20 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,20 @@ void	is_builtin(t_shell *msh, char *cmd)
 void	check_redirections(t_shell *msh)
 {
 	msh->cmd = ft_strdup(msh->commands[msh->cid]);
+	// printf("\n----- Check cmd -----\n\n");
+	// printf("id: %d\n", msh->cid);
+	// printf("cmd: %s\n", msh->cmd);
 	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<'
 		&& msh->commands[msh->cid][0] != '>')
 		msh->cid++;
 	msh->file_name = NULL;
 	msh->file_error = NULL;
+	// printf("\n----- Check redirections -----\n\n");
 	while (msh->commands[msh->cid] && msh->commands[msh->cid][0] != '|')
 	{
 		redirect_out(msh, msh->cid);
 		redirect_in(msh, msh->cid);
+		// printf("in: %d > out: %d\n", msh->fdin, msh->fdout);
 		if (msh->file_error)
 		{
 			msh->error_flag = YES;
@@ -76,6 +81,7 @@ void	run_command(t_shell *msh)
 	if (msh->commands[0][0] != '>')
 	{
 		get_tokens(msh);
+		// printf("\n----- Standart Output -----\n\n");
 		if (msh->tokens[0])
 			is_builtin(msh, msh->tokens[0]);
 		if (msh->fdin != -1)
@@ -107,5 +113,9 @@ void	commands_manager(t_shell *msh)
 		msh->fdin = fd[0];
 	}
 	run_command(msh);
+	if (msh->fdin != STDIN_FILENO)
+		close(msh->fdin);
+	if (msh->fdout != STDOUT_FILENO)
+		close(msh->fdout);
 	msh->error_flag = NO;
 }

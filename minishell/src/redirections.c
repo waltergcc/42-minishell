@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 20:47:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:35:30 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	redirect_in(t_shell *msh, int i)
 			if (msh->fdin == -1 && !msh->file_error)
 				msh->file_error = ft_strdup(file[0]);
 		}
+		// printf("file_in: %s\n", file[0]);
 		tmp = ft_strtrim(msh->cmd, " ");
 		if (msh->parse.cmd == 1 || (tmp[0] == '|' && ft_strlen(tmp) == 1))
 		{
@@ -94,14 +95,20 @@ void	redirect_out(t_shell *msh, int i)
 		if (msh->commands[i] && msh->commands[i][1] == '>')
 		{
 			file = ft_strtrim(&msh->commands[i][2], " ");
+			if (msh->fdout != STDOUT_FILENO)
+				close(msh->fdout);
 			msh->fdout = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+			// printf("\nfile_out: %s\n", file);
 			free(file);
 		}
 		else
 		{
 			tmp = ft_strtrim(&msh->commands[i][1], " ");
 			file = ft_substr(tmp, 0, strlen_at(tmp, ' '));
+			if (msh->fdout != STDOUT_FILENO)
+				close(msh->fdout);
 			msh->fdout = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			// printf("\nfile_out: %s\n", file);
 			free(tmp);
 			free(file);
 		}
