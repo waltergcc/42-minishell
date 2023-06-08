@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 23:30:44 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:11:12 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_parse
 typedef struct s_token
 {
 	char	*print;
-	char	*exec;
 	char	quote;
 	char	*end;
 	char	*new;

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/07 09:47:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:10:30 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	run_command(t_shell *msh)
 			exec_process(msh, msh->fdin, msh->fdout);
 		free_split(msh->tokens, YES);
 		free(msh->token.print);
-		free(msh->token.exec);
 	}
 	if (msh->file_name)
 		unlink(msh->file_name);

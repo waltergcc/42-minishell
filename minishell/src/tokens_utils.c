@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 23:39:20 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:10:01 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_token	*create_token(t_shell *msh)
 	token->end = NULL;
 	token->new = NULL;
 	token->print = NULL;
-	token->exec = NULL;
 	token->quote = '\0';
 	token->i = 0;
 	token->lock = 0;

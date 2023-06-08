@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:15:03 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 23:31:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:10:16 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void	free_tokens(t_token *token)
 	{
 		free(token->print);
 		token->print = NULL;
-	}
-	if (token->exec)
-	{
-		free(token->exec);
-		token->exec = NULL;
 	}
 	free(token);
 }

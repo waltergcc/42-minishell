@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/06 23:39:37 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:09:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 	token->end = ft_strjoin(token->end, token->new);
 	token->position = search_position(token->end, ' ', NULL);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
-	msh->token.exec = ft_substr(token->end, token->i, token->position);
 	msh->token.quote = 0;
 	msh->has_flag = 0;
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
