@@ -2,5 +2,6 @@
 	"files.associations": {
 		"wait.h": "c",
 		"fcntl.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }

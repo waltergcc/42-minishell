@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 21:32:56 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 22:18:20 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	close_current_tokens(t_shell *msh, t_token *token)
 {
-
 	token->new = ft_substr(msh->cmd, token->start, token->size);
-	// printf("token->new: [%s]\n", token->new);
 	token->end = ft_strjoin(token->end, token->new);
 	token->position = search_position(token->end, ' ', NULL);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
@@ -97,7 +95,6 @@ void	get_tokens(t_shell *msh)
 	token->end = ft_strdup("");
 	if (msh->cmd)
 	{
-		// printf("msh->cmd: [%s]\n", msh->cmd);
 		while ((int)ft_strlen(msh->cmd) > token->i)
 		{
 			check_quotes(msh, token);

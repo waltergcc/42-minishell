@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/05 03:01:29 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/08 22:48:22 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME = minishell
 SRC = src/main.c \
 		src/environment.c \
 		src/signals.c \
-		src/parse.c \
 		src/redirections.c \
 		src/commands.c src/commands_utils.c \
 		src/tokens.c src/tokens_utils.c \
-		src/builtins.c src/builtins_utils.c
+		src/builtins.c src/builtins_utils.c \
+		src/utils.c
 
 OBJS = ${SRC:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 20:41:30 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 22:47:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ typedef struct s_shell
 }			t_shell;
 
 /*main.c*/
+void	clean_exit(t_shell *msh);
+void	parse_input(t_shell *msh, char *s, int i);
 void	get_input(t_shell *msh);
 void	set_environment_and_paths(t_shell *msh);
-void	free_split(char **str, int free_str);
-void	clean_exit(t_shell *msh);
 
 /*environment.c*/
 void	create_msh_environment(t_shell *msh, char **system_envp);
@@ -117,19 +117,20 @@ void	set_signal(int sg);
 void	reset_prompt(int sg);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
+void	free_split(char **str, int free_str);
 
-/*parse.c*/
+/*utils.c*/
 int		count_redirections(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
-void	parse_input(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
 void	free_tokens(t_token *token);
+void	is_builtin(t_shell *msh, char *cmd);
 
 /*commands.c*/
-void	commands_manager(t_shell *msh);
+void	commands_manager(t_shell *msh, int i);
+void	init_control_flags(t_shell *msh);
 void	run_command(t_shell *msh);
 void	check_redirections(t_shell *msh);
-void	is_builtin(t_shell *msh, char *cmd);
 void	run_builtin(t_shell *msh);
 
 /*commands_utils.c*/

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 22:13:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 22:49:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,6 @@ void	run_builtin(t_shell *msh)
 		unset_builtin(msh);
 	if (!ft_strncmp(msh->tokens[0], "env", 3))
 		env_builtin(msh);
-}
-
-void	is_builtin(t_shell *msh, char *cmd)
-{
-	int	size;
-
-	size = ft_strlen(cmd);
-	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
-		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
-		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
-		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
-		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
-		msh->is_builtin = YES;
-	else
-		msh->is_builtin = NO;
 }
 
 void	check_redirections(t_shell *msh)
@@ -73,9 +56,9 @@ void	check_redirections(t_shell *msh)
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
-	if (msh->pick == 0 || msh->pick == 2 || msh->pick == 3)
+	if (msh->pick == 1 || msh->pick == 2)
 	{
-		if (msh->pick_flag && (msh->pick == 2 || msh->pick == 3))
+		if (msh->pick_flag && msh->pick == 2)
 		{
 			msh->pick_flag = 0;
 			free (msh->cmd);
@@ -93,33 +76,24 @@ void	run_command(t_shell *msh)
 		unlink(msh->file_name);
 }
 
-void	check_cmd_first_char(t_shell *msh)
+void	init_control_flags(t_shell *msh)
 {
-	msh->pick = -1;
-	msh->pick_flag = 1;
-	if (msh->commands[0][0] != '>')
-		msh->pick = 0;
-	else if (msh->commands[0][0] == '>' && msh->commands[1])
-	{
-		if (msh->commands[1][0] == '|')
-		{
-			if (msh->commands[0][1] == '>')
-				msh->pick = 3;
-			else
-				msh->pick = 2;
-		}
-	}
-}
-
-void	commands_manager(t_shell *msh)
-{
-	int	i;
-	int	fd[2];
-
-	i = -1;
 	msh->cid = 0;
 	msh->last_redirection = 0;
-	check_cmd_first_char(msh);
+	msh->pick = 0;
+	msh->pick_flag = 1;
+	if (msh->commands[0][0] != '>')
+		msh->pick = 1;
+	else if (msh->commands[0][0] == '>'
+		&& msh->commands[1] && msh->commands[1][0] == '|')
+		msh->pick = 2;
+}
+
+void	commands_manager(t_shell *msh, int i)
+{
+	int	fd[2];
+
+	init_control_flags(msh);
 	while (++i < msh->parse.pipes)
 	{
 		if (pipe(fd) < 0)
@@ -137,6 +111,6 @@ void	commands_manager(t_shell *msh)
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
 	msh->error_flag = NO;
-	msh->pick = -1;
+	msh->pick = 0;
 	msh->pick_flag = 0;
 }
