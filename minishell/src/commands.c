@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 20:18:29 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 22:13:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,15 @@ void	is_builtin(t_shell *msh, char *cmd)
 void	check_redirections(t_shell *msh)
 {
 	msh->cmd = ft_strdup(msh->commands[msh->cid]);
-	// printf("\n----- Check cmd -----\n\n");
-	// printf("id: %d\n", msh->cid);
-	// printf("cmd: [%s]\n", msh->cmd);
 	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<'
 		&& msh->commands[msh->cid][0] != '>')
 		msh->cid++;
 	msh->file_name = NULL;
 	msh->file_error = NULL;
-	// printf("\n----- Check redirections -----\n\n");
 	while (msh->commands[msh->cid] && msh->commands[msh->cid][0] != '|')
 	{
 		redirect_out(msh, msh->cid);
 		redirect_in(msh, msh->cid);
-		// printf("in: %d > out: %d\n", msh->fdin, msh->fdout);
 		if (msh->file_error)
 		{
 			msh->error_flag = YES;
@@ -78,13 +73,15 @@ void	check_redirections(t_shell *msh)
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
-	// if (msh->commands[0][0] != '>')
-	// 	msh->which_case = 0;
-	// if (msh->commands[0][0] != '>' || (msh->commands[0][0] == '>' && msh->commands[1][0] == '|'))
-	if (msh->which_case == 0)
+	if (msh->pick == 0 || msh->pick == 2 || msh->pick == 3)
 	{
+		if (msh->pick_flag && (msh->pick == 2 || msh->pick == 3))
+		{
+			msh->pick_flag = 0;
+			free (msh->cmd);
+			return ;
+		}
 		get_tokens(msh);
-		// printf("\n----- Standart Output -----\n\n");
 		if (msh->tokens[0])
 			is_builtin(msh, msh->tokens[0]);
 		if (msh->fdin != -1)
@@ -98,20 +95,20 @@ void	run_command(t_shell *msh)
 
 void	check_cmd_first_char(t_shell *msh)
 {
+	msh->pick = -1;
+	msh->pick_flag = 1;
 	if (msh->commands[0][0] != '>')
-		msh->which_case = 0;
+		msh->pick = 0;
 	else if (msh->commands[0][0] == '>' && msh->commands[1])
 	{
 		if (msh->commands[1][0] == '|')
 		{
 			if (msh->commands[0][1] == '>')
-				msh->which_case = 3;
+				msh->pick = 3;
 			else
-				msh->which_case = 2;
+				msh->pick = 2;
 		}
 	}
-	else
-		msh->which_case = -1;
 }
 
 void	commands_manager(t_shell *msh)
@@ -140,5 +137,6 @@ void	commands_manager(t_shell *msh)
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
 	msh->error_flag = NO;
-	msh->which_case = -1;
+	msh->pick = -1;
+	msh->pick_flag = 0;
 }
