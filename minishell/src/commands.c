@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 20:13:59 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 20:18:29 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	run_command(t_shell *msh)
 	// if (msh->commands[0][0] != '>')
 	// 	msh->which_case = 0;
 	// if (msh->commands[0][0] != '>' || (msh->commands[0][0] == '>' && msh->commands[1][0] == '|'))
-	if (msh->which_case == 1)
+	if (msh->which_case == 0)
 	{
 		get_tokens(msh);
 		// printf("\n----- Standart Output -----\n\n");
@@ -99,7 +99,7 @@ void	run_command(t_shell *msh)
 void	check_cmd_first_char(t_shell *msh)
 {
 	if (msh->commands[0][0] != '>')
-		msh->which_case = 1;
+		msh->which_case = 0;
 	else if (msh->commands[0][0] == '>' && msh->commands[1])
 	{
 		if (msh->commands[1][0] == '|')
@@ -111,7 +111,7 @@ void	check_cmd_first_char(t_shell *msh)
 		}
 	}
 	else
-		msh->which_case = 0;
+		msh->which_case = -1;
 }
 
 void	commands_manager(t_shell *msh)
@@ -140,5 +140,5 @@ void	commands_manager(t_shell *msh)
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
 	msh->error_flag = NO;
-	msh->which_case = 0;
+	msh->which_case = -1;
 }
