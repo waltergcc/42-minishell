@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 12:11:12 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:04:07 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_shell
 	char	*commands[50];
 	int		cid;
 	char	*cmd;
+	int		which_case;
 	char	*file_name;
 	char	*file_error;
 	int		is_append;

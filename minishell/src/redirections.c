@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 18:03:37 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:38:12 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,13 @@ void	redirect_out(t_shell *msh, int i)
 		if (msh->commands[i] && msh->commands[i][1] == '>')
 		{
 			file = ft_strtrim(&msh->commands[i][2], " ");
+			// printf("file_out: %s\n", file);
 			msh->fdout = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		}
 		else
 		{
 			file = ft_strtrim(&msh->commands[i][1], " ");
+			// printf("file_out: %s\n", file);
 			msh->fdout = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		free(file);

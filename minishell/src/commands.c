@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 18:11:27 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/08 20:13:59 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_redirections(t_shell *msh)
 	msh->cmd = ft_strdup(msh->commands[msh->cid]);
 	// printf("\n----- Check cmd -----\n\n");
 	// printf("id: %d\n", msh->cid);
-	// printf("cmd: %s\n", msh->cmd);
+	// printf("cmd: [%s]\n", msh->cmd);
 	if (msh->parse.cmd > 1 && msh->commands[msh->cid][0] != '<'
 		&& msh->commands[msh->cid][0] != '>')
 		msh->cid++;
@@ -78,7 +78,10 @@ void	check_redirections(t_shell *msh)
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
-	if (msh->commands[0][0] != '>')
+	// if (msh->commands[0][0] != '>')
+	// 	msh->which_case = 0;
+	// if (msh->commands[0][0] != '>' || (msh->commands[0][0] == '>' && msh->commands[1][0] == '|'))
+	if (msh->which_case == 1)
 	{
 		get_tokens(msh);
 		// printf("\n----- Standart Output -----\n\n");
@@ -93,6 +96,24 @@ void	run_command(t_shell *msh)
 		unlink(msh->file_name);
 }
 
+void	check_cmd_first_char(t_shell *msh)
+{
+	if (msh->commands[0][0] != '>')
+		msh->which_case = 1;
+	else if (msh->commands[0][0] == '>' && msh->commands[1])
+	{
+		if (msh->commands[1][0] == '|')
+		{
+			if (msh->commands[0][1] == '>')
+				msh->which_case = 3;
+			else
+				msh->which_case = 2;
+		}
+	}
+	else
+		msh->which_case = 0;
+}
+
 void	commands_manager(t_shell *msh)
 {
 	int	i;
@@ -101,6 +122,7 @@ void	commands_manager(t_shell *msh)
 	i = -1;
 	msh->cid = 0;
 	msh->last_redirection = 0;
+	check_cmd_first_char(msh);
 	while (++i < msh->parse.pipes)
 	{
 		if (pipe(fd) < 0)
@@ -118,4 +140,5 @@ void	commands_manager(t_shell *msh)
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
 	msh->error_flag = NO;
+	msh->which_case = 0;
 }
