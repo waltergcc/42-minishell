@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:26:51 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 22:40:23 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:36:44 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	reset_prompt(int sg)
 	(void)sg;
 }
 
-void	set_signal(int sg)
+void	set_signal(int sg, t_shell *msh)
 {
 	if (sg == STOP_RESTORE)
 	{
@@ -64,7 +64,7 @@ void	set_signal(int sg)
 	}
 	if (sg == EXIT)
 	{
-		printf("exit\n");
-		exit(EXIT_SUCCESS);
+		printf("\nexit\n");
+		clean_exit(msh, BUILTIN_EXIT);
 	}
 }

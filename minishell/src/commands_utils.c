@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/07 22:31:00 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:39:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	exec_process(t_shell *msh, int in, int out)
 	else
 	{
 		pid = fork();
-		set_signal(STOP_QUIT);
+		set_signal(STOP_QUIT, NULL);
 		if (pid < 0)
 			print_error(ERROR_FORK, NULL, 127);
 		else if (pid == 0)

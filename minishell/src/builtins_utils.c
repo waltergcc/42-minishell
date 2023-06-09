@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:38:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:39:24 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 void	exit_builtin(t_shell *msh)
 {
 	free_split(msh->cmds, NO);
-	if (msh->paths)
-		free_split(msh->paths, YES);
-	free(msh->home);
 	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	clean_exit(msh, BUILTIN_EXIT);
 }
 
 void	pwd_builtin(t_shell *msh)

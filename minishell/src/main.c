@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 10:52:09 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:38:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 int	g_exit;
 
-void	clean_exit(t_shell *msh)
+void	clean_exit(t_shell *msh, int mode)
 {
 	free_split(msh->paths, YES);
+	free_split(msh->environment.key, YES);
+	free_split(msh->environment.content, YES);
 	free(msh->user_input);
 	free(msh->home);
-	exit(g_exit);
+	if (mode == BUILTIN_EXIT)
+		exit(EXIT_SUCCESS);
+	else
+		exit(g_exit);
 }
 
 void	parse_input(t_shell *msh, char *s, int i)
@@ -52,7 +57,7 @@ void	get_input(t_shell *msh)
 	prompt = NULL;
 	prompt = getcwd(prompt, 2000);
 	prompt = ft_strjoin(prompt, ":$ ");
-	set_signal(STOP_RESTORE);
+	set_signal(STOP_RESTORE, NULL);
 	msh->user_input = readline(prompt);
 	if (msh->user_input)
 		add_history(msh->user_input);
@@ -95,7 +100,7 @@ int	main(void)
 			free(msh.user_input);
 		}
 		else
-			set_signal(EXIT);
+			set_signal(EXIT, &msh);
 	}
-	clean_exit(&msh);
+	clean_exit(&msh, PROGRAM_END);
 }

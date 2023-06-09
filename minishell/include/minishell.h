@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 10:56:03 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:31:23 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 
 # define YES 1
 # define NO 0
+
+# define PROGRAM_END 0
+# define BUILTIN_EXIT 1
 
 # define UNLOCK 0
 # define NO_START 0
@@ -105,7 +108,7 @@ typedef struct s_shell
 }			t_shell;
 
 /*main.c*/
-void	clean_exit(t_shell *msh);
+void	clean_exit(t_shell *msh, int mode);
 void	parse_input(t_shell *msh, char *s, int i);
 void	get_input(t_shell *msh);
 void	set_environment_and_paths(t_shell *msh);
@@ -118,7 +121,7 @@ char	*envp_content(t_shell *msh, char *key);
 void	alloc_key_content(t_envp *envp, int size);
 
 /*signals.c*/
-void	set_signal(int sg);
+void	set_signal(int sg, t_shell *msh);
 void	reset_prompt(int sg);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
