@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:30:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 02:35:34 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ void	check_redirections(t_shell *msh)
 		redirect_in(msh, msh->id);
 		if (msh->file_error)
 		{
-			msh->file_error_flag = YES;
+			msh->error_flag = YES;
 			print_error(ERROR_DIR, msh->file_error, 1);
 			free(msh->file_error);
+			free(msh->part);
 			break ;
 		}
 		msh->id++;
@@ -56,7 +57,7 @@ void	check_redirections(t_shell *msh)
 void	run_command(t_shell *msh)
 {
 	check_redirections(msh);
-	if (msh->control == COMMON || msh->control == SPECIAL)
+	if (!msh->error_flag && (msh->control == COMMON || msh->control == SPECIAL))
 	{
 		if (msh->is_first_time && msh->control == SPECIAL)
 		{
@@ -65,7 +66,7 @@ void	run_command(t_shell *msh)
 			return ;
 		}
 		get_tokens(msh);
-		if (msh->tokens[0])
+		if (msh->tokens && msh->tokens[0])
 			is_builtin(msh, msh->tokens[0]);
 		if (msh->fdin != -1)
 			exec_process(msh, msh->fdin, msh->fdout);
@@ -109,7 +110,7 @@ void	commands_manager(t_shell *msh, int i)
 		close(msh->fdin);
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
-	msh->file_error_flag = NO;
+	msh->error_flag = NO;
 	msh->control = NO_START;
 	msh->is_first_time = NO;
 }

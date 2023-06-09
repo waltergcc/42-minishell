@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:37:00 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 02:31:55 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 	msh->token.quote = 0;
 	msh->has_flag_n = 0;
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
-	msh->tokens = ft_split(token->end, ' ');
-	if (msh->tokens[1] && !ft_strncmp(msh->tokens[1], "cut", 3))
+	if (token->end && token->end[0] != 0)
+		msh->tokens = ft_split(token->end, ' ');
+	if (msh->tokens && msh->tokens[1] && !ft_strncmp(msh->tokens[1], "cut", 3))
 		fix_cut_with_space_char(msh);
 	free_tokens(token);
 	free(msh->part);

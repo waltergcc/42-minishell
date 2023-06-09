@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:30:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 02:41:12 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,59 +48,59 @@ extern int	g_exit;
 typedef struct s_envp
 {
 	char	**envp;
-	int		size;
 	char	**key;
 	char	**content;
+	int		size;
 	int		index;
 }			t_envp;
 
 typedef struct s_parse
 {
 	int		id;
+	int		pipes;
+	int		q;
 	int		start;
 	int		size;
-	int		q;
-	int		pipes;
 }			t_parse;
 
 typedef struct s_token
 {
-	char	*print;
 	char	quote;
+	char	*print;
 	char	*end;
 	char	*new;
 	int		i;
-	int		lock;
-	int		size;
 	int		start;
+	int		size;
+	int		lock;
 	int		position;
 	int		dollar_remain;
 }			t_token;
 
 typedef struct s_shell
 {
-	int		is_last_redirection;
-	char	**tokens;
 	t_envp	environment;
 	t_envp	tmp_envp;
-	char	**paths;
-	char	*home;
-	int		fdin;
-	int		fdout;
-	char	*user_input;
+	t_token	token;
 	t_parse	parse;
+	char	**paths;
 	char	*cmds[50];
-	int		id;
+	char	**tokens;
+	char	*home;
+	char	*user_input;
 	char	*part;
-	int		control;
-	int		is_first_time;
 	char	*file_name;
 	char	*file_error;
-	int		is_append;
-	t_token	token;
-	int		has_flag_n;
-	int		file_error_flag;
+	int		id;
+	int		fdin;
+	int		fdout;
+	int		control;
+	int		is_first_time;
+	int		is_last_redirection;
 	int		is_builtin;
+	int		is_append;
+	int		has_flag_n;
+	int		error_flag;
 }			t_shell;
 
 /*main.c*/
