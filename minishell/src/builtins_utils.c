@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 12:39:24 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:13:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	exit_builtin(t_shell *msh)
 {
 	free_split(msh->cmds, NO);
+	free_split(msh->tokens, YES);
+	free(msh->token.print);
 	printf("exit\n");
 	clean_exit(msh, BUILTIN_EXIT);
 }

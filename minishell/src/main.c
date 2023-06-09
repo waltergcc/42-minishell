@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 21:32:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:13:22 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ void	clean_exit(t_shell *msh, int mode)
 	free_split(msh->environment.content, YES);
 	free(msh->user_input);
 	free(msh->home);
-	// if (msh->token.print)
-	// 	free(msh->token.print);
-	// if (msh->tokens)
-	// 	free_split(msh->tokens, YES);
 	if (mode == BUILTIN_EXIT)
 		exit(EXIT_SUCCESS);
 	else
