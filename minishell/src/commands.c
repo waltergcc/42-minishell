@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 02:35:34 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 03:12:38 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	check_redirections(t_shell *msh)
 		{
 			msh->error_flag = YES;
 			print_error(ERROR_DIR, msh->file_error, 1);
+			msh->fdin = STDIN_FILENO;
 			free(msh->file_error);
 			free(msh->part);
 			break ;
