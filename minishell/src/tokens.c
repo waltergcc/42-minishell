@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 02:31:55 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:48:44 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 	token->end = ft_strjoin(token->end, token->new);
 	token->position = search_position(token->end, ' ', NULL);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
-	msh->token.quote = 0;
-	msh->has_flag_n = 0;
+	msh->token.quote = UNLOCK;
+	msh->has_flag_n = NO;
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
 	if (token->end && token->end[0] != 0)
 		msh->tokens = ft_split(token->end, ' ');
@@ -67,7 +67,7 @@ void	get_home_sign(t_shell *msh, t_token *token)
 
 void	check_quotes(t_shell *msh, t_token *token)
 {
-	if (msh->token.quote == 0 && (msh->part[token->i] == QUOTE
+	if (msh->token.quote == UNLOCK && (msh->part[token->i] == QUOTE
 			|| msh->part[token->i] == D_QUOTE))
 	{
 		msh->token.quote = msh->part[token->i];
@@ -76,11 +76,11 @@ void	check_quotes(t_shell *msh, t_token *token)
 	else
 	{
 		if (msh->token.quote == msh->part[token->i])
-			msh->token.quote = 0;
-		if (msh->part[token->i] == '~' && msh->token.quote == 0)
+			msh->token.quote = UNLOCK;
+		if (msh->part[token->i] == '~' && msh->token.quote == UNLOCK)
 			get_home_sign(msh, token);
 		else if (msh->part[token->i] == '$' && msh->part[token->i + 1]
-			&& (msh->token.quote == 0 || msh->token.quote == D_QUOTE))
+			&& (msh->token.quote == UNLOCK || msh->token.quote == D_QUOTE))
 			get_dollar_sign(msh, token);
 	}
 }
@@ -98,7 +98,7 @@ void	get_tokens(t_shell *msh)
 			check_quotes(msh, token);
 			if (msh->token.quote == msh->part[token->i]
 				&& token->lock != token->i)
-				msh->token.quote = 0;
+				msh->token.quote = UNLOCK;
 			if (!token->dollar_remain)
 			{
 				token->i++;

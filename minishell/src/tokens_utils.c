@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:34:01 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:50:17 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ t_token	*create_token(t_shell *msh)
 	token->start = 0;
 	token->position = 0;
 	token->size = 1;
-	token->lock = 0;
+	token->lock = UNLOCK;
 	token->dollar_remain = NO;
-	msh->token.quote = 0;
+	msh->token.quote = UNLOCK;
 	return (token);
 }
 
 int	quotes_handler(t_shell *msh, char c, char *tmp, int j)
 {
-	if (msh->token.quote == 0 && (c == D_QUOTE || c == QUOTE))
+	if (msh->token.quote == UNLOCK && (c == D_QUOTE || c == QUOTE))
 		msh->token.quote = c;
 	else
 	{
 		if (msh->token.quote == c)
-			msh->token.quote = 0;
+			msh->token.quote = UNLOCK;
 		else
 		{
 			tmp[j] = c;
@@ -84,7 +84,7 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 		i++;
 	while (s[i])
 	{
-		if (s[i] == ' ' && s[i + 1] == ' ' && msh->token.quote == 0)
+		if (s[i] == ' ' && s[i + 1] == ' ' && msh->token.quote == UNLOCK)
 		{
 			i++;
 			continue ;

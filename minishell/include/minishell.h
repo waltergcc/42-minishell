@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 10:34:44 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:56:03 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define YES 1
 # define NO 0
 
+# define UNLOCK 0
 # define NO_START 0
 # define COMMON 1
 # define SPECIAL 2

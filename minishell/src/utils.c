@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 10:40:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:54:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	count_redirections(t_shell *msh, char *s, int i)
 {
 	if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 	{
-		if (s[i] == '|' && !msh->parse.q)
+		if (s[i] == '|' && msh->parse.q == UNLOCK)
 			msh->parse.pipes++;
-		if (!msh->parse.q && i > 1 && msh->parse.size > 0)
+		if (msh->parse.q == UNLOCK && i > 1 && msh->parse.size > 0)
 		{
 			msh->cmds[msh->parse.id++] = ft_substr(s,
 					msh->parse.start, msh->parse.size);
@@ -72,8 +72,8 @@ void	start_parse_values(t_shell *msh)
 	msh->parse.id = 0;
 	msh->parse.start = 0;
 	msh->parse.size = 0;
-	msh->parse.q = 0;
 	msh->parse.pipes = 0;
+	msh->parse.q = UNLOCK;
 	msh->is_last_redirection = NO;
 }
 

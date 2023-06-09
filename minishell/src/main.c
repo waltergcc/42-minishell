@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 10:40:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:52:09 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	parse_input(t_shell *msh, char *s, int i)
 	s = ft_strtrim(s, " ");
 	while (++i < (int)ft_strlen(s))
 	{
-		if (!msh->parse.q && (s[i] == D_QUOTE || s[i] == QUOTE))
+		if (msh->parse.q == UNLOCK && (s[i] == D_QUOTE || s[i] == QUOTE))
 			msh->parse.q = s[i];
 		else
 		{
 			if (msh->parse.q == s[i])
-				msh->parse.q = 0;
+				msh->parse.q = UNLOCK;
 			else
 				i = count_redirections(msh, s, i);
 		}
