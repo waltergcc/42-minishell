@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 02:41:12 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:34:44 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ void	back_slash(int sig);
 void	free_split(char **str, int free_str);
 
 /*utils.c*/
-int		count_redirections(t_shell *msh, char *s, int i);
-void	start_parse_values(t_shell *msh);
-void	print_error(char *msg, char *key, int exit_code);
 void	free_tokens(t_token *token);
+void	start_parse_values(t_shell *msh);
+int		count_redirections(t_shell *msh, char *s, int i);
+void	print_error(char *msg, char *key, int exit_code);
 void	is_builtin(t_shell *msh, char *cmd);
 
 /*commands.c*/

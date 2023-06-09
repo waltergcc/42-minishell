@@ -1,12 +1,6 @@
-tests/kichkiro/
 tests/minishell_tester/
 minishell/minishell_tester/
-minishell/kichkiro/
 out/
 *.o
 *.a
 minishell/minishell
-minishell/<
-minishell/b echo que tal
-*.nfs*
-*
