@@ -1,4 +1,4 @@
-# Evaluation Page
+# Minishell Evaluation Page
 
 ## Compile
 
@@ -7,9 +7,40 @@
 ## Simple Command & global variables
 
 - Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
-- How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
+```
+input : [/bin/ls]
+output: [files and folders of current folder]
+```
+```
+input : [date]
+output: [current date]
+```
+```
+input : [echo Hello]
+output: [Hello]
+```
+```
+input : [pwd]
+output: [current path]
+```
 - Test an empty command.
+```
+input : []
+output: []
+```
 - Test only spaces or tabs.
+
+```
+input : [ ]
+output: []
+```
+```
+input : [    ]
+output: []
+```
+- How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
+
+
 
 ## Arguments
 
