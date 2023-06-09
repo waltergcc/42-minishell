@@ -1,0 +1,57 @@
+==67728== 1 bytes in 1 blocks are still reachable in loss record 1 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x404DE9: ft_strdup (ft_strdup.c:22)
+==67728==    by 0x405134: ft_strtrim (ft_strtrim.c:39)
+==67728==    by 0x403798: fix_quotes_to_print (tokens_utils.c:77)
+==67728==    by 0x402EF0: close_current_tokens (tokens.c:23)
+==67728==    by 0x4034DB: get_tokens (tokens.c:109)
+==67728==    by 0x402535: run_command (commands.c:69)
+==67728==    by 0x402767: commands_manager (commands.c:109)
+==67728==    by 0x40160B: main (main.c:90)
+==67728== 
+==67728== 5 bytes in 1 blocks are still reachable in loss record 3 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x404D0A: word_splitter (ft_split.c:44)
+==67728==    by 0x404B25: ft_split (ft_split.c:72)
+==67728==    by 0x402F25: close_current_tokens (tokens.c:25)
+==67728==    by 0x4034DB: get_tokens (tokens.c:109)
+==67728==    by 0x402535: run_command (commands.c:69)
+==67728==    by 0x402767: commands_manager (commands.c:109)
+==67728==    by 0x40160B: main (main.c:90)
+==67728== 
+==67728== 16 bytes in 1 blocks are still reachable in loss record 11 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x404ABB: ft_split (ft_split.c:65)
+==67728==    by 0x402F25: close_current_tokens (tokens.c:25)
+==67728==    by 0x4034DB: get_tokens (tokens.c:109)
+==67728==    by 0x402535: run_command (commands.c:69)
+==67728==    by 0x402767: commands_manager (commands.c:109)
+==67728==    by 0x40160B: main (main.c:90)
+==67728== 
+==67728== 448 bytes in 1 blocks are still reachable in loss record 28 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x4016A0: alloc_key_content (environment.c:17)
+==67728==    by 0x401933: create_msh_environment (environment.c:74)
+==67728==    by 0x401530: set_environment_and_paths (main.c:69)
+==67728==    by 0x40158D: main (main.c:78)
+==67728== 
+==67728== 448 bytes in 1 blocks are still reachable in loss record 29 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x4016D6: alloc_key_content (environment.c:20)
+==67728==    by 0x401933: create_msh_environment (environment.c:74)
+==67728==    by 0x401530: set_environment_and_paths (main.c:69)
+==67728==    by 0x40158D: main (main.c:78)
+==67728== 
+==67728== 745 bytes in 55 blocks are still reachable in loss record 32 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x404DE9: ft_strdup (ft_strdup.c:22)
+==67728==    by 0x401981: create_msh_environment (environment.c:79)
+==67728==    by 0x401530: set_environment_and_paths (main.c:69)
+==67728==    by 0x40158D: main (main.c:78)
+==67728== 
+==67728== 1,371 bytes in 55 blocks are still reachable in loss record 40 of 69
+==67728==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==67728==    by 0x404DE9: ft_strdup (ft_strdup.c:22)
+==67728==    by 0x4019B0: create_msh_environment (environment.c:81)
+==67728==    by 0x401530: set_environment_and_paths (main.c:69)
+==67728==    by 0x40158D: main (main.c:78)
