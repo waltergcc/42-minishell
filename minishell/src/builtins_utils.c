@@ -6,19 +6,53 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 22:13:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:27:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	is_valid_exit(t_shell *msh, int i, int j)
+{
+	if (i > 2)
+	{
+		print_error("Too much arguments", "exit", 1);
+		return (0);
+	}
+	if (i == 2)
+	{
+		while (msh->tokens[1][++j])
+		{
+			if (msh->tokens[1][0] == '-')
+				j++;
+			if (!ft_isdigit(msh->tokens[1][j]))
+			{
+				print_error("Numeric argument required", "exit", 1);
+				return (0);
+			}
+		}
+		g_exit = ft_atoi(msh->tokens[1]);
+	}
+	return (1);
+}
+
 void	exit_builtin(t_shell *msh)
 {
+	int	i;
+
+	i = 0;
+	while (msh->tokens[i])
+		i++;
+	if (i > 1 && !is_valid_exit(msh, i, -1))
+		return ;
 	free_split(msh->cmds, NO);
 	free_split(msh->tokens, YES);
 	free(msh->token.print);
 	printf("exit\n");
-	clean_exit(msh, BUILTIN_EXIT);
+	if (i == 1)
+		clean_exit(msh, BUILTIN_EXIT);
+	else
+		clean_exit(msh, EXIT_ARG);
 }
 
 void	pwd_builtin(t_shell *msh)

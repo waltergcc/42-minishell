@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 12:31:23 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:12:25 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define YES 1
 # define NO 0
 
-# define PROGRAM_END 0
+# define EXIT_ARG 0
 # define BUILTIN_EXIT 1
 
 # define UNLOCK 0
