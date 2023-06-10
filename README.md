@@ -1,150 +1,159 @@
 # minishell
 
-# Minishell Evaluation Page
+## Evaluation tests
 
-## Compile
+### Check -Wall -Wextra -Werror
 
-- Use "make -n" to see if compilation use "-Wall -Wextra -Werror". If not, select the "invalid compilation' flag.
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | make -n | show the commands that will be executed |
 
-## Simple Command & global variables
+### Simple Command
 
-- Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
-```
-input : [/bin/ls]
-output: [files and folders of current folder]
-```
-```
-input : [date]
-output: [current date]
-```
-```
-input : [echo Hello]
-output: [Hello]
-```
-```
-input : [pwd]
-output: [current path]
-```
-- Test an empty command.
-```
-input : []
-output: []
-```
-- Test only spaces or tabs.
+| Check | Command | Expected result |
+|:-----:|---------|-----------------|
+| ☐ | /bin/ls | list files |
+| ☐ | date | current date |
+| ☐ | ifconfig | network information |
+| ☐ | who | who is connected |
+| ☐ | | do nothing |
+| ☐ | [space] | do nothing |
+| ☐ | [tab] | do nothing |
 
-```
-input : [ ]
-output: []
-```
-```
-input : [    ]
-output: []
-```
-- How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
+### Command with Arguments
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | touch 1 2 3 | create 3 files |
+| ☐ | /bin/ls -l | list files with details |
+| ☐ | rm 1 2 3 | remove 3 files |
+| ☐ | cat Makefile | content of the Makefile |
+| ☐ | cat -e Makefile | content of the Makefile with $ at the end of each line |
+| ☐ | wc -l Makefile | count lines in the makefile |
+
+### echo
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | echo | print a new line |
+| ☐ | echo This is a test | This is a test |
+| ☐ | echo -n Hello World | Hello World without new line|
+
+### exit
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | exit | exit the minishell |
+| ☐ | exit 1 | exit the minishell with return code 1 |
+| ☐ | exit 42 | exit the minishell with return code 42 |
+
+### Return value of a process
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | echo $? | 0 |
+| ☐ | /bin/ls then run echo $? | 0 |
+| ☐ | ls notexist then run echo $? | 2 |
+| ☐ | /bin/notexist then run echo $? | 127 |
+| ☐ | expr $? $? then run cho $? | 2 |
+
+### Signals
+
+| # | Shortcut | mode | Expected result |
+|:-:|:--------:|------|-----------|
+| ☐ | ctrl-C | empty prompt | display a new line with a new prompt |
+| ☐ | ctrl-/ | empty prompt | do nothing |
+| ☐ | ctrl-D | empty prompt | quit minishell |
+| ☐ | ctrl-C | after write some stuff | display a new line with a new prompt |
+| ☐ | ctrl-/ | after write some stuff | do nothing |
+| ☐ | ctrl-D | after write some stuff | do nothing |
+| ☐ | ctrl-C | in cat without arguments | display a new line with a new prompt |
+| ☐ | ctrl-/ | in cat without arguments | display \Quit (core dumped) |
+| ☐ | ctrl-D | in cat without arguments | close interactive mode |
+
+### Double Quotes
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | echo "Hello World" | Hello World |
+| ☐ | echo "with       spaces" | Hello       World |
+| ☐ | echo "test with %specials *chars" | test with %specials *chars |
+| ☐ | echo "cat lol.c cat > Iol.c" | cat lol.c cat > Iol.c |
+| ☐ | echo " | print a new line |
+
+### Single Quotes
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | echo 'Hello World' | Hello World |
+| ☐ | echo 'with       spaces' | Hello       World |
+| ☐ | echo '$USER' | $USER |
+| ☐ | echo ' | print a new line |
+| ☐ | echo '$HOME > home.txt' | $HOME > home.txt |
+| ☐ | echo '$?' | $? |
+
+### env
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | env | show the environment variables |
+
+### export
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | export NEW_VAR=42 | create a new environment variable |
+| ☐ | export NEW_VAR="A little change" | replace the value of the environment variable |
+| ☐ | export NEW_VAR=$USER | replace the value of the environment variable |
+
+### unset
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | unset NEW_VAR | remove the environment variable |
+
+### cd
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | cd . | stay in the same directory |
+| ☐ | cd . ls | get an error |
+| ☐ | cd .. | go to the parent directory |
+| ☐ | cd /usr/bin | go to the /usr/bin directory |
+| ☐ | cd | go to the home directory |
 
 
 
-## Arguments
-
-- Execute a simple command with an absolute path like /bin/ls, or any other command with arguments but without any quotes or double quotes.
-- Repeat multiple times with different commands and arguments.
-
-## echo
-
-- Execute the echo command with or without arguments, or the option.
-- Repeat multiple times with different arguments.
-
-## exit
-
-- Execute exit command with or without arguments.
-- Repeat multiple times with different arguments.
-- Don't forget to relaunch the minishell
-
-## Return value of a process
-
-- Execute a simple command with an absolute path like /bin/Is, or any other command with arguments but without any quotes and double quotes. Then execute echo $?
-- Check the printed value. You can do the same in bash in order to compare the results.
-- Repeat multiple times with different commands and arguments. Try some wrong commands like'/bin/Is filethatdoesntexistl
-- Try anything like expr $? $?
-
-## Signals
-
-- ctrl-C in an empty prompt should display a new line with a new prompt.
-- ctrl-/ in an empty prompt should not do anything.
-- ctrl-D in an empty prompt should quit minishell --> RELAUNCH!
-- ctrl-C in a prompt after you wrote some stuff should display a new line with a new prompt.
-- The buffer should be clean too. Press "Enter' to make sure nothing from the previous line is executed.
-- ctrl-D in a prompt after you wrote some stuff should not do anything.
-- ctrl-\ in a prompt after you wrote some stuff should not do anything.
-- Try ctrl-C after running a blocking command like cat without arguments or grep "something".
-- Try ctrl-/ after running a blocking command like cat without arguments or grep "something".
-- Try ctrl-D after running a blocking command like cat without arguments or grep "something".
-- Repeat multiple times using different commands.
-
-## Double Quotes
-
-- Execute a simple command with arguments and, this time, use also double quotes (you should try to include whitespaces too).
-- Try a command like : echo ''cat lol.c cat > Iol.c"
-- Try anything except $.
-
-## Single Quotes
-
-- Execute commands with single quotes as arguments.
-- Try empty arguments.
-- Try environment variables, whitespaces, pipes, redirection in the single quotes.
-- echo '$USER' must print "$USER".
-- Nothing should be interpreted.
-
-## env
-
-- Check if env shows you the current environment variables. Yes X No
-export
-
-## export
-- Export environment variables, create new ones and replace old ones.
-
-## unset
-
-- Export environment variables, create new ones and replace old ones.
-- Use unset to remove some of them.
-- Check the result with env.
-
-## cd
-- Use the command cd to move the working directory and check if you are in the right directory with /bin/ls
-- Repeat multiple times with working and not working cd
-- Also, try '.' and as arguments.
-
-## pwd
+### pwd
 
 - Use the command pwd.
 - Repeat multiple times in different directories.
 
-## Relative Path
+### Relative Path
 
 - Execute commands but this time use a relative path.
 - Repeat multiple times in different directories with a complex relative path (lots of ..).
 
-## Environment path
+### Environment path
 
 - Execute commands but this time without any path (ls, wc, awk and so forth).
 - Unset the $PATH and ensure commands are not working anymore.
 - Set the $PATH to a multiple directory value (directoryl:directory2) and ensure that directories are checked in order from left to right.
 
-## Redirection
+### Redirection
 
 - Execute commands with redirections < and/or >
 - Repeat multiple times with different commands and arguments and sometimes change > with >>
 - Check if multiple tries of the same redirections fail.
 - Test << redirection (it doesn't have to update the history).
 
-## Pipes
+### Pipes
 
 - Execute commands with pipes like 'cat file | grep bla | more
 - Repeat multiple times with different commands and arguments.
 Try some wrong commands like 'ls filethatdoesntexist |grep bla | more'
 - Try to mix pipes and redirections.
 
-## Go Crazy and history
+### Go Crazy and history
 
 - Type a command line, then use ctrl-C and press "Enter". The buffer should be clean and there should be nothing left to execute.
 - Can we navigate through history using Up and Down?
@@ -153,12 +162,12 @@ Try some wrong commands like 'ls filethatdoesntexist |grep bla | more'
 - 'cat | cat | ls' should behave in a "normal way".
 - Try to execute a long command with a ton of arguments.
 
-## Environment variables
+### Environment variables
 
 - Execute echo with some environment variables ($variable) as arguments.
 - Check that $ is interpreted as an environment variable.
 - Check that double quotes interpolate $.
 - Check that USER exists. Otherwise, set it,
 - echo "$USER" should print the value of the USER variable.
-## Used tests
+### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester
