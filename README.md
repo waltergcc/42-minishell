@@ -157,32 +157,32 @@
 | ☐ | cat << EOF | print the content until write EOF |
 > After here document, the prompt history don't have to show the content of the here document.
 
-
-
-
-
 ### Pipes
 
-- Execute commands with pipes like 'cat file | grep bla | more
-- Repeat multiple times with different commands and arguments.
-Try some wrong commands like 'ls filethatdoesntexist |grep bla | more'
-- Try to mix pipes and redirections.
-
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | cat Makefile \| grep NAME \| wc -l | count the number of lines with NAME in the Makefile |
+| ☐ | cat notexist \| wc -l | get an error |
 ### Go Crazy and history
 
-- Type a command line, then use ctrl-C and press "Enter". The buffer should be clean and there should be nothing left to execute.
-- Can we navigate through history using Up and Down?
-- Can we retry some command?
-- Execute commands that should not work like 'dsbksdgbksdghsd'. Ensure minishell doesn't crash and prints an error.
-- 'cat | cat | ls' should behave in a "normal way".
-- Try to execute a long command with a ton of arguments.
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | type, Ctrl-C the enter | buffer should be clean |
+| ☐ | Up, Down | navigate through history |
+| ☐ | Retry some command | execute the command |
+| ☐ | dsfdfdfd | get an error |
+| ☐ | cat \| cat \| ls | behave in a normal way |
+| ☐ | wc -l < /etc/passwd > file1 > file2 > file3 > file4
 
 ### Environment variables
 
-- Execute echo with some environment variables ($variable) as arguments.
 - Check that $ is interpreted as an environment variable.
-- Check that double quotes interpolate $.
-- Check that USER exists. Otherwise, set it,
-- echo "$USER" should print the value of the USER variable.
+
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | echo $USER | print the username |
+| ☐ | echo $notexist | print nothing |
+| ☐ | echo "$HOME" | print the home directory |
+
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester
