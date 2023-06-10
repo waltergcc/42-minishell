@@ -120,31 +120,46 @@
 | ☐ | cd .. | go to the parent directory |
 | ☐ | cd /usr/bin | go to the /usr/bin directory |
 | ☐ | cd | go to the home directory |
-
+| ☐ | cd notexist | get an error |
 
 
 ### pwd
 
-- Use the command pwd.
-- Repeat multiple times in different directories.
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | pwd | show the current directory |
 
 ### Relative Path
 
-- Execute commands but this time use a relative path.
-- Repeat multiple times in different directories with a complex relative path (lots of ..).
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | ./minishell | execute the minishell inside minishell |
+| ☐ | ../../../../../../bin/ls | list files |
 
 ### Environment path
 
-- Execute commands but this time without any path (ls, wc, awk and so forth).
-- Unset the $PATH and ensure commands are not working anymore.
-- Set the $PATH to a multiple directory value (directoryl:directory2) and ensure that directories are checked in order from left to right.
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | echo $PATH | show environment PATH |
+| ☐ | unset PATH | remove the environment variable |
+| ☐ | ls | get an error |
+| ☐ | export PATH=/bin:/usr/bin | set the environment variable |
 
 ### Redirection
 
-- Execute commands with redirections < and/or >
-- Repeat multiple times with different commands and arguments and sometimes change > with >>
-- Check if multiple tries of the same redirections fail.
-- Test << redirection (it doesn't have to update the history).
+| # | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | ls -l > file | create a file with the files list inside |
+| ☐ | repeat the last command more times | create a file with the files list inside |
+| ☐ | cat Makefile >> file | append the content of the Makefile to the file |
+| ☐ | wc -l < file | count lines in the file |
+| ☐ | < file \| wc -w > newfile | count words in the file and write the result in a new file |
+| ☐ | cat << EOF | print the content until write EOF |
+> After here document, the prompt history don't have to show the content of the here document.
+
+
+
+
 
 ### Pipes
 
