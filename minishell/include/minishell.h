@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:59:48 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:28:18 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@
 # define ERROR_CMD "command not found"
 # define ERROR_HOME "HOME not set"
 # define ERROR_PID "pipe error"
+# define ERROR_NUM "numeric argument required"
+# define ERROR_ARG "too many arguments"
 
 extern int	g_exit;
 
@@ -182,8 +184,8 @@ void	pwd_builtin(t_shell *msh);
 /*clean_exit.c*/
 void	free_tokens(t_token *token);
 void	free_split(char **str, int free_str);
-int		is_valid_exit(t_shell *msh, int i);
+int		is_valid_exit(t_shell *msh, int i, int tokens);
 void	clean_exit(t_shell *msh, int mode);
-void	exit_builtin(t_shell *msh);
+void	exit_builtin(t_shell *msh, int i);
 
 #endif

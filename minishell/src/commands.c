@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 16:34:21 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:28:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	run_builtin(t_shell *msh)
 {
 	if (!ft_strncmp(msh->tokens[0], "exit", 4))
-		exit_builtin(msh);
+		exit_builtin(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "echo", 4))
 		echo_builtin(msh);
 	if (!ft_strncmp(msh->tokens[0], "cd", 2))

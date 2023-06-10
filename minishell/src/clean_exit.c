@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:53:22 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:30:08 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,20 @@ void	clean_exit(t_shell *msh, int mode)
 		exit(g_exit);
 }
 
-int	is_valid_exit(t_shell *msh, int i)
+int	is_valid_exit(t_shell *msh, int i, int tokens)
 {
+	if (tokens > 2)
+	{
+		print_error(ERROR_ARG, "exit", 1);
+		return (0);
+	}
 	while (msh->tokens[1][++i])
 	{
+		if (i == 0 && (msh->tokens[1][0] == '-' || msh->tokens[1][0] == '+'))
+			i++;
 		if (!ft_isdigit(msh->tokens[1][i]))
 		{
-			print_error("Illegal number", "exit", 1);
+			print_error(ERROR_NUM, "exit", 1);
 			return (0);
 		}
 	}
@@ -74,14 +81,11 @@ int	is_valid_exit(t_shell *msh, int i)
 	return (1);
 }
 
-void	exit_builtin(t_shell *msh)
+void	exit_builtin(t_shell *msh, int i)
 {
-	int	i;
-
-	i = 0;
 	while (msh->tokens[i])
 		i++;
-	if (i > 1 && !is_valid_exit(msh, -1))
+	if (i > 1 && !is_valid_exit(msh, -1, i))
 		return ;
 	free_split(msh->cmds, NO);
 	free_split(msh->tokens, YES);
