@@ -6,30 +6,11 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:42:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:49:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	exit_builtin(t_shell *msh)
-{
-	int	i;
-
-	i = 0;
-	while (msh->tokens[i])
-		i++;
-	if (i > 1 && !is_valid_exit(msh, -1))
-		return ;
-	free_split(msh->cmds, NO);
-	free_split(msh->tokens, YES);
-	free(msh->token.print);
-	printf("exit\n");
-	if (i == 1)
-		clean_exit(msh, BUILTIN_EXIT);
-	else
-		clean_exit(msh, EXIT_ARG);
-}
 
 void	pwd_builtin(t_shell *msh)
 {

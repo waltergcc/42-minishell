@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:42:05 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:48:54 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ typedef struct s_shell
 }			t_shell;
 
 /*main.c*/
-void	clean_exit(t_shell *msh, int mode);
 void	parse_input(t_shell *msh, char *s, int i);
 void	get_input(t_shell *msh);
 void	set_environment_and_paths(t_shell *msh);
@@ -125,17 +124,19 @@ void	set_signal(int sg, t_shell *msh);
 void	reset_prompt(int sg);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
-void	free_split(char **str, int free_str);
 
 /*utils.c*/
-void	free_tokens(t_token *token);
 void	start_parse_values(t_shell *msh);
 int		count_redirections(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
 void	is_builtin(t_shell *msh, char *cmd);
 
 /*utils_2.c*/
+void	free_tokens(t_token *token);
+void	free_split(char **str, int free_str);
 int		is_valid_exit(t_shell *msh, int i);
+void	clean_exit(t_shell *msh, int mode);
+void	exit_builtin(t_shell *msh);
 
 /*commands.c*/
 void	commands_manager(t_shell *msh, int i);
@@ -183,7 +184,6 @@ void	unset_builtin(t_shell *msh);
 void	check_envp(t_shell *msh, char **new, int i);
 void	add_envp(t_shell *msh, char *new_key, char *new_content);
 void	remove_envp(t_shell *msh);
-void	exit_builtin(t_shell *msh);
 void	pwd_builtin(t_shell *msh);
 
 #endif

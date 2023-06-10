@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 09:51:55 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:45:07 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,7 @@
 
 int	g_exit;
 
-void	clean_exit(t_shell *msh, int mode)
-{
-	if (msh->paths)
-		free_split(msh->paths, YES);
-	free_split(msh->environment.key, YES);
-	free_split(msh->environment.content, YES);
-	free(msh->user_input);
-	free(msh->home);
-	if (mode == BUILTIN_EXIT)
-		exit(EXIT_SUCCESS);
-	else
-		exit(g_exit);
-}
+
 
 void	parse_input(t_shell *msh, char *s, int i)
 {
