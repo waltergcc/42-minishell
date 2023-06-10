@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 17:12:25 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:42:05 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,9 @@ void	start_parse_values(t_shell *msh);
 int		count_redirections(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
 void	is_builtin(t_shell *msh, char *cmd);
+
+/*utils_2.c*/
+int		is_valid_exit(t_shell *msh, int i);
 
 /*commands.c*/
 void	commands_manager(t_shell *msh, int i);
