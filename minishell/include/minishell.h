@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:48:54 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:59:48 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,6 @@ int		count_redirections(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
 void	is_builtin(t_shell *msh, char *cmd);
 
-/*utils_2.c*/
-void	free_tokens(t_token *token);
-void	free_split(char **str, int free_str);
-int		is_valid_exit(t_shell *msh, int i);
-void	clean_exit(t_shell *msh, int mode);
-void	exit_builtin(t_shell *msh);
-
 /*commands.c*/
 void	commands_manager(t_shell *msh, int i);
 void	init_control_flags(t_shell *msh);
@@ -185,5 +178,12 @@ void	check_envp(t_shell *msh, char **new, int i);
 void	add_envp(t_shell *msh, char *new_key, char *new_content);
 void	remove_envp(t_shell *msh);
 void	pwd_builtin(t_shell *msh);
+
+/*clean_exit.c*/
+void	free_tokens(t_token *token);
+void	free_split(char **str, int free_str);
+int		is_valid_exit(t_shell *msh, int i);
+void	clean_exit(t_shell *msh, int mode);
+void	exit_builtin(t_shell *msh);
 
 #endif

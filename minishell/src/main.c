@@ -6,15 +6,13 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:45:07 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:00:15 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit;
-
-
 
 void	parse_input(t_shell *msh, char *s, int i)
 {
