@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 03:12:38 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:34:21 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	run_command(t_shell *msh)
 		free(msh->token.print);
 	}
 	if (msh->file_name)
+	{	
 		unlink(msh->file_name);
+		free(msh->file_name);
+	}
 }
 
 void	init_control_flags(t_shell *msh)
