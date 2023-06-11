@@ -176,8 +176,6 @@
 
 ### Environment variables
 
-- Check that $ is interpreted as an environment variable.
-
 | # | Command | Expected result |
 |:-:|---------|-----------------|
 | [x] | echo $USER | print the username |
