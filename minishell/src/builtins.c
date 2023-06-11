@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:06:22 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:12:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,26 @@ void	export_builtin(t_shell *msh)
 	int		i;
 	char	**tmp;
 
-	i = 1;
-	while (msh->tokens[i])
+	i = 0;
+	while (msh->tokens[++i])
 	{
+		if (!ft_strchr(msh->tokens[i], '='))
+			continue ;
 		tmp = ft_split(msh->tokens[i], '=');
 		if (tmp[1])
+		{
 			check_envp(msh, tmp, i);
-		else if (msh->tokens[i][ft_strlen(msh->tokens[1]) - 1] == '=')
+			free_split(tmp, YES);
+		}
+		else
 		{
 			tmp[1] = ft_strdup("");
 			check_envp(msh, tmp, i);
+			free(tmp[0]);
+			free(tmp[1]);
+			free(tmp);
 		}
-		free(tmp[0]);
-		free(tmp[1]);
-		free(tmp);
 		tmp = NULL;
-		i++;
 	}
 	g_exit = 0;
 }
