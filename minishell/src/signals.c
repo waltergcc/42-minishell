@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:26:51 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:44:13 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:04:38 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	set_signal(int sg, t_shell *msh)
 	}
 	if (sg == EXIT)
 	{
-		printf("\nexit\n");
+		printf("exit\n");
 		clean_exit(msh, BUILTIN_EXIT);
 	}
 }

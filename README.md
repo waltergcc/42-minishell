@@ -61,15 +61,15 @@
 
 | # | Shortcut | mode | Expected result |
 |:-:|:--------:|------|-----------|
-| [] | ctrl-C | empty prompt | display a new line with a new prompt |
-| [] | ctrl-/ | empty prompt | do nothing |
-| [] | ctrl-D | empty prompt | quit minishell |
-| [] | ctrl-C | after write some stuff | display a new line with a new prompt |
-| [] | ctrl-/ | after write some stuff | do nothing |
-| [] | ctrl-D | after write some stuff | do nothing |
-| [] | ctrl-C | in cat without arguments | display a new line with a new prompt |
-| [] | ctrl-/ | in cat without arguments | display \Quit (core dumped) |
-| [] | ctrl-D | in cat without arguments | close interactive mode |
+| [x] | ctrl-C | empty prompt | display a new line with a new prompt |
+| [x] | ctrl-\ | empty prompt | do nothing |
+| [x] | ctrl-D | empty prompt | quit minishell |
+| [x] | ctrl-C | after write some stuff | display a new line with a new prompt |
+| [x] | ctrl-\ | after write some stuff | do nothing |
+| [x] | ctrl-D | after write some stuff | do nothing |
+| [x] | ctrl-C | in cat without arguments | display a new line with a new prompt |
+| [x] | ctrl-\ | in cat without arguments | display \Quit (core dumped) |
+| [x] | ctrl-D | in cat without arguments | close interactive mode |
 
 ### Double Quotes
 
@@ -101,78 +101,78 @@
 ### export
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | export NEW_VAR=42 | create a new environment variable |
-| [] | export NEW_VAR="A little change" | replace the value of the environment variable |
-| [] | export NEW_VAR=$USER | replace the value of the environment variable |
+| [x] | export NEW_VAR=42 | create a new environment variable |
+| [x] | export NEW_VAR="A little change" | replace the value of the environment variable |
+| [x] | export NEW_VAR=$USER | replace the value of the environment variable |
 
 ### unset
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | unset NEW_VAR | remove the environment variable |
+| [x] | unset NEW_VAR | remove the environment variable |
 
 ### cd
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | cd . | stay in the same directory |
-| [] | cd . ls | get an error |
-| [] | cd .. | go to the parent directory |
-| [] | cd /usr/bin | go to the /usr/bin directory |
-| [] | cd | go to the home directory |
-| [] | cd notexist | get an error |
+| [x] | cd . | stay in the same directory |
+| [x] | cd . ls | get an error |
+| [x] | cd .. | go to the parent directory |
+| [x] | cd /usr/bin | go to the /usr/bin directory |
+| [x] | cd | go to the home directory |
+| [x] | cd notexist | get an error |
 
 
 ### pwd
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | pwd | show the current directory |
+| [x] | pwd | show the current directory |
 
 ### Relative Path
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | ./minishell | execute the minishell inside minishell |
-| [] | ../../../../../../bin/ls | list files |
+| [x] | ./minishell | execute the minishell inside minishell |
+| [x] | ../../../../../../bin/ls | list files |
 
 ### Environment path
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | echo $PATH | show environment PATH |
-| [] | unset PATH | remove the environment variable |
-| [] | ls | get an error |
-| [] | export PATH=/bin:/usr/bin | set the environment variable |
+| [x] | echo $PATH | show environment PATH |
+| [x] | unset PATH | remove the environment variable |
+| [x] | ls | get an error |
+| [x] | export PATH=/bin:/usr/bin | set the environment variable |
 
 ### Redirection
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | ls -l > file | create a file with the files list inside |
-| [] | repeat the last command more times | create a file with the files list inside |
-| [] | cat Makefile >> file | append the content of the Makefile to the file |
-| [] | wc -l < file | count lines in the file |
-| [] | < file \| wc -w > newfile | count words in the file and write the result in a new file |
-| [] | cat << EOF | print the content until write EOF |
+| [x] | ls -l > test | create a file with the files list inside |
+| [x] | repeat the last command more times | create a file with the files list inside |
+| [x] | cat Makefile >> test | append the content of the Makefile to the file |
+| [x] | wc -l < test | count lines in the file |
+| [x] | wc -c < test > test_out | count words in the file and write the result in a new file |
+| [x] | cat << EOF | print the content until write EOF |
 > After here document, the prompt history don't have to show the content of the here document.
 
 ### Pipes
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | cat Makefile \| grep NAME \| wc -l | count the number of lines with NAME in the Makefile |
-| [] | cat notexist \| wc -l | get an error |
+| [x] | cat Makefile \| grep NAME \| wc -l | count the number of lines with NAME in the Makefile |
+| [x] | cat notexist \| wc -l | get an error |
 ### Go Crazy and history
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | type, Ctrl-C the enter | buffer should be clean |
-| [] | Up, Down | navigate through history |
-| [] | Retry some command | execute the command |
-| [] | dsfdfdfd | get an error |
+| [x] | type, Ctrl-C the enter | buffer should be clean |
+| [x] | Up, Down | navigate through history |
+| [x] | Retry some command | execute the command |
+| [x] | dsfdfdfd | get an error |
+| [x] | wc -l < /etc/passwd > file1 > file2 > file3 > file4 | count lines in the file and write the result in the last redirection |
 | [] | cat \| cat \| ls | behave in a normal way |
-| [] | wc -l < /etc/passwd > file1 > file2 > file3 > file4
 
 ### Environment variables
 
@@ -180,9 +180,9 @@
 
 | # | Command | Expected result |
 |:-:|---------|-----------------|
-| [] | echo $USER | print the username |
-| [] | echo $notexist | print nothing |
-| [] | echo "$HOME" | print the home directory |
+| [x] | echo $USER | print the username |
+| [x] | echo $notexist | print nothing |
+| [x] | echo "$HOME" | print the home directory |
 
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester
