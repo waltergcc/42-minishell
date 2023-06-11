@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 19:28:18 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:05:03 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	start_parse_values(t_shell *msh);
 int		count_redirections(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
 void	is_builtin(t_shell *msh, char *cmd);
+void	free_export_builtin(char **tmp);
 
 /*commands.c*/
 void	commands_manager(t_shell *msh, int i);
@@ -172,7 +173,7 @@ void	fix_cut_with_space_char(t_shell *msh);
 void	echo_builtin(t_shell *msh);
 int		cd_builtin(t_shell *msh);
 void	env_builtin(t_shell *msh);
-void	export_builtin(t_shell *msh);
+void	export_builtin(t_shell *msh, int i);
 void	unset_builtin(t_shell *msh);
 
 /*builtins_utils.c*/
