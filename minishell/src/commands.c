@@ -6,29 +6,11 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/11 12:04:47 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:03:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	run_builtin(t_shell *msh)
-{
-	if (!ft_strncmp(msh->tokens[0], "exit", 4))
-		exit_builtin(msh, 0);
-	if (!ft_strncmp(msh->tokens[0], "echo", 4))
-		echo_builtin(msh);
-	if (!ft_strncmp(msh->tokens[0], "cd", 2))
-		cd_builtin(msh);
-	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
-		pwd_builtin(msh);
-	if (!ft_strncmp(msh->tokens[0], "export", 6))
-		export_builtin(msh, 0);
-	if (!ft_strncmp(msh->tokens[0], "unset", 5))
-		unset_builtin(msh);
-	if (!ft_strncmp(msh->tokens[0], "env", 3))
-		env_builtin(msh);
-}
 
 void	check_redirections(t_shell *msh)
 {
@@ -81,9 +63,10 @@ void	run_command(t_shell *msh)
 	}
 }
 
-void	init_control_flags(t_shell *msh)
+void	init_control_flags(t_shell *msh, int i)
 {
 	msh->id = 0;
+	msh->cat_case = NO;
 	msh->is_last_redirection = NO;
 	msh->control = NO_START;
 	msh->is_first_time = YES;
@@ -91,13 +74,39 @@ void	init_control_flags(t_shell *msh)
 		msh->control = COMMON;
 	else if (msh->cmds[0][0] == '>' && msh->cmds[1] && msh->cmds[1][0] == '|')
 		msh->control = SPECIAL;
+	while (msh->cmds[++i] && (!ft_strcmp(msh->cmds[msh->id], "cat ")
+			|| !ft_strcmp(msh->cmds[msh->id], "| cat "))
+		&& msh->cmds[msh->id + 1] && msh->cmds[msh->id + 1][0] == '|')
+	{
+		msh->id++;
+		msh->parse.pipes--;
+		msh->cat_case = YES;
+	}
+}
+
+void	close_control_flags(t_shell *msh)
+{
+	if (msh->fdin != STDIN_FILENO)
+		close(msh->fdin);
+	if (msh->fdout != STDOUT_FILENO)
+		close(msh->fdout);
+	if (msh->cat_case)
+	{
+		msh->tokens = ft_split("cat", ' ');
+		exec_process(msh, msh->fdin, msh->fdout);
+		free_split(msh->tokens, YES);
+	}
+	msh->error_flag = NO;
+	msh->control = NO_START;
+	msh->is_first_time = NO;
+	msh->cat_case = NO;
 }
 
 void	commands_manager(t_shell *msh, int i)
 {
 	int	fd[2];
 
-	init_control_flags(msh);
+	init_control_flags(msh, -1);
 	while (++i < msh->parse.pipes)
 	{
 		if (pipe(fd) < 0)
@@ -110,11 +119,5 @@ void	commands_manager(t_shell *msh, int i)
 		msh->fdin = fd[0];
 	}
 	run_command(msh);
-	if (msh->fdin != STDIN_FILENO)
-		close(msh->fdin);
-	if (msh->fdout != STDOUT_FILENO)
-		close(msh->fdout);
-	msh->error_flag = NO;
-	msh->control = NO_START;
-	msh->is_first_time = NO;
+	close_control_flags(msh);
 }

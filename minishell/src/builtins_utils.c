@@ -6,11 +6,28 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:49:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:02:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	is_builtin(t_shell *msh, char *cmd)
+{
+	int	size;
+
+	size = ft_strlen(cmd);
+	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
+		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
+		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
+		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
+		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
+		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
+		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
+		msh->is_builtin = YES;
+	else
+		msh->is_builtin = NO;
+}
 
 void	pwd_builtin(t_shell *msh)
 {

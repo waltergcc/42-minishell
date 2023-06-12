@@ -6,13 +6,31 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 19:00:15 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:01:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit;
+
+void	run_builtin(t_shell *msh)
+{
+	if (!ft_strncmp(msh->tokens[0], "exit", 4))
+		exit_builtin(msh, 0);
+	if (!ft_strncmp(msh->tokens[0], "echo", 4))
+		echo_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "cd", 2))
+		cd_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
+		pwd_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "export", 6))
+		export_builtin(msh, 0);
+	if (!ft_strncmp(msh->tokens[0], "unset", 5))
+		unset_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "env", 3))
+		env_builtin(msh);
+}
 
 void	parse_input(t_shell *msh, char *s, int i)
 {

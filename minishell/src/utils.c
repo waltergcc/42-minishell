@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/11 12:02:42 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:03:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,4 @@ void	start_parse_values(t_shell *msh)
 	msh->parse.pipes = 0;
 	msh->parse.q = UNLOCK;
 	msh->is_last_redirection = NO;
-}
-
-void	is_builtin(t_shell *msh, char *cmd)
-{
-	int	size;
-
-	size = ft_strlen(cmd);
-	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
-		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
-		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
-		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
-		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
-		msh->is_builtin = YES;
-	else
-		msh->is_builtin = NO;
 }
