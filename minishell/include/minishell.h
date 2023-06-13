@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/12 03:02:45 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:37:51 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	exec_process(t_shell *msh, int in, int out);
 void	redirect_out(t_shell *msh, int i);
 void	redirect_in(t_shell *msh, int i);
 char	**double_redirect_in(t_shell *msh, char **file, int i);
-void	prompt_write_mode_until(char *end);
+void	start_heredoc(char *end);
 char	*new_command(int i, char **s);
 
 /*tokens.c*/

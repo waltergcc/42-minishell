@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/08 23:30:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:37:51 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*new_command(int i, char **file)
 	return (tmp);
 }
 
-void	prompt_write_mode_until(char *end)
+void	start_heredoc(char *end)
 {
 	char	*line;
 	int		fd;
@@ -37,7 +37,7 @@ void	prompt_write_mode_until(char *end)
 		|| ft_strlen(line) != ft_strlen(end))
 	{
 		free(line);
-		line = readline("> ");
+		line = readline("heredoc> ");
 		if (ft_strlen(line) != ft_strlen(end))
 			ft_putendl_fd(line, fd);
 	}
@@ -48,7 +48,7 @@ void	prompt_write_mode_until(char *end)
 char	**double_redirect_in(t_shell *msh, char **file, int i)
 {
 	file = ft_split(&msh->cmds[i][2], ' ');
-	prompt_write_mode_until(file[0]);
+	start_heredoc(file[0]);
 	msh->fdin = open(file[0], O_RDONLY | O_CREAT, 0777);
 	msh->file_name = ft_strdup(file[0]);
 	msh->is_append++;
