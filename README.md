@@ -185,9 +185,8 @@
 | ☑ | echo $notexist | print nothing |
 | ☑ | echo "$HOME" | print the home directory |
 
-## if to keep
-(!ft_strncmp(msh->cmds[0], "<<", 2)
-	&& (msh->cmds[0][2] || msh->cmds[0][3])
-	&& (msh->cmds[0][2] != ' ' || msh->cmds[0][3] != ' '))
+## My Bash
+GNU bash, version 5.1.16(1)-release (x86_64-pc-linux-gnu)
+
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester

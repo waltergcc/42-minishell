@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/13 19:50:25 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:42:57 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	check_redirections(t_shell *msh)
 
 void	run_command(t_shell *msh)
 {
-	check_redirections(msh);
+	if (msh->control != INVALID)
+		check_redirections(msh);
 	if (!msh->error_flag && (msh->control == COMMON || msh->control == SPECIAL))
 	{
 		if (msh->is_first_time && msh->control == SPECIAL)
@@ -56,7 +57,7 @@ void	run_command(t_shell *msh)
 		free_split(msh->tokens, YES);
 		free(msh->token.print);
 	}
-	if (msh->file_name)
+	if (msh->file_name && msh->file_name[0] != '\0')
 	{	
 		unlink(msh->file_name);
 		free(msh->file_name);
@@ -70,16 +71,7 @@ void	init_control_flags(t_shell *msh, int i)
 	msh->is_last_redirection = NO;
 	msh->control = NO_START;
 	msh->is_first_time = YES;
-	if (msh->cmds[0][0] != '>')
-		msh->control = COMMON;
-	else if (msh->cmds[0][0] == '>' && msh->cmds[1] && msh->cmds[1][0] == '|')
-		msh->control = SPECIAL;
-	else if (msh->cmds[0][0] == '>' && !msh->cmds[1])
-	{
-		implicit_cat(msh, -1);
-		msh->parse.id++;
-		msh->control = COMMON;
-	}
+	check_first_cmd(msh);
 	while (msh->cmds[++i] && (!ft_strcmp(msh->cmds[msh->id], "cat ")
 			|| !ft_strcmp(msh->cmds[msh->id], "| cat "))
 		&& msh->cmds[msh->id + 1] && msh->cmds[msh->id + 1][0] == '|')

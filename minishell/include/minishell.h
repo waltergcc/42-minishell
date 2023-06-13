@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/13 19:46:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:15:46 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define NO_START 0
 # define COMMON 1
 # define SPECIAL 2
+# define INVALID 3
 
 # define STOP_RESTORE 1
 # define STOP_QUIT 2
@@ -48,6 +49,7 @@
 # define ERROR_PID "pipe error"
 # define ERROR_NUM "numeric argument required"
 # define ERROR_ARG "too many arguments"
+# define ERROR_INVALID "syntax error near unexpected token `newline'"
 
 extern int	g_exit;
 
@@ -128,6 +130,7 @@ void	set_signal(int sg, t_shell *msh);
 void	reset_prompt(int sg);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
+void	check_first_cmd(t_shell *msh);
 
 /*utils.c*/
 void	start_parse_values(t_shell *msh);
