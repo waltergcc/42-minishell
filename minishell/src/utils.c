@@ -6,11 +6,26 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/12 03:03:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:45:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	implicit_cat(t_shell *msh, int i)
+{
+	char	*tmp[50];
+
+	tmp[0] = ft_strdup("cat");
+	while (msh->cmds[++i])
+		tmp[i + 1] = ft_strdup(msh->cmds[i]);
+	tmp[i + 1] = NULL;
+	i = -1;
+	free_split(msh->cmds, NO);
+	while (tmp[++i])
+		msh->cmds[i] = tmp[i];
+	msh->cmds[i] = NULL;
+}
 
 void	free_export_builtin(char **tmp)
 {

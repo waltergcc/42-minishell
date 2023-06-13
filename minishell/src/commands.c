@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/12 03:03:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:50:25 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ void	init_control_flags(t_shell *msh, int i)
 		msh->control = COMMON;
 	else if (msh->cmds[0][0] == '>' && msh->cmds[1] && msh->cmds[1][0] == '|')
 		msh->control = SPECIAL;
+	else if (msh->cmds[0][0] == '>' && !msh->cmds[1])
+	{
+		implicit_cat(msh, -1);
+		msh->parse.id++;
+		msh->control = COMMON;
+	}
 	while (msh->cmds[++i] && (!ft_strcmp(msh->cmds[msh->id], "cat ")
 			|| !ft_strcmp(msh->cmds[msh->id], "| cat "))
 		&& msh->cmds[msh->id + 1] && msh->cmds[msh->id + 1][0] == '|')

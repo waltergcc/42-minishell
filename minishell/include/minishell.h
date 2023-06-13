@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/13 14:37:51 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:46:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	start_parse_values(t_shell *msh);
 int		count_redirections(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
 void	free_export_builtin(char **tmp);
+void	implicit_cat(t_shell *msh, int i);
 
 /*commands.c*/
 void	commands_manager(t_shell *msh, int i);
