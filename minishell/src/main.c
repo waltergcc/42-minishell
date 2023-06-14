@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 09:32:52 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:43:25 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,30 @@ void	set_environment_and_paths(t_shell *msh)
 	msh->home = ft_strdup(envp_content(msh, "HOME"));
 }
 
-// int	is_first_char_valid(t_shell *msh)
-// {
-// 	int	i;
+int	is_first_char_valid(t_shell *msh)
+{
+	int	i;
 
-// 	i = 0;
-// 	for (int j = 0; msh->cmds[j]; j++)
-// 		printf("cmds[%d]: %s\n", j, msh->cmds[j]);
-// 	if (msh->cmds[0][0] == '|' && msh->parse.id > 0)
-// 	{
-// 		print_error(ERROR_PIPE, NULL, 1);
-// 		return (0);
-// 	}
-// 	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
-// 	{
-// 		while ((msh->cmds[0][i] == '>' || msh->cmds[0][i] == '<'))
-// 			i++;
-// 		if (msh->cmds[0][i] == '\0' || )
-// 		{
-// 			print_error(ERROR_REDIR, NULL, 1);
-// 			return (0);
-// 		}
-// 	}
-// 	return (1);
-// }
+	i = 0;
+	if (msh->cmds[0][0] == '|' && msh->parse.id > 0)
+	{
+		print_error(ERROR_PIPE, NULL, 1);
+		return (0);
+	}
+	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
+	{
+		while ((msh->cmds[0][i] == '>' || msh->cmds[0][i] == '<'))
+			i++;
+		if (msh->cmds[0][i] == '\0'
+			|| (msh->cmds[0][0] == '<' && msh->cmds[0][1] != '<'
+			&& !msh->cmds[1]))
+		{
+			print_error(ERROR_REDIR, NULL, 1);
+			return (0);
+		}
+	}
+	return (1);
+}
 
 int	main(void)
 {
