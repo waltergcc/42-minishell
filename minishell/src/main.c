@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 10:43:25 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:32:34 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,6 @@ int	main(void)
 				parse_input(&msh, msh.user_input, -1);
 				if (is_first_char_valid(&msh))
 					commands_manager(&msh, -1);
-				// if (msh.parse.id > 0 && msh.cmds[0][0] != '|')
-				// 	commands_manager(&msh, -1);
-				// if (msh.cmds[0] && msh.cmds[0][0] == '|')
-				// 	print_error(ERROR_PIPE, NULL, 1);
 				free_split(msh.cmds, NO);
 			}
 			free(msh.user_input);

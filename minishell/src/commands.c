@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 00:42:57 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:31:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	check_redirections(t_shell *msh)
 
 void	run_command(t_shell *msh)
 {
-	if (msh->control != INVALID)
-		check_redirections(msh);
+	check_redirections(msh);
 	if (!msh->error_flag && (msh->control == COMMON || msh->control == SPECIAL))
 	{
 		if (msh->is_first_time && msh->control == SPECIAL)

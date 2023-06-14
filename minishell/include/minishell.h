@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 09:07:42 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:36:57 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # define NO_START 0
 # define COMMON 1
 # define SPECIAL 2
-# define INVALID 3
 
 # define STOP_RESTORE 1
 # define STOP_QUIT 2
@@ -111,6 +110,9 @@ typedef struct s_shell
 	int		error_flag;
 	int		cat_case;
 }			t_shell;
+
+/* now is in main.c but it need to be put in a new src */
+int		is_first_char_valid(t_shell *msh);
 
 /*main.c*/
 void	run_builtin(t_shell *msh);
