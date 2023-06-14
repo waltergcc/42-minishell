@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 00:15:46 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:07:42 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define ERROR_PID "pipe error"
 # define ERROR_NUM "numeric argument required"
 # define ERROR_ARG "too many arguments"
-# define ERROR_INVALID "syntax error near unexpected token `newline'"
+# define ERROR_REDIR "syntax error near unexpected token `newline'"
 
 extern int	g_exit;
 
