@@ -6,11 +6,24 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 16:59:50 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:14:11 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	have_only_spaces(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] != ' ' && s[i] != '\t')
+			return (0);
+	}
+	return (1);
+}
 
 void	update_envinroment_pwds(t_shell *msh, char *to_update)
 {
@@ -44,7 +57,7 @@ int	is_first_char_valid(t_shell *msh)
 	int	i;
 
 	i = 0;
-	if (msh->cmds[0][0] == '|' && msh->parse.id > 0)
+	if ((msh->cmds[0][0] == '|') && msh->parse.id > 0)
 	{
 		print_error(ERROR_PIPE, NULL, 1);
 		return (0);
