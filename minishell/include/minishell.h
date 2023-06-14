@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 13:12:47 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:58:22 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,6 @@ typedef struct s_shell
 	int		cat_case;
 }			t_shell;
 
-/* now is in main.c but it need to be put in a new src */
-int		is_first_char_valid(t_shell *msh);
-
 /*main.c*/
 void	run_builtin(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
@@ -179,7 +176,7 @@ void	fix_cut_with_space_char(t_shell *msh);
 
 /*builtins.c*/
 void	echo_builtin(t_shell *msh);
-int		cd_builtin(t_shell *msh);
+int		cd_builtin(t_shell *msh, char *tmp);
 void	env_builtin(t_shell *msh);
 void	export_builtin(t_shell *msh, int i);
 void	unset_builtin(t_shell *msh);
@@ -190,6 +187,11 @@ void	check_envp(t_shell *msh, char **new, int i);
 void	add_envp(t_shell *msh, char *new_key, char *new_content);
 void	remove_envp(t_shell *msh);
 void	pwd_builtin(t_shell *msh);
+
+/*builtins_utils_2.c*/
+int		is_first_char_valid(t_shell *msh);
+void	update_envinroment_pwds(t_shell *msh, char *to_update);
+void	update_last_pwd(t_shell *msh);
 
 /*clean_exit.c*/
 void	free_tokens(t_token *token);

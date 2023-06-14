@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 13:39:27 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:58:36 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,15 @@ void	echo_builtin(t_shell *msh)
 		ft_putstr_fd("\n", msh->fdout);
 }
 
-int	cd_builtin(t_shell *msh)
+int	cd_builtin(t_shell *msh, char *tmp)
 {
-	char	*tmp;
-
-	char *pwd;
-
-	pwd = NULL;
-	pwd = getcwd(pwd, 2000);
-	if (envp_content(msh, "OLDPWD"))
-	{
-		free(msh->environment.content[msh->environment.index]);
-		msh->environment.content[msh->environment.index] = ft_strdup(pwd);
-	}
-	else
-		add_envp(msh, "OLDPWD", pwd);
-	free(pwd);
-	pwd = NULL;
-	printf("msh->oldpwd: %s\n", msh->oldpwd);
+	update_envinroment_pwds(msh, "OLDPWD");
 	if (msh->tokens[1] && msh->tokens[1][0] == '-' && msh->tokens[1][1] == '\0')
 	{
 		tmp = ft_strdup(msh->oldpwd);
 		printf("%s\n", tmp);
 	}
-	else if(msh->tokens[1])
+	else if (msh->tokens[1])
 		tmp = ft_strdup(msh->token.print);
 	else
 	{
@@ -75,23 +60,11 @@ int	cd_builtin(t_shell *msh)
 			return (1);
 		}
 	}
-	free(msh->oldpwd);
-	pwd = getcwd(pwd, 2000);
-	msh->oldpwd = ft_strdup(pwd);
-	free(pwd);
-	pwd = NULL;
+	update_last_pwd(msh);
 	g_exit = chdir(tmp);
 	if (g_exit == -1)
 		print_error(ERROR_DIR, msh->tokens[1], 1);
-	pwd = getcwd(pwd, 2000);
-	if (envp_content(msh, "PWD"))
-	{
-		free(msh->environment.content[msh->environment.index]);
-		msh->environment.content[msh->environment.index] = ft_strdup(pwd);
-	}
-	else
-		add_envp(msh, "PWD", pwd);
-	free(pwd);
+	update_envinroment_pwds(msh, "PWD");
 	free(tmp);
 	return (0);
 }
