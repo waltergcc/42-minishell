@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/11 12:07:12 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:39:27 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,26 @@ int	cd_builtin(t_shell *msh)
 {
 	char	*tmp;
 
-	if (msh->tokens[1])
+	char *pwd;
+
+	pwd = NULL;
+	pwd = getcwd(pwd, 2000);
+	if (envp_content(msh, "OLDPWD"))
+	{
+		free(msh->environment.content[msh->environment.index]);
+		msh->environment.content[msh->environment.index] = ft_strdup(pwd);
+	}
+	else
+		add_envp(msh, "OLDPWD", pwd);
+	free(pwd);
+	pwd = NULL;
+	printf("msh->oldpwd: %s\n", msh->oldpwd);
+	if (msh->tokens[1] && msh->tokens[1][0] == '-' && msh->tokens[1][1] == '\0')
+	{
+		tmp = ft_strdup(msh->oldpwd);
+		printf("%s\n", tmp);
+	}
+	else if(msh->tokens[1])
 		tmp = ft_strdup(msh->token.print);
 	else
 	{
@@ -56,9 +75,23 @@ int	cd_builtin(t_shell *msh)
 			return (1);
 		}
 	}
+	free(msh->oldpwd);
+	pwd = getcwd(pwd, 2000);
+	msh->oldpwd = ft_strdup(pwd);
+	free(pwd);
+	pwd = NULL;
 	g_exit = chdir(tmp);
 	if (g_exit == -1)
 		print_error(ERROR_DIR, msh->tokens[1], 1);
+	pwd = getcwd(pwd, 2000);
+	if (envp_content(msh, "PWD"))
+	{
+		free(msh->environment.content[msh->environment.index]);
+		msh->environment.content[msh->environment.index] = ft_strdup(pwd);
+	}
+	else
+		add_envp(msh, "PWD", pwd);
+	free(pwd);
 	free(tmp);
 	return (0);
 }

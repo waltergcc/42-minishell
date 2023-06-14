@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 11:32:34 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:16:23 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	set_environment_and_paths(t_shell *msh)
 	create_msh_environment(msh, __environ);
 	get_paths(msh);
 	msh->home = ft_strdup(envp_content(msh, "HOME"));
+	msh->oldpwd = ft_strdup(envp_content(msh, "OLDPWD"));
 }
 
 int	is_first_char_valid(t_shell *msh)

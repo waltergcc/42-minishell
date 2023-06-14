@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/10 19:30:08 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:17:02 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	clean_exit(t_shell *msh, int mode)
 	free_split(msh->environment.content, YES);
 	free(msh->user_input);
 	free(msh->home);
+	free(msh->oldpwd);
 	if (mode == BUILTIN_EXIT)
 		exit(EXIT_SUCCESS);
 	else
