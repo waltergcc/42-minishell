@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 18:14:22 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 11:34:48 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	run_builtin(t_shell *msh)
 		exit_builtin(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "echo", 4))
 		echo_builtin(msh);
-	if (!ft_strncmp(msh->tokens[0], "cd", 2))
-		cd_builtin(msh, NULL);
 	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
 		pwd_builtin(msh);
 	if (!ft_strncmp(msh->tokens[0], "export", 6))
@@ -30,6 +28,13 @@ void	run_builtin(t_shell *msh)
 		unset_builtin(msh);
 	if (!ft_strncmp(msh->tokens[0], "env", 3))
 		env_builtin(msh);
+	if (!ft_strncmp(msh->tokens[0], "cd", 2))
+	{
+		if (msh->tokens[1] && msh->tokens[2])
+			print_error(ERROR_ARG, msh->tokens[0], 1);
+		else
+			cd_builtin(msh, NULL);
+	}
 }
 
 void	parse_input(t_shell *msh, char *s, int i)

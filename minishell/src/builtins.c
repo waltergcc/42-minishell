@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 16:58:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 11:09:43 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	env_builtin(t_shell *msh)
 	int	i;
 
 	i = 0;
+	if (msh->tokens[1])
+	{
+		print_error(ERROR_SUPPORT, "env", 1);
+		return ;
+	}
 	while (i < msh->environment.size)
 	{
 		ft_putstr_fd(msh->environment.key[i], msh->fdout);
