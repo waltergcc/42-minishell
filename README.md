@@ -185,8 +185,20 @@
 | ☑ | echo $notexist | print nothing |
 | ☑ | echo "$HOME" | print the home directory |
 
-## My Bash
-GNU bash, version 5.1.16(1)-release (x86_64-pc-linux-gnu)
+### Trouble Cases
+
+|   | Command | Expected result |
+|:-:|---------|-----------------|
+| ☐ | > | get an error |
+| ☐ | < | get an error |
+| ☐ | < . | get an error |
+| ☐ | >> | get an error |
+| ☐ | << | get an error |
+| ☐ | \| | get an error |
+| ☐ | << EOF | start a here document |
+| ☐ | > file | create a file |
+| ☐ | >> file | append to a file |
+| ☐ | d| | do nothing |
 
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester

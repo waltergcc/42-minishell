@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 11:31:13 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:25:05 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	check_redirections(t_shell *msh)
 			msh->fdin = STDIN_FILENO;
 			free(msh->file_error);
 			free(msh->part);
+			msh->part = NULL;
 			break ;
 		}
 		msh->id++;
@@ -46,6 +47,7 @@ void	run_command(t_shell *msh)
 		{
 			msh->is_first_time = NO;
 			free (msh->part);
+			msh->part = NULL;
 			return ;
 		}
 		get_tokens(msh);
@@ -87,6 +89,11 @@ void	close_control_flags(t_shell *msh)
 		close(msh->fdin);
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
+	if (msh->part)
+	{
+		free(msh->part);
+		msh->part = NULL;	
+	}
 	if (msh->cat_case)
 	{
 		msh->tokens = ft_split("cat", ' ');

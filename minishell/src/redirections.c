@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/13 14:37:51 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:24:27 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ void	redirect_out(t_shell *msh, int i)
 		free(file);
 		msh->is_last_redirection = YES;
 		if (msh->parse.id == 1)
+		{
 			free (msh->part);
+			msh->part = NULL;
+		}
 	}
 }

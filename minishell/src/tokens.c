@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 10:48:44 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:23:01 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 		fix_cut_with_space_char(msh);
 	free_tokens(token);
 	free(msh->part);
+	msh->part = NULL;
 }
 
 void	get_dollar_sign(t_shell *msh, t_token *token)
