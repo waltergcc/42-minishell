@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 13:36:55 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 00:45:38 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,21 @@ void	update_last_pwd(t_shell *msh)
 
 int	is_first_char_valid(t_shell *msh)
 {
-	int	i;
-
-	i = 0;
 	if ((msh->cmds[0][0] == '|') && msh->parse.id > 0)
 	{
 		print_error(ERROR_PIPE, NULL, 1);
-		return (0);
+		return (NO);
 	}
 	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
 	{
-		while ((msh->cmds[0][i] == '>' || msh->cmds[0][i] == '<'))
-			i++;
-		if (msh->cmds[0][i] == '\0' || (msh->cmds[0][0] == '<'
+		if (have_only_redirections(msh->cmds[0], -1) || (msh->cmds[0][0] == '<'
 			&& msh->cmds[0][1] != '<' && !msh->cmds[1]))
 		{
 			print_error(ERROR_REDIR, NULL, 1);
-			return (0);
+			return (NO);
 		}
 	}
-	return (1);
+	return (YES);
 }
 
 int	is_end_char_valid(char *s, int i)
@@ -87,8 +82,8 @@ int	is_end_char_valid(char *s, int i)
 		else
 			print_error(ERROR_REDIR, NULL, 2);
 		free(s);
-		return (0);
+		return (NO);
 	}
 	free(s);
-	return (1);
+	return (YES);
 }

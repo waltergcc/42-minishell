@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 13:39:01 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 00:24:20 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,28 @@ void	set_environment_and_paths(t_shell *msh)
 	msh->oldpwd = ft_strdup(envp_content(msh, "OLDPWD"));
 }
 
+int	have_only_redirections(char *s, int i)
+{
+	while (s[++i])
+		if (s[i] != '>' && s[i] != '<')
+			if (s[i] != ' ' && s[i] != '\t')
+				return (NO);
+	return (YES);
+}
+
+int	is_redirections_valid(t_shell *msh, int i)
+{
+	while (msh->cmds[++i])
+	{
+		if (have_only_redirections(msh->cmds[i], -1))
+		{
+			print_error(NULL, msh->cmds[i], 1);
+			return (NO);
+		}
+	}
+	return (YES);
+}
+
 int	main(void)
 {
 	t_shell	msh;
@@ -103,7 +125,8 @@ int	main(void)
 				&& is_end_char_valid(msh.user_input, 0))
 			{
 				parse_input(&msh, msh.user_input, -1);
-				if (is_first_char_valid(&msh))
+				if (is_first_char_valid(&msh)
+					&& is_redirections_valid(&msh, -1))
 					commands_manager(&msh, -1);
 				free_split(msh.cmds, NO);
 			}
