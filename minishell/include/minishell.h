@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 13:37:56 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 22:03:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define ERROR_ARG "too many arguments"
 # define ERROR_SUPPORT "Arguments and options aren't supported"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
+# define ERROR_SYNTAX "syntax error near unexpected token"
 
 extern int	g_exit;
 

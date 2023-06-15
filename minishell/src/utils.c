@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 23:13:44 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:31:49 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ void	free_export_builtin(char **tmp)
 void	print_error(char *msg, char *key, int exit_code)
 {
 	if (key)
-		printf("%s: %s: %s\n", ERROR_TITLE, key, msg);
+	{
+		if (msg)
+			printf("%s: %s: %s\n", ERROR_TITLE, key, msg);
+		else
+			printf("%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
+	}
 	else
 		printf("%s: %s\n", ERROR_TITLE, msg);
 	g_exit = exit_code;

@@ -200,6 +200,10 @@
 | ☐ | >> file | append to a file |
 | ☐ | d\| | get an error |
 | ☐ | ls \| wc \| | get an error |
+| ☐ | ls \| test < | get an error |
+| ☐ | ls \| test > | get an error |
+| ☐ | ls \| test >> | get an error |
+| ☐ | ls \| test << | get an error |
 | ☐ | ls \| cat << > \| wc | get an error |
 
 ### Used tests
