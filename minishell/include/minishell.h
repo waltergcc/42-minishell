@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 11:09:17 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:37:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define ERROR_TITLE "minishell"
 # define ERROR_FORK "fork error"
 # define ERROR_PIPE "syntax error near unexpected token `|'"
+# define ERROR_PROMPT "no support for pipe prompt"
 # define ERROR_DIR "No such file or directory"
 # define ERROR_CMD "command not found"
 # define ERROR_HOME "HOME not set"
@@ -194,6 +195,7 @@ int		is_first_char_valid(t_shell *msh);
 void	update_envinroment_pwds(t_shell *msh, char *to_update);
 void	update_last_pwd(t_shell *msh);
 int		have_only_spaces(char *s);
+int		is_end_char_valid(char *s, int i);
 
 /*clean_exit.c*/
 void	free_tokens(t_token *token);

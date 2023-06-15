@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 12:25:05 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:38:32 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	close_control_flags(t_shell *msh)
 	if (msh->part)
 	{
 		free(msh->part);
-		msh->part = NULL;	
+		msh->part = NULL;
 	}
 	if (msh->cat_case)
 	{

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 23:18:56 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:36:55 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,22 @@ int	is_first_char_valid(t_shell *msh)
 			return (0);
 		}
 	}
+	return (1);
+}
+
+int	is_end_char_valid(char *s, int i)
+{
+	s = ft_strtrim(s, " ");
+	i = ft_strlen(s) - 1;
+	if (s[i] == '|' || s[i] == '>' || s[i] == '<')
+	{
+		if (s[i] == '|')
+			print_error(ERROR_PROMPT, NULL, 2);
+		else
+			print_error(ERROR_REDIR, NULL, 2);
+		free(s);
+		return (0);
+	}
+	free(s);
 	return (1);
 }

@@ -198,7 +198,9 @@
 | ☐ | << EOF | start a here document |
 | ☐ | > file | create a file |
 | ☐ | >> file | append to a file |
-| ☐ | d| | do nothing |
+| ☐ | d\| | get an error |
+| ☐ | ls \| wc \| | get an error |
+| ☐ | ls \| cat << > \| wc | get an error |
 
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester

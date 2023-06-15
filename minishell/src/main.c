@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 11:34:48 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:39:01 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	main(void)
 		get_input(&msh);
 		if (msh.user_input)
 		{
-			if (ft_strlen(msh.user_input) && !have_only_spaces(msh.user_input))
+			if (ft_strlen(msh.user_input) && !have_only_spaces(msh.user_input)
+				&& is_end_char_valid(msh.user_input, 0))
 			{
 				parse_input(&msh, msh.user_input, -1);
 				if (is_first_char_valid(&msh))
