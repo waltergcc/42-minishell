@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:29:50 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:41:41 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,6 @@ void	set_environment_and_paths(t_shell *msh)
 	get_paths(msh, NULL, -1);
 	msh->home = ft_strdup(get_envinroment_content(msh, "HOME", -1));
 	msh->oldpwd = ft_strdup(get_envinroment_content(msh, "OLDPWD", -1));
-}
-
-int	have_only_redirections(char *s, int i)
-{
-	while (s[++i])
-		if (s[i] != '>' && s[i] != '<')
-			if (s[i] != ' ' && s[i] != '\t')
-				return (NO);
-	return (YES);
-}
-
-int	is_redirections_valid(t_shell *msh, int i)
-{
-	while (msh->cmds[++i])
-	{
-		if (have_only_redirections(msh->cmds[i], -1))
-		{
-			print_error(NULL, msh->cmds[i], 1);
-			return (NO);
-		}
-	}
-	return (YES);
 }
 
 int	main(void)

@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/14 16:59:14 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/16 01:40:32 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = src/main.c \
 		src/tokens.c src/tokens_utils.c \
 		src/builtins.c src/builtins_utils.c src/builtins_utils_2.c \
 		src/utils.c \
-		src/clean_exit.c
+		src/clean_exit.c \
+		src/tmp.c
 
 OBJS = ${SRC:.c=.o}
 

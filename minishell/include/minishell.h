@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:27:47 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:40:46 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct s_shell
 	int		cat_case;
 }			t_shell;
 
-/*need_src.c*/
+/*tmp.c*/
 int		have_only_redirections(char *s, int i);
 int		is_redirections_valid(t_shell *msh, int i);
 
