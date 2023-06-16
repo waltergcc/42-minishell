@@ -124,7 +124,7 @@
 | ☑ | cd /usr/bin | go to the /usr/bin directory |
 | ☑ | cd | go to the home directory |
 | ☑ | cd notexist | get an error |
-
+| ☑ | cd - | go to the previous directory |
 
 ### pwd
 
@@ -184,6 +184,7 @@
 | ☑ | echo $USER | print the username |
 | ☑ | echo $notexist | print nothing |
 | ☑ | echo "$HOME" | print the home directory |
+| ☑ | echo ~ | print the home directory |
 
 ### Trouble Cases
 
