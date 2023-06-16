@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:19:28 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:33:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@ void	key_content_malloc(t_envp *envp, int size)
 		exit(EXIT_FAILURE);
 }
 
-char	*envp_content(t_shell *msh, char *key)
+char	*get_envinroment_content(t_shell *msh, char *key, int i)
 {
-	int	i;
-
-	i = -1;
 	while (msh->environment.key[++i])
 	{
 		if (!ft_strcmp(msh->environment.key[i], key))
@@ -40,7 +37,7 @@ char	*envp_content(t_shell *msh, char *key)
 
 int	get_paths(t_shell *msh, char *tmp, int i)
 {
-	tmp = ft_strdup(envp_content(msh, "PATH"));
+	tmp = ft_strdup(get_envinroment_content(msh, "PATH", -1));
 	if (!tmp)
 		return (0);
 	msh->paths = ft_split(tmp, ':');

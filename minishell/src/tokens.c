@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 12:23:01 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:30:18 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	get_dollar_sign(t_shell *msh, t_token *token)
 	free(token->new);
 	token->position = search_position(msh->part + token->i + 1, ' ', token);
 	key = ft_substr(msh->part, token->i + 1, token->position);
-	if (msh->part[token->i + 1] != '?' && envp_content(msh, key))
-		content = ft_strdup(envp_content(msh, key));
+	if (msh->part[token->i + 1] != '?' && get_envinroment_content(msh, key, -1))
+		content = ft_strdup(get_envinroment_content(msh, key, -1));
 	else if (msh->part[token->i + 1] == '?')
 		content = ft_itoa(g_exit);
 	else

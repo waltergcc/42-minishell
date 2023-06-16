@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 00:45:38 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:29:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	update_envinroment_pwds(t_shell *msh, char *to_update)
 
 	pwd = NULL;
 	pwd = getcwd(pwd, 2000);
-	if (envp_content(msh, to_update))
+	if (get_envinroment_content(msh, to_update, -1))
 	{
 		free(msh->environment.content[msh->environment.index]);
 		msh->environment.content[msh->environment.index] = ft_strdup(pwd);

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 11:09:43 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:29:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	cd_builtin(t_shell *msh, char *tmp)
 		tmp = ft_strdup(msh->token.print);
 	else
 	{
-		if (envp_content(msh, "HOME"))
-			tmp = ft_strdup(envp_content(msh, "HOME"));
+		if (get_envinroment_content(msh, "HOME", -1))
+			tmp = ft_strdup(get_envinroment_content(msh, "HOME", -1));
 		else
 		{
 			print_error(ERROR_HOME, "cd", 1);
@@ -110,7 +110,7 @@ void	unset_builtin(t_shell *msh)
 	i = 1;
 	while (msh->tokens[i])
 	{
-		if (envp_content(msh, msh->tokens[i]))
+		if (get_envinroment_content(msh, msh->tokens[i], -1))
 		{
 			remove_envp(msh);
 			if (!ft_strncmp(msh->tokens[i], "PATH", 4))

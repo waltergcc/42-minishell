@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:17:03 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:29:20 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	add_envp(t_shell *msh, char *new_key, char *new_content)
 
 void	check_envp(t_shell *msh, char **new, int i)
 {
-	if (envp_content(msh, new[0]))
+	if (get_envinroment_content(msh, new[0], -1))
 	{
 		free(msh->environment.content[msh->environment.index]);
 		msh->environment.content[msh->environment.index] = ft_strdup(new[1]);
