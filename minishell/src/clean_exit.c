@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:46:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:09:59 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,39 +61,4 @@ void	clean_exit(t_shell *msh, int mode)
 		exit(g_exit);
 }
 
-int	is_valid_exit(t_shell *msh, int i, int tokens)
-{
-	if (tokens > 2)
-	{
-		print_error(ERROR_ARG, "exit", 1);
-		return (NO);
-	}
-	while (msh->tokens[1][++i])
-	{
-		if (i == 0 && (msh->tokens[1][0] == '-' || msh->tokens[1][0] == '+'))
-			i++;
-		if (!ft_isdigit(msh->tokens[1][i]))
-		{
-			print_error(ERROR_NUM, "exit", 1);
-			return (NO);
-		}
-	}
-	g_exit = ft_atoi(msh->tokens[1]);
-	return (YES);
-}
 
-void	execute_exit(t_shell *msh, int i)
-{
-	while (msh->tokens[i])
-		i++;
-	if (i > 1 && !is_valid_exit(msh, -1, i))
-		return ;
-	free_split(msh->cmds, NO);
-	free_split(msh->tokens, YES);
-	free(msh->token.print);
-	printf("exit\n");
-	if (i == 1)
-		clean_exit(msh, BUILTIN_EXIT);
-	else
-		clean_exit(msh, EXIT_ARG);
-}

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 03:09:04 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:17:02 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,7 @@ void	implicit_cat(t_shell *msh, int i)
 	msh->cmds[i] = NULL;
 }
 
-void	free_export_builtin(char **tmp)
-{
-	free(tmp[0]);
-	free(tmp[1]);
-	free(tmp);
-}
+
 
 void	print_error(char *msg, char *key, int exit_code)
 {

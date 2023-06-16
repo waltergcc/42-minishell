@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:35:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:21:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,9 @@ typedef struct s_shell
 /*tmp.c*/
 int		have_only_redirections(char *s, int i);
 int		redirections_are_valid(t_shell *msh, int i);
+void	check_if_is_builtin(t_shell *msh, char *cmd);
+int		first_cmd_valid(t_shell *msh);
+int		is_valid_input(char *s, int end);
 
 /*main.c*/
 void	execute_builtin(t_shell *msh);
@@ -143,7 +146,6 @@ void	check_first_cmd(t_shell *msh);
 void	start_parse_values(t_shell *msh);
 int		split_input_in_cmds(t_shell *msh, char *s, int i);
 void	print_error(char *msg, char *key, int exit_code);
-void	free_export_builtin(char **tmp);
 void	implicit_cat(t_shell *msh, int i);
 
 /*commands.c*/
@@ -181,31 +183,29 @@ int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 void	fix_cut_with_space_char(t_shell *msh);
 
-/*builtins.c*/
+/*builtins_basic.c*/
 void	execute_echo(t_shell *msh);
 int		execute_cd(t_shell *msh, char *tmp);
+void	execute_exit(t_shell *msh, int i);
 void	execute_env(t_shell *msh, int i);
+void	execute_pwd(t_shell *msh, char *pwd);
+
+/*builtins_complex.c*/
 void	execute_export(t_shell *msh, int i, char **tmp);
 void	execute_unset(t_shell *msh, int i);
-
-/*builtins_utils.c*/
-void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	check_and_set_envinroment_var(t_shell *msh, char **new, int i);
 void	add_environment(t_shell *msh, char *new_key, char *new_content, int i);
 void	remove_environment_var(t_shell *msh, int i, int j);
-void	execute_pwd(t_shell *msh, char *pwd);
 
-/*builtins_utils_2.c*/
-int		first_cmd_valid(t_shell *msh);
+/*builtins_utils.c*/
 void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd);
 void	update_last_pwd(t_shell *msh, char *pwd);
-int		is_valid_input(char *s, int end);
+int		is_valid_exit(t_shell *msh, int i, int tokens);
+void	free_export_builtin(char **tmp);
 
 /*clean_exit.c*/
 void	free_tokens(t_token *token);
 void	free_split(char **str, int free_str);
-int		is_valid_exit(t_shell *msh, int i, int tokens);
 void	clean_exit(t_shell *msh, int mode);
-void	execute_exit(t_shell *msh, int i);
 
 #endif

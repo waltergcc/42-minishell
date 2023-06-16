@@ -5,97 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:33:39 by wcorrea-         ###   ########.fr       */
+/*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
+/*   Updated: 2023/06/16 11:23:48 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_if_is_builtin(t_shell *msh, char *cmd)
+void	free_export_builtin(char **tmp)
 {
-	int	size;
-
-	size = ft_strlen(cmd);
-	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
-		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
-		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
-		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
-		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
-		msh->is_builtin = YES;
-	else
-		msh->is_builtin = NO;
+	free(tmp[0]);
+	free(tmp[1]);
+	free(tmp);
 }
 
-void	execute_pwd(t_shell *msh, char *pwd)
+void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd)
 {
 	pwd = getcwd(pwd, 2000);
-	ft_putendl_fd(pwd, msh->fdout);
-	if (!pwd)
-		g_exit = 1;
+	if (get_envinroment_content(msh, to_update, -1))
+	{
+		free(msh->environment.content[msh->environment.index]);
+		msh->environment.content[msh->environment.index] = ft_strdup(pwd);
+	}
 	else
-		g_exit = 0;
+		add_environment(msh, to_update, pwd, 0);
 	free(pwd);
 }
 
-void	remove_environment_var(t_shell *msh, int i, int j)
+void	update_last_pwd(t_shell *msh, char *pwd)
 {
-	msh->environment.size--;
-	key_content_malloc(&msh->tmp_envp, msh->environment.size);
-	while (i < msh->environment.size + 1)
+	free(msh->oldpwd);
+	pwd = getcwd(pwd, 2000);
+	msh->oldpwd = ft_strdup(pwd);
+	free(pwd);
+}
+
+int	is_valid_exit(t_shell *msh, int i, int tokens)
+{
+	if (tokens > 2)
 	{
-		if (i != msh->environment.index)
+		print_error(ERROR_ARG, "exit", 1);
+		return (NO);
+	}
+	while (msh->tokens[1][++i])
+	{
+		if (i == 0 && (msh->tokens[1][0] == '-' || msh->tokens[1][0] == '+'))
+			i++;
+		if (!ft_isdigit(msh->tokens[1][i]))
 		{
-			msh->tmp_envp.key[j] = ft_strdup(msh->environment.key[i]);
-			msh->tmp_envp.content[j] = ft_strdup(msh->environment.content[i]);
-			j++;
+			print_error(ERROR_NUM, "exit", 1);
+			return (NO);
 		}
-		i++;
 	}
-	msh->tmp_envp.key[j] = NULL;
-	msh->tmp_envp.content[j] = NULL;
-	free_split(msh->environment.key, YES);
-	free_split(msh->environment.content, YES);
-	msh->environment.key = msh->tmp_envp.key;
-	msh->environment.content = msh->tmp_envp.content;
-}
-
-void	add_environment(t_shell *msh, char *new_key, char *new_content, int i)
-{
-	msh->environment.size++;
-	key_content_malloc(&msh->tmp_envp, msh->environment.size);
-	while (i < msh->environment.size - 1)
-	{
-		msh->tmp_envp.key[i] = ft_strdup(msh->environment.key[i]);
-		msh->tmp_envp.content[i] = ft_strdup(msh->environment.content[i]);
-		i++;
-	}
-	msh->tmp_envp.key[i] = ft_strdup(new_key);
-	msh->tmp_envp.content[i] = ft_strdup(new_content);
-	i++;
-	msh->tmp_envp.key[i] = NULL;
-	msh->tmp_envp.content[i] = NULL;
-	free_split(msh->environment.key, YES);
-	free_split(msh->environment.content, YES);
-	msh->environment.key = msh->tmp_envp.key;
-	msh->environment.content = msh->tmp_envp.content;
-}
-
-void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
-{
-	if (get_envinroment_content(msh, new[0], -1))
-	{
-		free(msh->environment.content[msh->environment.index]);
-		msh->environment.content[msh->environment.index] = ft_strdup(new[1]);
-	}
-	else
-		add_environment(msh, new[0], new[1], 0);
-	if (!ft_strncmp(msh->tokens[i], "PATH", 4))
-	{
-		if (msh->paths)
-			free_split(msh->paths, YES);
-		get_paths(msh, NULL, -1);
-	}
+	g_exit = ft_atoi(msh->tokens[1]);
+	return (YES);
 }
