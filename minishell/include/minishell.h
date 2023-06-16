@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:21:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:19:30 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,23 +115,17 @@ typedef struct s_shell
 	int		cat_case;
 }			t_shell;
 
-/*tmp.c*/
+/*input.c*/
+void	get_user_input(t_shell *msh, char *prompt);
 int		have_only_redirections(char *s, int i);
 int		redirections_are_valid(t_shell *msh, int i);
-void	check_if_is_builtin(t_shell *msh, char *cmd);
 int		first_cmd_valid(t_shell *msh);
 int		is_valid_input(char *s, int end);
 
-/*main.c*/
-void	execute_builtin(t_shell *msh);
-void	parse_input(t_shell *msh, char *s, int i);
-void	get_user_input(t_shell *msh, char *prompt);
-void	set_environment_and_paths(t_shell *msh);
-
 /*environment.c*/
+void	set_environment_and_paths(t_shell *msh);
 void	create_environment(t_shell *msh, char **envp, char **tmp, int i);
 void	get_envinroment_size(t_shell *msh, int i);
-int		get_paths(t_shell *msh, char *tmp, int i);
 char	*get_envinroment_content(t_shell *msh, char *key, int i);
 void	key_content_malloc(t_envp *envp, int size);
 
@@ -140,27 +134,31 @@ void	set_signal(int sg, t_shell *msh);
 void	reset_prompt(int sg);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
-void	check_first_cmd(t_shell *msh);
 
-/*utils.c*/
+/*parse.c*/
+void	parse_input(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 int		split_input_in_cmds(t_shell *msh, char *s, int i);
-void	print_error(char *msg, char *key, int exit_code);
-void	implicit_cat(t_shell *msh, int i);
 
-/*commands.c*/
+/*commands_manager.c*/
 void	commands_manager(t_shell *msh, int i);
 void	init_control_flags(t_shell *msh, int i);
 void	command_handler(t_shell *msh);
 void	check_redirections(t_shell *msh);
 void	close_control_flags(t_shell *msh);
 
-/*commands_utils.c*/
+/*commands_execute.c*/
+void	execute_builtin(t_shell *msh);
 int		file_descriptor_handler(int in, int out);
 void	execute_relative_command(t_shell *msh, int i, char *cmd);
-void	print_error_if_command_fail(t_shell *msh);
 void	execute_command(t_shell *msh, int i, char *cmd);
 void	create_child_process(t_shell *msh, int in, int out);
+
+/*commands_utils.c*/
+void	check_first_cmd(t_shell *msh);
+void	implicit_cat(t_shell *msh, int i);
+void	check_if_is_builtin(t_shell *msh, char *cmd);
+void	print_error_if_command_fail(t_shell *msh);
 
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i);
@@ -177,8 +175,8 @@ void	close_current_tokens(t_shell *msh, t_token *token);
 void	check_quotes(t_shell *msh, t_token *token);
 
 /*tokens_utils.c*/
-int		search_position(char *s, char c, t_token *token);
 t_token	*create_token(t_shell *msh);
+int		search_position(char *s, char c, t_token *token);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 void	fix_cut_with_space_char(t_shell *msh);
@@ -203,9 +201,11 @@ void	update_last_pwd(t_shell *msh, char *pwd);
 int		is_valid_exit(t_shell *msh, int i, int tokens);
 void	free_export_builtin(char **tmp);
 
-/*clean_exit.c*/
-void	free_tokens(t_token *token);
+/*utils.c*/
+void	print_error(char *msg, char *key, int exit_code);
 void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
+int		get_paths(t_shell *msh, char *tmp, int i);
+void	free_tokens(t_token *token);
 
 #endif

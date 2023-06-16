@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 01:37:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:15:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:54:32 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,6 @@ int	redirections_are_valid(t_shell *msh, int i)
 		}
 	}
 	return (YES);
-}
-
-void	check_if_is_builtin(t_shell *msh, char *cmd)
-{
-	int	size;
-
-	size = ft_strlen(cmd);
-	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
-		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
-		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
-		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
-		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
-		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
-		msh->is_builtin = YES;
-	else
-		msh->is_builtin = NO;
 }
 
 int	first_cmd_valid(t_shell *msh)
@@ -88,4 +71,15 @@ int	is_valid_input(char *s, int end)
 	}
 	free(s);
 	return (YES);
+}
+
+void	get_user_input(t_shell *msh, char *prompt)
+{
+	prompt = getcwd(prompt, 2000);
+	prompt = ft_strjoin(prompt, ":$ ");
+	set_signal(STOP_RESTORE, NULL);
+	msh->user_input = readline(prompt);
+	if (msh->user_input)
+		add_history(msh->user_input);
+	free(prompt);
 }

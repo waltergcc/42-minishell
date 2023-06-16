@@ -5,29 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:17:02 by wcorrea-         ###   ########.fr       */
+/*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
+/*   Updated: 2023/06/16 12:19:05 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	implicit_cat(t_shell *msh, int i)
+void	free_split(char **str, int free_str)
 {
-	char	*tmp[50];
+	int	i;
 
-	tmp[0] = ft_strdup("cat");
-	while (msh->cmds[++i])
-		tmp[i + 1] = ft_strdup(msh->cmds[i]);
-	tmp[i + 1] = NULL;
 	i = -1;
-	free_split(msh->cmds, NO);
-	while (tmp[++i])
-		msh->cmds[i] = tmp[i];
-	msh->cmds[i] = NULL;
+	while (str[++i])
+	{
+		free(str[i]);
+		str[i] = NULL;
+	}
+	if (free_str)
+		free(str);
 }
 
-
+void	free_tokens(t_token *token)
+{
+	if (token->end)
+	{
+		free(token->end);
+		token->end = NULL;
+	}
+	if (token->new)
+	{
+		free(token->new);
+		token->new = NULL;
+	}
+	if (token->print)
+	{
+		free(token->print);
+		token->print = NULL;
+	}
+	free(token);
+}
 
 void	print_error(char *msg, char *key, int exit_code)
 {
@@ -43,39 +60,29 @@ void	print_error(char *msg, char *key, int exit_code)
 	g_exit = exit_code;
 }
 
-int	split_input_in_cmds(t_shell *msh, char *s, int i)
+int	get_paths(t_shell *msh, char *tmp, int i)
 {
-	if (s[i] == '|' || s[i] == '<' || s[i] == '>')
-	{
-		if (s[i] == '|' && msh->parse.q == UNLOCK)
-			msh->parse.pipes++;
-		if (msh->parse.q == UNLOCK && msh->parse.size > 0
-			&& ((s[i] == '|' && i > 0) || (s[i] != '|' && i > 1)))
-		{
-			msh->cmds[msh->parse.id++] = ft_substr(s,
-					msh->parse.start, msh->parse.size);
-			msh->parse.start = i;
-			msh->parse.size = 0;
-			if (s[i] == '>')
-				msh->is_last_redirection = YES;
-			else
-				msh->is_last_redirection = NO;
-			if (s[i] == s[i + 1])
-			{
-				i++;
-				msh->parse.size = 1;
-			}
-		}
-	}
-	return (i);
+	tmp = ft_strdup(get_envinroment_content(msh, "PATH", -1));
+	if (!tmp)
+		return (0);
+	msh->paths = ft_split(tmp, ':');
+	while (msh->paths && msh->paths[++i])
+		msh->paths[i] = ft_strjoin(msh->paths[i], "/");
+	free(tmp);
+	return (1);
 }
 
-void	start_parse_values(t_shell *msh)
+void	clean_exit(t_shell *msh, int mode)
 {
-	msh->parse.id = 0;
-	msh->parse.start = 0;
-	msh->parse.size = 0;
-	msh->parse.pipes = 0;
-	msh->parse.q = UNLOCK;
-	msh->is_last_redirection = NO;
+	if (msh->paths)
+		free_split(msh->paths, YES);
+	free_split(msh->environment.key, YES);
+	free_split(msh->environment.content, YES);
+	free(msh->user_input);
+	free(msh->home);
+	free(msh->oldpwd);
+	if (mode == BUILTIN_EXIT)
+		exit(EXIT_SUCCESS);
+	else
+		exit(g_exit);
 }

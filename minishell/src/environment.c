@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:33:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:57:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,6 @@ char	*get_envinroment_content(t_shell *msh, char *key, int i)
 	return (NULL);
 }
 
-int	get_paths(t_shell *msh, char *tmp, int i)
-{
-	tmp = ft_strdup(get_envinroment_content(msh, "PATH", -1));
-	if (!tmp)
-		return (0);
-	msh->paths = ft_split(tmp, ':');
-	while (msh->paths && msh->paths[++i])
-		msh->paths[i] = ft_strjoin(msh->paths[i], "/");
-	free(tmp);
-	return (1);
-}
-
 void	get_envinroment_size(t_shell *msh, int i)
 {
 	while (msh->environment.envp[i])
@@ -72,4 +60,17 @@ void	create_environment(t_shell *msh, char **envp, char **tmp, int i)
 	}
 	msh->environment.key[i] = NULL;
 	msh->environment.content[i] = NULL;
+}
+
+void	set_environment_and_paths(t_shell *msh)
+{
+	g_exit = 0;
+	msh->is_last_redirection = NO;
+	msh->error_flag = NO;
+	msh->has_flag_n = NO;
+	msh->tokens = (char **) NULL;
+	create_environment(msh, __environ, NULL, -1);
+	get_paths(msh, NULL, -1);
+	msh->home = ft_strdup(get_envinroment_content(msh, "HOME", -1));
+	msh->oldpwd = ft_strdup(get_envinroment_content(msh, "OLDPWD", -1));
 }

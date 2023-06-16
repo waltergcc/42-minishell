@@ -5,48 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:21:40 by wcorrea-         ###   ########.fr       */
+/*   Created: 2023/06/16 12:02:02 by wcorrea-          #+#    #+#             */
+/*   Updated: 2023/06/16 12:04:27 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	file_descriptor_handler(int in, int out)
+void	check_if_is_builtin(t_shell *msh, char *cmd)
 {
-	if (in != STDIN_FILENO)
-	{
-		dup2(in, STDIN_FILENO);
-		close(in);
-	}
-	if (out != STDOUT_FILENO)
-	{
-		dup2(out, STDOUT_FILENO);
-		close(out);
-	}
-	return (0);
+	int	size;
+
+	size = ft_strlen(cmd);
+	if ((!ft_strncmp(cmd, "echo", 4) && size == 4)
+		|| (!ft_strncmp(cmd, "cd", 2) && size == 2)
+		|| (!ft_strncmp(cmd, "pwd", 3) && size == 3)
+		|| (!ft_strncmp(cmd, "export", 6) && size == 6)
+		|| (!ft_strncmp(cmd, "unset", 5) && size == 5)
+		|| (!ft_strncmp(cmd, "env", 3) && size == 3)
+		|| (!ft_strncmp(cmd, "exit", 4) && size == 4))
+		msh->is_builtin = YES;
+	else
+		msh->is_builtin = NO;
 }
 
-void	execute_relative_command(t_shell *msh, int i, char *cmd)
+void	implicit_cat(t_shell *msh, int i)
 {
-	char	*tmp;
+	char	*tmp[50];
 
-	if (ft_strlen(msh->token.print) && msh->tokens[i]
-		&& (msh->tokens[i][0] == QUOTE || msh->tokens[i][0] == D_QUOTE)
-		&& ft_strncmp(msh->tokens[i - 1], "sed", 3))
+	tmp[0] = ft_strdup("cat");
+	while (msh->cmds[++i])
+		tmp[i + 1] = ft_strdup(msh->cmds[i]);
+	tmp[i + 1] = NULL;
+	i = -1;
+	free_split(msh->cmds, NO);
+	while (tmp[++i])
+		msh->cmds[i] = tmp[i];
+	msh->cmds[i] = NULL;
+}
+
+void	check_first_cmd(t_shell *msh)
+{
+	if ((msh->cmds[0][0] == '>' && !msh->cmds[1])
+		|| (!ft_strncmp(msh->cmds[0], "<< ", 3) && msh->cmds[0][3] != '\0')
+		|| (!ft_strncmp(msh->cmds[0], "<<", 2) && msh->cmds[0][2] != '\0'))
 	{
-		tmp = ft_strtrim(msh->token.print, STR_D_QUOTE);
-		free_split(&msh->tokens[i + 1], NO);
+		implicit_cat(msh, -1);
+		msh->parse.id++;
+		msh->control = COMMON;
 	}
-	else if (!ft_strncmp(msh->tokens[i - 1], "sed", 3))
-		tmp = ft_strtrim(msh->tokens[i], STR_QUOTE);
-	else
-		tmp = ft_strtrim(msh->tokens[i], STR_D_QUOTE);
-	free(msh->tokens[i]);
-	msh->tokens[i] = tmp;
-	cmd = ft_strjoin(cmd, msh->tokens[i - 1]);
-	g_exit = execve(cmd, &msh->tokens[i - 1], msh->environment.envp);
-	free(cmd);
+	else if (msh->cmds[0][0] == '>' && msh->cmds[1] && msh->cmds[1][0] == '|')
+		msh->control = SPECIAL;
+	else if (msh->cmds[0][0] != '>')
+		msh->control = COMMON;
 }
 
 void	print_error_if_command_fail(t_shell *msh)
@@ -58,56 +69,4 @@ void	print_error_if_command_fail(t_shell *msh)
 		print_error(ERROR_CMD, msh->tokens[0], 127);
 	else if (msh->tokens[1] && msh->tokens[0][0] != '<')
 		print_error(ERROR_CMD, msh->tokens[0], 127);
-}
-
-void	execute_command(t_shell *msh, int i, char *cmd_path)
-{
-	if (msh->tokens[0])
-	{
-		g_exit = execve(msh->tokens[0], &msh->tokens[0], msh->environment.envp);
-		while (msh->paths && msh->paths[i] != NULL)
-		{	
-			cmd_path = ft_strdup(msh->paths[i]);
-			if (msh->tokens[0][0] == '|' && msh->tokens[1])
-			{
-				if (!msh->tokens[0][1])
-					execute_relative_command(msh, 2, cmd_path);
-				else
-				{
-					msh->tokens[0] = &msh->tokens[0][1];
-					execute_relative_command(msh, 1, cmd_path);
-				}
-			}
-			else
-				execute_relative_command(msh, 1, cmd_path);
-			i++;
-		}
-		print_error_if_command_fail(msh);
-	}
-}
-
-void	create_child_process(t_shell *msh, int in, int out)
-{
-	pid_t	pid;
-
-	if (msh->is_builtin && msh->tokens[0])
-		execute_builtin(msh);
-	else
-	{
-		pid = fork();
-		set_signal(STOP_QUIT, NULL);
-		if (pid < 0)
-			print_error(ERROR_FORK, NULL, 127);
-		else if (pid == 0)
-		{
-			g_exit = 127;
-			file_descriptor_handler(in, out);
-			execute_command(msh, 0, "");
-			exit(g_exit);
-		}
-		else
-			waitpid(pid, &g_exit, WUNTRACED);
-		if (WIFEXITED(g_exit))
-			g_exit = WEXITSTATUS(g_exit);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:26:51 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 11:33:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:49:50 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,4 @@ void	set_signal(int sg, t_shell *msh)
 		printf("exit\n");
 		clean_exit(msh, BUILTIN_EXIT);
 	}
-}
-
-void	check_first_cmd(t_shell *msh)
-{
-	if ((msh->cmds[0][0] == '>' && !msh->cmds[1])
-		|| (!ft_strncmp(msh->cmds[0], "<< ", 3) && msh->cmds[0][3] != '\0')
-		|| (!ft_strncmp(msh->cmds[0], "<<", 2) && msh->cmds[0][2] != '\0'))
-	{
-		implicit_cat(msh, -1);
-		msh->parse.id++;
-		msh->control = COMMON;
-	}
-	else if (msh->cmds[0][0] == '>' && msh->cmds[1] && msh->cmds[1][0] == '|')
-		msh->control = SPECIAL;
-	else if (msh->cmds[0][0] != '>')
-		msh->control = COMMON;
 }
