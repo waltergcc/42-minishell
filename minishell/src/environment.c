@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:09:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:19:28 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,12 @@ char	*envp_content(t_shell *msh, char *key)
 	return (NULL);
 }
 
-int	get_paths(t_shell *msh)
+int	get_paths(t_shell *msh, char *tmp, int i)
 {
-	int		i;
-	char	*tmp;
-
 	tmp = ft_strdup(envp_content(msh, "PATH"));
 	if (!tmp)
 		return (0);
 	msh->paths = ft_split(tmp, ':');
-	i = -1;
 	while (msh->paths && msh->paths[++i])
 		msh->paths[i] = ft_strjoin(msh->paths[i], "/");
 	free(tmp);

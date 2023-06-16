@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 00:58:19 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:13:25 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	set_environment_and_paths(t_shell *msh)
 	msh->has_flag_n = NO;
 	msh->tokens = (char **) NULL;
 	create_environment(msh, __environ, NULL, -1);
-	get_paths(msh);
+	get_paths(msh, NULL, -1);
 	msh->home = ft_strdup(envp_content(msh, "HOME"));
 	msh->oldpwd = ft_strdup(envp_content(msh, "OLDPWD"));
 }

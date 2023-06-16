@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:06:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:12:05 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	set_environment_and_paths(t_shell *msh);
 /*environment.c*/
 void	create_environment(t_shell *msh, char **envp, char **tmp, int i);
 void	get_envinroment_size(t_shell *msh, int i);
-int		get_paths(t_shell *msh);
+int		get_paths(t_shell *msh, char *tmp, int i);
 char	*envp_content(t_shell *msh, char *key);
 void	key_content_malloc(t_envp *envp, int size);
 

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:06:53 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:17:03 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ void	check_envp(t_shell *msh, char **new, int i)
 	{
 		if (msh->paths)
 			free_split(msh->paths, YES);
-		get_paths(msh);
+		get_paths(msh, NULL, -1);
 	}
 }
