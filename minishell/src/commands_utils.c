@@ -6,13 +6,13 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/09 12:39:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:21:40 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	fd_handler(int in, int out)
+int	file_descriptor_handler(int in, int out)
 {
 	if (in != STDIN_FILENO)
 	{
@@ -27,7 +27,7 @@ int	fd_handler(int in, int out)
 	return (0);
 }
 
-void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd)
+void	execute_relative_command(t_shell *msh, int i, char *cmd)
 {
 	char	*tmp;
 
@@ -49,7 +49,7 @@ void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd)
 	free(cmd);
 }
 
-void	execve_error(t_shell *msh)
+void	print_error_if_command_fail(t_shell *msh)
 {
 	g_exit = 127;
 	if (msh->tokens[0][0] == '.' && msh->tokens[0][1] == '/')
@@ -60,7 +60,7 @@ void	execve_error(t_shell *msh)
 		print_error(ERROR_CMD, msh->tokens[0], 127);
 }
 
-void	execve_pipe(t_shell *msh, int i, char *cmd_path)
+void	execute_command(t_shell *msh, int i, char *cmd_path)
 {
 	if (msh->tokens[0])
 	{
@@ -71,27 +71,27 @@ void	execve_pipe(t_shell *msh, int i, char *cmd_path)
 			if (msh->tokens[0][0] == '|' && msh->tokens[1])
 			{
 				if (!msh->tokens[0][1])
-					handle_spaces_and_execve(msh, 2, cmd_path);
+					execute_relative_command(msh, 2, cmd_path);
 				else
 				{
 					msh->tokens[0] = &msh->tokens[0][1];
-					handle_spaces_and_execve(msh, 1, cmd_path);
+					execute_relative_command(msh, 1, cmd_path);
 				}
 			}
 			else
-				handle_spaces_and_execve(msh, 1, cmd_path);
+				execute_relative_command(msh, 1, cmd_path);
 			i++;
 		}
-		execve_error(msh);
+		print_error_if_command_fail(msh);
 	}
 }
 
-void	exec_process(t_shell *msh, int in, int out)
+void	create_child_process(t_shell *msh, int in, int out)
 {
 	pid_t	pid;
 
 	if (msh->is_builtin && msh->tokens[0])
-		run_builtin(msh);
+		execute_builtin(msh);
 	else
 	{
 		pid = fork();
@@ -100,9 +100,9 @@ void	exec_process(t_shell *msh, int in, int out)
 			print_error(ERROR_FORK, NULL, 127);
 		else if (pid == 0)
 		{
-			fd_handler(in, out);
 			g_exit = 127;
-			execve_pipe(msh, 0, "");
+			file_descriptor_handler(in, out);
+			execute_command(msh, 0, "");
 			exit(g_exit);
 		}
 		else

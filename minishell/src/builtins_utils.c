@@ -6,13 +6,13 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:29:20 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:37:11 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	is_builtin(t_shell *msh, char *cmd)
+void	check_if_is_builtin(t_shell *msh, char *cmd)
 {
 	int	size;
 

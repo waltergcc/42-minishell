@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 03:09:04 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:37:11 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_shell
 	char	*home;
 	char	*oldpwd;
 	char	*user_input;
-	char	*part;
+	char	*tmp_cmd;
 	char	*file_name;
 	char	*file_error;
 	int		id;
@@ -120,7 +120,7 @@ int		have_only_redirections(char *s, int i);
 int		redirections_are_valid(t_shell *msh, int i);
 
 /*main.c*/
-void	run_builtin(t_shell *msh);
+void	execute_builtin(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
 void	get_user_input(t_shell *msh, char *prompt);
 void	set_environment_and_paths(t_shell *msh);
@@ -149,16 +149,16 @@ void	implicit_cat(t_shell *msh, int i);
 /*commands.c*/
 void	commands_manager(t_shell *msh, int i);
 void	init_control_flags(t_shell *msh, int i);
-void	run_command(t_shell *msh);
+void	command_handler(t_shell *msh);
 void	check_redirections(t_shell *msh);
 void	close_control_flags(t_shell *msh);
 
 /*commands_utils.c*/
-int		fd_handler(int in, int out);
-void	handle_spaces_and_execve(t_shell *msh, int i, char *cmd);
-void	execve_error(t_shell *msh);
-void	execve_pipe(t_shell *msh, int i, char *cmd);
-void	exec_process(t_shell *msh, int in, int out);
+int		file_descriptor_handler(int in, int out);
+void	execute_relative_command(t_shell *msh, int i, char *cmd);
+void	print_error_if_command_fail(t_shell *msh);
+void	execute_command(t_shell *msh, int i, char *cmd);
+void	create_child_process(t_shell *msh, int in, int out);
 
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i);
@@ -189,7 +189,7 @@ void	export_builtin(t_shell *msh, int i);
 void	unset_builtin(t_shell *msh);
 
 /*builtins_utils.c*/
-void	is_builtin(t_shell *msh, char *cmd);
+void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	check_envp(t_shell *msh, char **new, int i);
 void	add_envp(t_shell *msh, char *new_key, char *new_content);
 void	remove_envp(t_shell *msh);

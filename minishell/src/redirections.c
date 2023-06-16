@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 12:24:27 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:32:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void	redirect_in(t_shell *msh, int i)
 			if (msh->fdin == -1 && !msh->file_error)
 				msh->file_error = ft_strdup(file[0]);
 		}
-		tmp = ft_strtrim(msh->part, " ");
+		tmp = ft_strtrim(msh->tmp_cmd, " ");
 		if (msh->parse.id == 1 || (tmp[0] == '|' && ft_strlen(tmp) == 1))
 		{
-			free(msh->part);
-			msh->part = new_command(0, file);
+			free(msh->tmp_cmd);
+			msh->tmp_cmd = new_command(0, file);
 		}
 		free (tmp);
 		msh->is_last_redirection = NO;
@@ -106,8 +106,8 @@ void	redirect_out(t_shell *msh, int i)
 		msh->is_last_redirection = YES;
 		if (msh->parse.id == 1)
 		{
-			free (msh->part);
-			msh->part = NULL;
+			free (msh->tmp_cmd);
+			msh->tmp_cmd = NULL;
 		}
 	}
 }

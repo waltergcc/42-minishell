@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 03:09:04 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:21:40 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_exit;
 
-void	run_builtin(t_shell *msh)
+void	execute_builtin(t_shell *msh)
 {
 	if (!ft_strncmp(msh->tokens[0], "exit", 4))
 		exit_builtin(msh, 0);

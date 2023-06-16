@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 13:38:32 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:37:30 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	check_redirections(t_shell *msh)
 {
-	msh->part = ft_strdup(msh->cmds[msh->id]);
 	if (msh->parse.id > 1 && msh->cmds[msh->id][0] != '<'
 		&& msh->cmds[msh->id][0] != '>')
 		msh->id++;
@@ -30,31 +29,32 @@ void	check_redirections(t_shell *msh)
 			print_error(ERROR_DIR, msh->file_error, 1);
 			msh->fdin = STDIN_FILENO;
 			free(msh->file_error);
-			free(msh->part);
-			msh->part = NULL;
+			free(msh->tmp_cmd);
+			msh->tmp_cmd = NULL;
 			break ;
 		}
 		msh->id++;
 	}
 }
 
-void	run_command(t_shell *msh)
+void	command_handler(t_shell *msh)
 {
+	msh->tmp_cmd = ft_strdup(msh->cmds[msh->id]);
 	check_redirections(msh);
 	if (!msh->error_flag && (msh->control == COMMON || msh->control == SPECIAL))
 	{
 		if (msh->is_first_time && msh->control == SPECIAL)
 		{
 			msh->is_first_time = NO;
-			free (msh->part);
-			msh->part = NULL;
+			free (msh->tmp_cmd);
+			msh->tmp_cmd = NULL;
 			return ;
 		}
 		get_tokens(msh);
 		if (msh->tokens && msh->tokens[0])
-			is_builtin(msh, msh->tokens[0]);
+			check_if_is_builtin(msh, msh->tokens[0]);
 		if (msh->fdin != -1)
-			exec_process(msh, msh->fdin, msh->fdout);
+			create_child_process(msh, msh->fdin, msh->fdout);
 		free_split(msh->tokens, YES);
 		free(msh->token.print);
 	}
@@ -89,15 +89,15 @@ void	close_control_flags(t_shell *msh)
 		close(msh->fdin);
 	if (msh->fdout != STDOUT_FILENO)
 		close(msh->fdout);
-	if (msh->part)
+	if (msh->tmp_cmd)
 	{
-		free(msh->part);
-		msh->part = NULL;
+		free(msh->tmp_cmd);
+		msh->tmp_cmd = NULL;
 	}
 	if (msh->cat_case)
 	{
 		msh->tokens = ft_split("cat", ' ');
-		exec_process(msh, msh->fdin, msh->fdout);
+		create_child_process(msh, msh->fdin, msh->fdout);
 		free_split(msh->tokens, YES);
 	}
 	msh->error_flag = NO;
@@ -116,12 +116,12 @@ void	commands_manager(t_shell *msh, int i)
 		if (pipe(fd) < 0)
 			print_error(ERROR_PID, NULL, 127);
 		msh->fdout = fd[1];
-		run_command(msh);
+		command_handler(msh);
 		close(msh->fdout);
 		if (msh->fdin != 0)
 			close(msh->fdin);
 		msh->fdin = fd[0];
 	}
-	run_command(msh);
+	command_handler(msh);
 	close_control_flags(msh);
 }
