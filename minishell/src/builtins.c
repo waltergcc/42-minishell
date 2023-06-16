@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:24:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:38:50 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ int	execute_cd(t_shell *msh, char *tmp)
 	return (0);
 }
 
-void	execute_export(t_shell *msh, int i)
+void	execute_export(t_shell *msh, int i, char **tmp)
 {
-	char	**tmp;
-
 	while (msh->tokens[++i])
 	{
 		if (!ft_strchr(msh->tokens[i], '='))
@@ -85,13 +83,13 @@ void	execute_export(t_shell *msh, int i)
 			tmp = ft_split(msh->tokens[i], '=');
 		if (tmp[1])
 		{
-			check_envp(msh, tmp, i);
+			check_and_set_envinroment_var(msh, tmp, i);
 			free_split(tmp, YES);
 		}
 		else
 		{
 			tmp[1] = ft_strdup("");
-			check_envp(msh, tmp, i);
+			check_and_set_envinroment_var(msh, tmp, i);
 			free_export_builtin(tmp);
 		}
 		tmp = NULL;

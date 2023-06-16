@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:24:43 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:35:31 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,12 +185,12 @@ void	fix_cut_with_space_char(t_shell *msh);
 void	execute_echo(t_shell *msh);
 int		execute_cd(t_shell *msh, char *tmp);
 void	execute_env(t_shell *msh, int i);
-void	execute_export(t_shell *msh, int i);
+void	execute_export(t_shell *msh, int i, char **tmp);
 void	execute_unset(t_shell *msh, int i);
 
 /*builtins_utils.c*/
 void	check_if_is_builtin(t_shell *msh, char *cmd);
-void	check_envp(t_shell *msh, char **new, int i);
+void	check_and_set_envinroment_var(t_shell *msh, char **new, int i);
 void	add_environment(t_shell *msh, char *new_key, char *new_content, int i);
 void	remove_environment_var(t_shell *msh, int i, int j);
 void	execute_pwd(t_shell *msh, char *pwd);

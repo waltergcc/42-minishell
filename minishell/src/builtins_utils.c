@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:30:42 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:33:39 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	add_environment(t_shell *msh, char *new_key, char *new_content, int i)
 	msh->environment.content = msh->tmp_envp.content;
 }
 
-void	check_envp(t_shell *msh, char **new, int i)
+void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 {
 	if (get_envinroment_content(msh, new[0], -1))
 	{
