@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/05 02:53:34 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:00:02 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,11 @@ void	get_envp_size(t_shell *msh)
 	msh->environment.size = i;
 }
 
-void	create_msh_environment(t_shell *msh, char **system_envp)
+void	create_environment(t_shell *msh, char **envp, char **tmp, int i)
 {
-	int		i;
-	char	**tmp;
-
-	msh->environment.envp = system_envp;
+	msh->environment.envp = envp;
 	get_envp_size(msh);
 	alloc_key_content(&msh->environment, msh->environment.size);
-	i = -1;
 	while (msh->environment.envp[++i])
 	{
 		tmp = ft_split(msh->environment.envp[i], '=');
