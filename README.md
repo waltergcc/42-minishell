@@ -58,7 +58,7 @@
 | ☑ | /bin/ls then run echo $? | 0 |
 | ☑ | ls notexist then run echo $? | 2 |
 | ☑ | /bin/notexist then run echo $? | 127 |
-| ☑ | expr \$? + \$? then run cho $? | 2 |
+| ☑ | expr $? + $? then run cho $? | 2 |
 
 ### Signals
 
