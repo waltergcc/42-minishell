@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:10:57 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:30:42 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ void	remove_environment_var(t_shell *msh, int i, int j)
 	msh->environment.content = msh->tmp_envp.content;
 }
 
-void	add_envp(t_shell *msh, char *new_key, char *new_content)
+void	add_environment(t_shell *msh, char *new_key, char *new_content, int i)
 {
-	int		i;
-
-	i = 0;
 	msh->environment.size++;
 	key_content_malloc(&msh->tmp_envp, msh->environment.size);
 	while (i < msh->environment.size - 1)
@@ -94,7 +91,7 @@ void	check_envp(t_shell *msh, char **new, int i)
 		msh->environment.content[msh->environment.index] = ft_strdup(new[1]);
 	}
 	else
-		add_envp(msh, new[0], new[1]);
+		add_environment(msh, new[0], new[1], 0);
 	if (!ft_strncmp(msh->tokens[i], "PATH", 4))
 	{
 		if (msh->paths)

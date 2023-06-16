@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:06:59 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:24:58 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute_echo(t_shell *msh)
 
 int	execute_cd(t_shell *msh, char *tmp)
 {
-	update_envinroment_pwds(msh, "OLDPWD");
+	update_envinroment_pwds(msh, "OLDPWD", NULL);
 	if (msh->tokens[1] && msh->tokens[1][0] == '-' && msh->tokens[1][1] == '\0')
 	{
 		tmp = ft_strdup(msh->oldpwd);
@@ -61,11 +61,11 @@ int	execute_cd(t_shell *msh, char *tmp)
 			return (1);
 		}
 	}
-	update_last_pwd(msh);
+	update_last_pwd(msh, NULL);
 	g_exit = chdir(tmp);
 	if (g_exit == -1)
 		print_error(ERROR_DIR, msh->tokens[1], 1);
-	update_envinroment_pwds(msh, "PWD");
+	update_envinroment_pwds(msh, "PWD", NULL);
 	free(tmp);
 	return (0);
 }

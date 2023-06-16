@@ -6,17 +6,14 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 02:55:40 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:29:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_envinroment_pwds(t_shell *msh, char *to_update)
+void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd)
 {
-	char	*pwd;
-
-	pwd = NULL;
 	pwd = getcwd(pwd, 2000);
 	if (get_envinroment_content(msh, to_update, -1))
 	{
@@ -24,16 +21,13 @@ void	update_envinroment_pwds(t_shell *msh, char *to_update)
 		msh->environment.content[msh->environment.index] = ft_strdup(pwd);
 	}
 	else
-		add_envp(msh, to_update, pwd);
+		add_environment(msh, to_update, pwd, 0);
 	free(pwd);
 }
 
-void	update_last_pwd(t_shell *msh)
+void	update_last_pwd(t_shell *msh, char *pwd)
 {
-	char	*pwd;
-
 	free(msh->oldpwd);
-	pwd = NULL;
 	pwd = getcwd(pwd, 2000);
 	msh->oldpwd = ft_strdup(pwd);
 	free(pwd);

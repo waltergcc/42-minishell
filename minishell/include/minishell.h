@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 10:06:45 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:24:43 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,14 +191,14 @@ void	execute_unset(t_shell *msh, int i);
 /*builtins_utils.c*/
 void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	check_envp(t_shell *msh, char **new, int i);
-void	add_envp(t_shell *msh, char *new_key, char *new_content);
+void	add_environment(t_shell *msh, char *new_key, char *new_content, int i);
 void	remove_environment_var(t_shell *msh, int i, int j);
 void	execute_pwd(t_shell *msh, char *pwd);
 
 /*builtins_utils_2.c*/
 int		first_cmd_valid(t_shell *msh);
-void	update_envinroment_pwds(t_shell *msh, char *to_update);
-void	update_last_pwd(t_shell *msh);
+void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd);
+void	update_last_pwd(t_shell *msh, char *pwd);
 int		is_valid_input(char *s, int end);
 
 /*clean_exit.c*/
