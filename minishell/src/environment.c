@@ -6,13 +6,13 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:00:02 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:09:36 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	alloc_key_content(t_envp *envp, int size)
+void	key_content_malloc(t_envp *envp, int size)
 {
 	envp->key = malloc(sizeof(char *) * (size + 1));
 	if (!envp->key)
@@ -54,11 +54,8 @@ int	get_paths(t_shell *msh)
 	return (1);
 }
 
-void	get_envp_size(t_shell *msh)
+void	get_envinroment_size(t_shell *msh, int i)
 {
-	int	i;
-
-	i = 0;
 	while (msh->environment.envp[i])
 		i++;
 	msh->environment.size = i;
@@ -67,8 +64,8 @@ void	get_envp_size(t_shell *msh)
 void	create_environment(t_shell *msh, char **envp, char **tmp, int i)
 {
 	msh->environment.envp = envp;
-	get_envp_size(msh);
-	alloc_key_content(&msh->environment, msh->environment.size);
+	get_envinroment_size(msh, 0);
+	key_content_malloc(&msh->environment, msh->environment.size);
 	while (msh->environment.envp[++i])
 	{
 		tmp = ft_split(msh->environment.envp[i], '=');

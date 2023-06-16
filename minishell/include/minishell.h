@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 00:57:54 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:06:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ void	set_environment_and_paths(t_shell *msh);
 
 /*environment.c*/
 void	create_environment(t_shell *msh, char **envp, char **tmp, int i);
-void	get_envp_size(t_shell *msh);
+void	get_envinroment_size(t_shell *msh, int i);
 int		get_paths(t_shell *msh);
 char	*envp_content(t_shell *msh, char *key);
-void	alloc_key_content(t_envp *envp, int size);
+void	key_content_malloc(t_envp *envp, int size);
 
 /*signals.c*/
 void	set_signal(int sg, t_shell *msh);

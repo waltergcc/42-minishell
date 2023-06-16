@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/12 03:02:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:06:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	remove_envp(t_shell *msh)
 	i = 0;
 	j = 0;
 	msh->environment.size--;
-	alloc_key_content(&msh->tmp_envp, msh->environment.size);
+	key_content_malloc(&msh->tmp_envp, msh->environment.size);
 	while (i < msh->environment.size + 1)
 	{
 		if (i != msh->environment.index)
@@ -76,7 +76,7 @@ void	add_envp(t_shell *msh, char *new_key, char *new_content)
 
 	i = 0;
 	msh->environment.size++;
-	alloc_key_content(&msh->tmp_envp, msh->environment.size);
+	key_content_malloc(&msh->tmp_envp, msh->environment.size);
 	while (i < msh->environment.size - 1)
 	{
 		msh->tmp_envp.key[i] = ft_strdup(msh->environment.key[i]);
