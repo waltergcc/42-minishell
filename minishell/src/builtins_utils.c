@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:50:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:10:57 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,8 @@ void	execute_pwd(t_shell *msh, char *pwd)
 	free(pwd);
 }
 
-void	remove_envp(t_shell *msh)
+void	remove_environment_var(t_shell *msh, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	msh->environment.size--;
 	key_content_malloc(&msh->tmp_envp, msh->environment.size);
 	while (i < msh->environment.size + 1)

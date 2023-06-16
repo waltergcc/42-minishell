@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:57:17 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:06:59 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,19 @@ void	execute_export(t_shell *msh, int i)
 	g_exit = 0;
 }
 
-void	execute_unset(t_shell *msh)
+void	execute_unset(t_shell *msh, int i)
 {
-	int	i;
-
-	i = 1;
-	while (msh->tokens[i])
+	while (msh->tokens[++i])
 	{
 		if (get_envinroment_content(msh, msh->tokens[i], -1))
 		{
-			remove_envp(msh);
+			remove_environment_var(msh, 0, 0);
 			if (!ft_strncmp(msh->tokens[i], "PATH", 4))
 			{
 				free_split(msh->paths, YES);
 				msh->paths = NULL;
 			}
 		}
-		i++;
 	}
 	g_exit = 0;
 }

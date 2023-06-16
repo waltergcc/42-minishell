@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:55:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:06:45 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,13 +186,13 @@ void	execute_echo(t_shell *msh);
 int		execute_cd(t_shell *msh, char *tmp);
 void	execute_env(t_shell *msh, int i);
 void	execute_export(t_shell *msh, int i);
-void	execute_unset(t_shell *msh);
+void	execute_unset(t_shell *msh, int i);
 
 /*builtins_utils.c*/
 void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	check_envp(t_shell *msh, char **new, int i);
 void	add_envp(t_shell *msh, char *new_key, char *new_content);
-void	remove_envp(t_shell *msh);
+void	remove_environment_var(t_shell *msh, int i, int j);
 void	execute_pwd(t_shell *msh, char *pwd);
 
 /*builtins_utils_2.c*/
