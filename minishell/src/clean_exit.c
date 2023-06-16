@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/14 13:17:02 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:45:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	is_valid_exit(t_shell *msh, int i, int tokens)
 	return (1);
 }
 
-void	exit_builtin(t_shell *msh, int i)
+void	execute_exit(t_shell *msh, int i)
 {
 	while (msh->tokens[i])
 		i++;

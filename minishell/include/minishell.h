@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:37:11 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:55:41 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,18 +182,18 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 void	fix_cut_with_space_char(t_shell *msh);
 
 /*builtins.c*/
-void	echo_builtin(t_shell *msh);
-int		cd_builtin(t_shell *msh, char *tmp);
-void	env_builtin(t_shell *msh);
-void	export_builtin(t_shell *msh, int i);
-void	unset_builtin(t_shell *msh);
+void	execute_echo(t_shell *msh);
+int		execute_cd(t_shell *msh, char *tmp);
+void	execute_env(t_shell *msh, int i);
+void	execute_export(t_shell *msh, int i);
+void	execute_unset(t_shell *msh);
 
 /*builtins_utils.c*/
 void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	check_envp(t_shell *msh, char **new, int i);
 void	add_envp(t_shell *msh, char *new_key, char *new_content);
 void	remove_envp(t_shell *msh);
-void	pwd_builtin(t_shell *msh);
+void	execute_pwd(t_shell *msh, char *pwd);
 
 /*builtins_utils_2.c*/
 int		first_cmd_valid(t_shell *msh);
@@ -206,6 +206,6 @@ void	free_tokens(t_token *token);
 void	free_split(char **str, int free_str);
 int		is_valid_exit(t_shell *msh, int i, int tokens);
 void	clean_exit(t_shell *msh, int mode);
-void	exit_builtin(t_shell *msh, int i);
+void	execute_exit(t_shell *msh, int i);
 
 #endif

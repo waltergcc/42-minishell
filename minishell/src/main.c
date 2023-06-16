@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:21:40 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:55:18 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ int	g_exit;
 void	execute_builtin(t_shell *msh)
 {
 	if (!ft_strncmp(msh->tokens[0], "exit", 4))
-		exit_builtin(msh, 0);
+		execute_exit(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "echo", 4))
-		echo_builtin(msh);
+		execute_echo(msh);
 	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
-		pwd_builtin(msh);
+		execute_pwd(msh, NULL);
 	if (!ft_strncmp(msh->tokens[0], "export", 6))
-		export_builtin(msh, 0);
+		execute_export(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "unset", 5))
-		unset_builtin(msh);
+		execute_unset(msh);
 	if (!ft_strncmp(msh->tokens[0], "env", 3))
-		env_builtin(msh);
+		execute_env(msh, -1);
 	if (!ft_strncmp(msh->tokens[0], "cd", 2))
 	{
 		if (msh->tokens[1] && msh->tokens[2])
 			print_error(ERROR_ARG, msh->tokens[0], 1);
 		else
-			cd_builtin(msh, NULL);
+			execute_cd(msh, NULL);
 	}
 }
 

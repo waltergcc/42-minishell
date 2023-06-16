@@ -6,33 +6,29 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:29:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:57:17 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_builtin(t_shell *msh)
+void	execute_env(t_shell *msh, int i)
 {
-	int	i;
-
-	i = 0;
 	if (msh->tokens[1])
 	{
 		print_error(ERROR_SUPPORT, "env", 1);
 		return ;
 	}
-	while (i < msh->environment.size)
+	while (++i < msh->environment.size)
 	{
 		ft_putstr_fd(msh->environment.key[i], msh->fdout);
 		ft_putchar_fd('=', msh->fdout);
 		ft_putendl_fd(msh->environment.content[i], msh->fdout);
-		i++;
 	}
 	g_exit = 0;
 }
 
-void	echo_builtin(t_shell *msh)
+void	execute_echo(t_shell *msh)
 {
 	if (msh->tokens[1])
 	{
@@ -45,7 +41,7 @@ void	echo_builtin(t_shell *msh)
 		ft_putstr_fd("\n", msh->fdout);
 }
 
-int	cd_builtin(t_shell *msh, char *tmp)
+int	execute_cd(t_shell *msh, char *tmp)
 {
 	update_envinroment_pwds(msh, "OLDPWD");
 	if (msh->tokens[1] && msh->tokens[1][0] == '-' && msh->tokens[1][1] == '\0')
@@ -74,7 +70,7 @@ int	cd_builtin(t_shell *msh, char *tmp)
 	return (0);
 }
 
-void	export_builtin(t_shell *msh, int i)
+void	execute_export(t_shell *msh, int i)
 {
 	char	**tmp;
 
@@ -103,7 +99,7 @@ void	export_builtin(t_shell *msh, int i)
 	g_exit = 0;
 }
 
-void	unset_builtin(t_shell *msh)
+void	execute_unset(t_shell *msh)
 {
 	int	i;
 

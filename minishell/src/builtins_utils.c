@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:37:11 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:50:41 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ void	check_if_is_builtin(t_shell *msh, char *cmd)
 		msh->is_builtin = NO;
 }
 
-void	pwd_builtin(t_shell *msh)
+void	execute_pwd(t_shell *msh, char *pwd)
 {
-	char	*pwd;
-
-	pwd = NULL;
 	pwd = getcwd(pwd, 2000);
 	ft_putendl_fd(pwd, msh->fdout);
 	if (!pwd)
