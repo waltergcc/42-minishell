@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:41:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:49:21 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,8 @@ void	parse_input(t_shell *msh, char *s, int i)
 	msh->cmds[msh->parse.id] = NULL;
 }
 
-void	get_input(t_shell *msh)
+void	get_user_input(t_shell *msh, char *prompt)
 {
-	char	*prompt;
-
-	prompt = NULL;
 	prompt = getcwd(prompt, 2000);
 	prompt = ft_strjoin(prompt, ":$ ");
 	set_signal(STOP_RESTORE, NULL);
@@ -96,7 +93,7 @@ int	main(void)
 	{
 		msh.fdin = STDIN_FILENO;
 		msh.fdout = STDOUT_FILENO;
-		get_input(&msh);
+		get_user_input(&msh, NULL);
 		if (msh.user_input)
 		{
 			if (ft_strlen(msh.user_input) && !have_only_spaces(msh.user_input)

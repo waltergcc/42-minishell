@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:40:46 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 01:45:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		is_redirections_valid(t_shell *msh, int i);
 /*main.c*/
 void	run_builtin(t_shell *msh);
 void	parse_input(t_shell *msh, char *s, int i);
-void	get_input(t_shell *msh);
+void	get_user_input(t_shell *msh, char *prompt);
 void	set_environment_and_paths(t_shell *msh);
 
 /*environment.c*/
