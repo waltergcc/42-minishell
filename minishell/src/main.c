@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:25:42 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 02:58:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 03:09:04 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	parse_input(t_shell *msh, char *s, int i)
 			if (msh->parse.q == s[i])
 				msh->parse.q = UNLOCK;
 			else
-				i = count_redirections(msh, s, i);
+				i = split_input_in_cmds(msh, s, i);
 		}
 		msh->parse.size++;
 	}

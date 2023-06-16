@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/15 14:31:49 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 03:09:04 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_error(char *msg, char *key, int exit_code)
 	g_exit = exit_code;
 }
 
-int	count_redirections(t_shell *msh, char *s, int i)
+int	split_input_in_cmds(t_shell *msh, char *s, int i)
 {
 	if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 	{
