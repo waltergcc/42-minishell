@@ -3,4 +3,5 @@ minishell/minishell_tester/
 out/
 *.o
 *.a
+minishell/include/copy.h
 minishell/minishell

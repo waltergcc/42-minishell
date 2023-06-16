@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:45:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:46:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	is_valid_exit(t_shell *msh, int i, int tokens)
 	if (tokens > 2)
 	{
 		print_error(ERROR_ARG, "exit", 1);
-		return (0);
+		return (NO);
 	}
 	while (msh->tokens[1][++i])
 	{
@@ -75,11 +75,11 @@ int	is_valid_exit(t_shell *msh, int i, int tokens)
 		if (!ft_isdigit(msh->tokens[1][i]))
 		{
 			print_error(ERROR_NUM, "exit", 1);
-			return (0);
+			return (NO);
 		}
 	}
 	g_exit = ft_atoi(msh->tokens[1]);
-	return (1);
+	return (YES);
 }
 
 void	execute_exit(t_shell *msh, int i)
