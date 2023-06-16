@@ -6,24 +6,11 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:29:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 02:45:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	have_only_spaces(char *s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-	{
-		if (s[i] != ' ' && s[i] != '\t')
-			return (0);
-	}
-	return (1);
-}
 
 void	update_envinroment_pwds(t_shell *msh, char *to_update)
 {
@@ -54,11 +41,6 @@ void	update_last_pwd(t_shell *msh)
 
 int	is_first_char_valid(t_shell *msh)
 {
-	if ((msh->cmds[0][0] == '|') && msh->parse.id > 0)
-	{
-		print_error(ERROR_PIPE, NULL, 1);
-		return (NO);
-	}
 	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
 	{
 		if (have_only_redirections(msh->cmds[0], -1) || (msh->cmds[0][0] == '<'
@@ -71,15 +53,22 @@ int	is_first_char_valid(t_shell *msh)
 	return (YES);
 }
 
-int	is_end_char_valid(char *s, int i)
+int	is_valid_input(char *s, int end)
 {
 	s = ft_strtrim(s, " ");
-	i = ft_strlen(s) - 1;
-	if (s[i] == '|' || s[i] == '>' || s[i] == '<')
+	if (!s[0] || s[0] == '|')
 	{
-		if (s[i] == '|')
+		if (s[0] == '|')
+			print_error(ERROR_PIPE, NULL, 1);
+		free(s);
+		return (NO);
+	}
+	end = ft_strlen(s) - 1;
+	if (s[end] == '|' || s[end] == '>' || s[end] == '<')
+	{
+		if (s[end] == '|')
 			print_error(ERROR_PROMPT, NULL, 2);
-		else
+		else if (s[end] == '>' || s[end] == '<')
 			print_error(ERROR_REDIR, NULL, 2);
 		free(s);
 		return (NO);
