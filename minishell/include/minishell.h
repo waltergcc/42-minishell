@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 02:44:55 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 02:58:58 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_shell
 
 /*tmp.c*/
 int		have_only_redirections(char *s, int i);
-int		is_redirections_valid(t_shell *msh, int i);
+int		redirections_are_valid(t_shell *msh, int i);
 
 /*main.c*/
 void	run_builtin(t_shell *msh);
@@ -196,7 +196,7 @@ void	remove_envp(t_shell *msh);
 void	pwd_builtin(t_shell *msh);
 
 /*builtins_utils_2.c*/
-int		is_first_char_valid(t_shell *msh);
+int		first_cmd_valid(t_shell *msh);
 void	update_envinroment_pwds(t_shell *msh, char *to_update);
 void	update_last_pwd(t_shell *msh);
 int		is_valid_input(char *s, int end);

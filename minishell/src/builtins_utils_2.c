@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 02:45:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 02:55:40 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ void	update_last_pwd(t_shell *msh)
 	free(pwd);
 }
 
-int	is_first_char_valid(t_shell *msh)
+int	first_cmd_valid(t_shell *msh)
 {
 	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
 	{
-		if (have_only_redirections(msh->cmds[0], -1) || (msh->cmds[0][0] == '<'
-			&& msh->cmds[0][1] != '<' && !msh->cmds[1]))
+		if (have_only_redirections(msh->cmds[0], -1)
+			|| (msh->cmds[0][0] == '<' && msh->cmds[0][1] != '<'
+			&& !msh->cmds[1]))
 		{
 			print_error(ERROR_REDIR, NULL, 1);
 			return (NO);

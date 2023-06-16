@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 01:37:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 01:37:54 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/16 02:58:58 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	have_only_redirections(char *s, int i)
 	return (YES);
 }
 
-int	is_redirections_valid(t_shell *msh, int i)
+int	redirections_are_valid(t_shell *msh, int i)
 {
 	while (msh->cmds[++i])
 	{
