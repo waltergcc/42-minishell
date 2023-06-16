@@ -1,5 +1,54 @@
 # minishell
 
+This is a shell implementation called Minishell. It is a command-line interpreter that provides a basic shell environment and supports various features such as command execution, input parsing, redirections, pipes, environment variables, built-in commands, and signal handling.
+
+## Features
+
+- **Prompt display:** Minishell displays a prompt when waiting for a new command.
+- **Command history:** It has a working history feature that allows navigating and reusing previous commands.
+- **Command execution:** Minishell can search and launch the appropriate executable based on the PATH variable or using a relative or absolute path.
+- **Quoting:** It handles single quotes `'`, preventing the interpretation of meta-characters within the quoted sequence. Double quotes `"` prevent the interpretation of meta-characters except for the dollar sign `$`.
+- **Redirections:** Minishell supports input `<`, output `>` and append output `>>` redirections. It also handles here documents `<<` where input is read until a line containing the specified delimiter.
+- **Pipes:** It implements pipes `|` to connect the output of one command to the input of the next command in a pipeline.
+- **Environment variables:** Minishell handles the expansion of environment variables (`$` followed by a sequence of characters) to their respective values.
+- **Special variables:** It supports the special variable `$?` which expands to the exit status of the most recently executed foreground pipeline.
+- **Signal handling:** Minishell handles signals such as `ctrl-C` (SIGINT), `ctrl-D` (EOF), and `ctrl-\` (SIGQUIT) according to the specified behavior in the subject.
+- **Built-in commands:** It provides several built-in commands, including `echo`, `cd`, `pwd`, `export`, `unset`, `env`, and `exit`, with their respective options and arguments.
+
+## Implementation Details
+
+- The shell uses the readline library to provide line editing capabilities and command history.
+- Input parsing is done using a combination of string manipulation and state tracking to handle quotes and command boundaries.
+- Command execution is managed through a commands_manager function that handles the execution of commands, including pipe setup and file descriptor management.
+- Built-in commands are implemented as separate functions and are executed within the shell process itself.
+- Error handling and reporting are done through a combination of error codes, error messages, and signal handling.
+
+## Usage
+
+To compile the Minishell program, use the provided Makefile by running `make` in the project directory. This will generate an executable named `minishell`.
+
+```
+make
+```
+
+To run the Minishell program, simply execute the generated `minishell` binary.
+
+```
+./minishell
+```
+
+Once running, you can enter commands and interact with the shell.
+
+## Requirements
+
+- The Libft library is required and provided along with the project files.
+- The program was developed and tested on a Unix-based system. Compatibility with other platforms may vary.
+
+## Limitations
+
+- Minishell does not interpret unclosed quotes or special characters that are not required by the subject, such as backslashes `\` or semicolons `;`.
+- The readline() function used in Minishell may cause memory leaks, but the code written specifically for this project should not have memory leaks.
+
 ## Evaluation tests
 
 ### Check -Wall -Wextra -Werror
