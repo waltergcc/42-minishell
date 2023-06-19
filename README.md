@@ -2,8 +2,9 @@
 
 This is a shell implementation called Minishell. It is a command-line interpreter that provides a basic shell environment and supports various features such as command execution, input parsing, redirections, pipes, environment variables, built-in commands, and signal handling.
 
+This project was developed in colaboration with [teroVF](https://github.com/teroVF).
 ## Features
-
+	
 - **Prompt display:** Minishell displays a prompt when waiting for a new command.
 - **Command history:** It has a working history feature that allows navigating and reusing previous commands.
 - **Command execution:** Minishell can search and launch the appropriate executable based on the PATH variable or using a relative or absolute path.
