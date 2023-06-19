@@ -154,6 +154,7 @@ Once running, you can enter commands and interact with the shell.
 |:-:|---------|-----------------|
 | ☐ | export NEW_VAR=42 | create a new environment variable |
 | ☐ | export NEW_VAR="A little change" | replace the value of the environment variable |
+| ☐ | export NEW_VAR= | replace the content to empty |
 | ☐ | export NEW_VAR=$USER | replace the value of the environment variable |
 
 ### unset
