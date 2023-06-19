@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:38:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/19 08:58:34 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ void	check_quotes(t_shell *msh, t_token *token)
 	{
 		if (msh->token.quote == msh->tmp_cmd[token->i])
 			msh->token.quote = UNLOCK;
-		if (msh->tmp_cmd[token->i] == '~' && msh->token.quote == UNLOCK)
+		if (msh->tmp_cmd[token->i] == '~' && msh->token.quote == UNLOCK
+			&& msh->tmp_cmd[token->i - 1] == ' '
+			&& (msh->tmp_cmd[token->i + 1] == ' '
+				|| msh->tmp_cmd[token->i + 1] == '\0'
+				|| msh->tmp_cmd[token->i + 1] == '/'))
 			get_home_sign(msh, token);
 		else if (msh->tmp_cmd[token->i] == '$' && msh->tmp_cmd[token->i + 1]
 			&& (msh->token.quote == UNLOCK || msh->token.quote == D_QUOTE))

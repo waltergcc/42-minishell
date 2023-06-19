@@ -231,6 +231,9 @@ Once running, you can enter commands and interact with the shell.
 | ☐ | echo $notexist | print nothing |
 | ☐ | echo "$HOME" | print the home directory |
 | ☐ | echo ~ | print the home directory |
+| ☐ | echo ~test | ~test |
+| ☐ | echo test~ | test~ |
+| ☐ | echo ~/test | print the home directory + /test |
 
 ### Trouble Cases
 
