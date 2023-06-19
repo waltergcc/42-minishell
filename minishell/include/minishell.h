@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 12:19:30 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/19 09:40:58 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define ERROR_PROMPT "no support for pipe prompt"
 # define ERROR_DIR "No such file or directory"
 # define ERROR_CMD "command not found"
+# define ERROR_EXP "not a valid identifier"
 # define ERROR_HOME "HOME not set"
 # define ERROR_PID "pipe error"
 # define ERROR_NUM "numeric argument required"

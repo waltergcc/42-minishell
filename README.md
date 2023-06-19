@@ -255,6 +255,8 @@ Once running, you can enter commands and interact with the shell.
 | ☐ | ls \| test >> | get an error |
 | ☐ | ls \| test << | get an error |
 | ☐ | ls \| cat << > \| wc | get an error |
+| ☐ | export = | get an error |
+| ☐ | export =test | get an error |
 
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester

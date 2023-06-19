@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:14:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:04:02 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	add_environment(t_shell *msh, char *new_key, char *new_content, int i)
 
 void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 {
+	if (!new[1])
+		new[1] = ft_strdup("");
 	if (get_envinroment_content(msh, new[0], -1))
 	{
 		free(msh->environment.content[msh->environment.index]);
@@ -70,12 +72,25 @@ void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 			free_split(msh->paths, YES);
 		get_paths(msh, NULL, -1);
 	}
+	if (!new[1][0])
+		free_export_builtin(new);
+	else
+		free_split(new, YES);
+	new = NULL;
 }
 
 void	execute_export(t_shell *msh, int i, char **tmp)
 {
 	while (msh->tokens[++i])
 	{
+		while (msh->tokens[i] && msh->tokens[i][0] == '=')
+		{
+			printf("minishell: export: `%s': %s\n", msh->tokens[i], ERROR_EXP);
+			g_exit = 1;
+			i++;
+		}
+		if (msh->tokens[i] == NULL)
+			break ;
 		if (!ft_strchr(msh->tokens[i], '='))
 			continue ;
 		if (ft_strchr(msh->tokens[i], D_QUOTE)
@@ -83,18 +98,7 @@ void	execute_export(t_shell *msh, int i, char **tmp)
 			tmp = ft_split(msh->token.print, '=');
 		else
 			tmp = ft_split(msh->tokens[i], '=');
-		if (tmp[1])
-		{
-			check_and_set_envinroment_var(msh, tmp, i);
-			free_split(tmp, YES);
-		}
-		else
-		{
-			tmp[1] = ft_strdup("");
-			check_and_set_envinroment_var(msh, tmp, i);
-			free_export_builtin(tmp);
-		}
-		tmp = NULL;
+		check_and_set_envinroment_var(msh, tmp, i);
 	}
 	g_exit = 0;
 }
