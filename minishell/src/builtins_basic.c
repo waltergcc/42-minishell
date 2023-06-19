@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:08:55 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:12:52 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:11:33 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	execute_exit(t_shell *msh, int i)
 	free_split(msh->tokens, YES);
 	free(msh->token.print);
 	printf("exit\n");
+	if (i > 1 && !msh->exit_is_numeric)
+	{
+		printf("minishell: exit: %s: %s\n", msh->not_numeric, ERROR_NUM);
+		free(msh->not_numeric);
+	}
 	if (i == 1)
 		clean_exit(msh, BUILTIN_EXIT);
 	else

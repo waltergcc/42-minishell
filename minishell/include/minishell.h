@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/19 09:40:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:58:54 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define YES 1
 # define NO 0
 
+# define NOT_NUM 2
 # define EXIT_ARG 0
 # define BUILTIN_EXIT 1
 
@@ -103,6 +104,7 @@ typedef struct s_shell
 	char	*tmp_cmd;
 	char	*file_name;
 	char	*file_error;
+	char	*not_numeric;
 	int		id;
 	int		fdin;
 	int		fdout;
@@ -114,6 +116,7 @@ typedef struct s_shell
 	int		has_flag_n;
 	int		error_flag;
 	int		cat_case;
+	int		exit_is_numeric;
 }			t_shell;
 
 /*input.c*/

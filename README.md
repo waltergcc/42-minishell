@@ -95,6 +95,8 @@ Once running, you can enter commands and interact with the shell.
 | ☐ | exit | exit the minishell |
 | ☐ | exit 1 | exit the minishell with return code 1 |
 | ☐ | exit 42 | exit the minishell with return code 42 |
+| ☐ | exit 42 10 | get too many args error and not exit|
+| ☐ | exit 42scholl | exit and print an error message |
 
 ### Return value of a process
 

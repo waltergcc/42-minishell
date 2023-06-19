@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:23:48 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:18:45 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	update_last_pwd(t_shell *msh, char *pwd)
 
 int	is_valid_exit(t_shell *msh, int i, int tokens)
 {
+	msh->exit_is_numeric = NO;
 	if (tokens > 2)
 	{
 		print_error(ERROR_ARG, "exit", 1);
@@ -53,10 +54,12 @@ int	is_valid_exit(t_shell *msh, int i, int tokens)
 			i++;
 		if (!ft_isdigit(msh->tokens[1][i]))
 		{
-			print_error(ERROR_NUM, "exit", 1);
-			return (NO);
+			g_exit = 2;
+			msh->not_numeric = ft_strdup(msh->tokens[1]);
+			return (NOT_NUM);
 		}
 	}
 	g_exit = ft_atoi(msh->tokens[1]);
+	msh->exit_is_numeric = YES;
 	return (YES);
 }
