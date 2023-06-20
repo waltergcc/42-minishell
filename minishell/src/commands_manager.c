@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
+/*   commands_manager.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:37:30 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:20:05 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	check_redirections(t_shell *msh)
 	msh->file_error = NULL;
 	while (msh->cmds[msh->id] && msh->cmds[msh->id][0] != '|')
 	{
-		redirect_out(msh, msh->id);
-		redirect_in(msh, msh->id);
+		redirect_out(msh, msh->id, NULL);
+		redirect_in(msh, msh->id, NULL, NULL);
 		if (msh->file_error)
 		{
 			msh->error_flag = YES;

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 17:46:32 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:19:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,8 @@ void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	print_error_if_command_fail(t_shell *msh);
 
 /*redirections.c*/
-void	redirect_out(t_shell *msh, int i);
-void	redirect_in(t_shell *msh, int i);
+void	redirect_out(t_shell *msh, int i, char *file);
+void	redirect_in(t_shell *msh, int i, char **file, char *tmp);
 char	**double_redirect_in(t_shell *msh, char **file, int i);
 void	start_heredoc(char *end);
 char	*new_command(int i, char **s);
