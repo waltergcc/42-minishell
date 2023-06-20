@@ -70,6 +70,35 @@ Once running, you can enter commands and interact with the shell.
 | ☐ | [space] | do nothing |
 | ☐ | [tab] | do nothing |
 
+```bash
+/bin/ls
+```
+> include  libft	Makefile  minishell  minishell_tester  src
+```bash
+date
+```
+> Wed  7 Jul 2021 11:00:00 AM -03
+```bash
+ifconfig
+```
+> network information
+```bash
+who
+```
+> wcorrea- tty2         2023-06-20 10:46 (tty2)
+```bash
+[empty]
+```
+> do nothing
+```bash
+[space]
+```
+> do nothing
+```bash
+[tab]
+```
+> do nothing
+
 ### Command with Arguments
 
 |   | Command | Expected result |
