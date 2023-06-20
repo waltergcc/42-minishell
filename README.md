@@ -89,11 +89,11 @@ who
 ```bash
 [empty]
 ```
-> do nothing
+> print a new line
 ```bash
 [space]
 ```
-> do nothing
+> print a new line
 ```bash
 [tab]
 ```
@@ -109,6 +109,32 @@ who
 | ☐ | cat Makefile | content of the Makefile |
 | ☐ | cat -e Makefile | content of the Makefile with $ at the end of each line |
 | ☐ | wc -l Makefile | count lines in the makefile |
+
+```bash
+touch 1 2 3
+```
+> create 3 files
+```bash
+/bin/ls -l
+```
+> list files with details
+```bash
+rm 1 2 3
+```
+> remove 3 files
+```bash
+cat Makefile
+```
+> print the content of the Makefile
+```bash
+cat -e Makefile
+```
+> print the content of the Makefile with $ at the end of each line
+```bash
+wc -l Makefile
+```
+> 55 Makefile
+
 
 ### echo
 
