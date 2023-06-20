@@ -217,6 +217,7 @@ Once running, you can enter commands and interact with the shell.
 |:-:|---------|-----------------|
 | ☐ | cat Makefile \| grep NAME \| wc -l | count the number of lines with NAME in the Makefile |
 | ☐ | cat notexist \| wc -l | get an error |
+| ☐ | < Makefile grep NAME \| wc -l > out | count lines with NAME in file and in out |
 ### Go Crazy and history
 
 |   | Command | Expected result |
