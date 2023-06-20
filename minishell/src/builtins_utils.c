@@ -6,17 +6,48 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/19 11:18:45 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:03:18 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_export_builtin(char **tmp)
+char	*get_export_with_quotes(t_shell *msh, int *i, char q, char *content)
 {
-	free(tmp[0]);
-	free(tmp[1]);
-	free(tmp);
+	*i += 1;
+	while (msh->tokens[*i] && !ft_strchr(msh->tokens[*i], q))
+	{
+		content = ft_strjoin(content, " ");
+		content = ft_strjoin(content, msh->tokens[*i]);
+		*i += 1;
+	}
+	if (msh->tokens[*i] && (ft_strchr(msh->tokens[*i], q)))
+	{
+		content = ft_strjoin(content, " ");
+		content = ft_strjoin(content, msh->tokens[*i]);
+	}
+	if (!msh->tokens[*i])
+		*i -= 1;
+	return (content);
+}
+
+char	**split_export_token(t_shell *msh, int *i, char **tmp, char q)
+{
+	char	*content;
+	int		key_size;
+	int		content_size;
+
+	key_size = ft_strchr(msh->tokens[*i], '=') - msh->tokens[*i];
+	content_size = ft_strlen(msh->tokens[*i]) - (key_size + 1);
+	content = ft_substr(msh->tokens[*i], key_size + 1, content_size);
+	tmp = (char **)malloc(sizeof(char *) * 3);
+	tmp[0] = ft_substr(msh->tokens[*i], 0, key_size);
+	if (q && ft_strchr(msh->tokens[*i], q) == ft_strrchr(msh->tokens[*i], q))
+		content = get_export_with_quotes(msh, i, q, content);
+	tmp[1] = ft_strtrim(content, QUOTE_SET);
+	tmp[2] = NULL;
+	free(content);
+	return (tmp);
 }
 
 void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd)
