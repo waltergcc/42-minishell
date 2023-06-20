@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 09:32:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:22:12 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,10 @@ char	**double_redirect_in(t_shell *msh, char **file, int i)
 	return (file);
 }
 
-void	redirect_in(t_shell *msh, int i)
+void	redirect_in(t_shell *msh, int i, char **file, char *tmp)
 {
-	char	**file;
-	char	*tmp;
-
 	if (msh->cmds[i][0] == '<')
 	{
-		file = NULL;
 		if (msh->cmds[i][1] == '<')
 			file = double_redirect_in(msh, file, i);
 		else
@@ -73,7 +69,8 @@ void	redirect_in(t_shell *msh, int i)
 				msh->file_error = ft_strdup(file[0]);
 		}
 		tmp = ft_strtrim(msh->tmp_cmd, " ");
-		if (msh->parse.id == 1 || (tmp[0] == '|' && ft_strlen(tmp) == 1))
+		if ((i == 0 && file[1]) || msh->parse.id == 1
+			|| (tmp[0] == '|' && ft_strlen(tmp) == 1))
 		{
 			free(msh->tmp_cmd);
 			msh->tmp_cmd = new_command(0, file);
@@ -84,10 +81,8 @@ void	redirect_in(t_shell *msh, int i)
 	}
 }
 
-void	redirect_out(t_shell *msh, int i)
+void	redirect_out(t_shell *msh, int i, char *file)
 {
-	char	*file;
-
 	if (msh->cmds[i] && msh->cmds[i][0] == '>')
 	{
 		if (msh->fdout != STDOUT_FILENO)
