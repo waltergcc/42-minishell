@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 16:03:54 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:46:32 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 
 # define ERROR_TITLE "minishell"
 # define ERROR_FORK "fork error"
+# define ERROR_QUOTE "unclosed quotes"
 # define ERROR_PIPE "syntax error near unexpected token `|'"
 # define ERROR_PROMPT "no support for pipe prompt"
 # define ERROR_DIR "No such file or directory"

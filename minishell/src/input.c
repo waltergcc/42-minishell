@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 01:37:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:54:32 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:47:19 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	first_cmd_valid(t_shell *msh)
 			print_error(ERROR_REDIR, NULL, 1);
 			return (NO);
 		}
+	}
+	if (msh->parse.q != UNLOCK)
+	{
+		print_error(ERROR_QUOTE, NULL, 2);
+		return (NO);
 	}
 	return (YES);
 }

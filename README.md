@@ -131,7 +131,7 @@ Once running, you can enter commands and interact with the shell.
 | ☐ | echo "with       spaces" | Hello       World |
 | ☐ | echo "test with %specials *chars" | test with %specials *chars |
 | ☐ | echo "cat lol.c cat > Iol.c" | cat lol.c cat > Iol.c |
-| ☐ | echo " | print a new line |
+| ☐ | echo " | get an error |
 
 ### Single Quotes
 
@@ -140,7 +140,7 @@ Once running, you can enter commands and interact with the shell.
 | ☐ | echo 'Hello World' | Hello World |
 | ☐ | echo 'with       spaces' | Hello       World |
 | ☐ | echo '$USER' | $USER |
-| ☐ | echo ' | print a new line |
+| ☐ | echo ' | get an error |
 | ☐ | echo '$HOME > home.txt' | $HOME > home.txt |
 | ☐ | echo '$?' | $? |
 
@@ -264,7 +264,7 @@ Once running, you can enter commands and interact with the shell.
 
 ### Crazy export test
 ```
-export TEST1="withdouble" TEST2='withsingle' TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8= TEST9 TEST10="" TEST11=too=many=equals TEST12="    this is == a = var value withot == close quotes
+export TEST1="withdouble" TEST2='withsingle' TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8= TEST9 TEST10="" TEST11=too=many=equals TEST12="    "
 ```
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester
