@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 17:46:32 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:43:35 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,8 @@ void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
 int		get_paths(t_shell *msh, char *tmp, int i);
 void	free_tokens(t_token *token);
+
+/*utils2.c*/
+int		only_spaces(char *s);
 
 #endif

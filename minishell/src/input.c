@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 01:37:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 17:47:19 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:38:13 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	get_user_input(t_shell *msh, char *prompt)
 	prompt = ft_strjoin(prompt, ":$ ");
 	set_signal(STOP_RESTORE, NULL);
 	msh->user_input = readline(prompt);
-	if (msh->user_input)
+	if (msh->user_input && !only_spaces(msh->user_input))
 		add_history(msh->user_input);
 	free(prompt);
 }

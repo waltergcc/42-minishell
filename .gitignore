@@ -5,3 +5,4 @@ out/
 *.a
 minishell/include/copy.h
 minishell/minishell
+minishell/src/checklist.txt
