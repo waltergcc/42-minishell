@@ -6,3 +6,6 @@ out/
 minishell/include/copy.h
 minishell/minishell
 minishell/src/checklist.txt
+.vscode/
+.vscode/launch.json
+.vscode/settings.json
