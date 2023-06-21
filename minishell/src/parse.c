@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:56:28 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:55:21 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	first_cmd_valid(t_shell *msh)
+{
+	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
+	{
+		if (have_only_redirections(msh->cmds[0], -1)
+			|| (msh->cmds[0][0] == '<' && msh->cmds[0][1] != '<'
+			&& !msh->cmds[1]))
+		{
+			print_error(ERROR_REDIR, NULL, 1);
+			return (NO);
+		}
+	}
+	if (msh->parse.q != UNLOCK)
+	{
+		print_error(ERROR_QUOTE, NULL, 2);
+		return (NO);
+	}
+	return (YES);
+}
 
 int	split_input_in_cmds(t_shell *msh, char *s, int i)
 {

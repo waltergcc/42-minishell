@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+         #
+#    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/20 23:52:48 by anvieira         ###   ########.fr        #
+#    Updated: 2023/06/21 01:04:32 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = src/main.c \
 		src/tokens.c src/tokens_utils.c \
 		src/commands_manager.c src/commands_execute.c src/commands_utils.c \
 		src/builtins_basic.c src/builtins_complex.c src/builtins_utils.c \
-		src/utils.c src/utils2.c
+		src/utils.c
 
 OBJS = ${SRC:.c=.o}
 

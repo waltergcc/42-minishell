@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 01:37:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 20:38:13 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:56:19 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ int	have_only_redirections(char *s, int i)
 	return (YES);
 }
 
+int	have_only_spaces(char *s, int i)
+{
+	while (s[++i])
+		if (s[i] != ' ' && s[i] != '\t')
+			return (NO);
+	return (YES);
+}
+
 int	redirections_are_valid(t_shell *msh, int i)
 {
 	while (msh->cmds[++i])
@@ -30,26 +38,6 @@ int	redirections_are_valid(t_shell *msh, int i)
 			print_error(NULL, msh->cmds[i], 1);
 			return (NO);
 		}
-	}
-	return (YES);
-}
-
-int	first_cmd_valid(t_shell *msh)
-{
-	if (msh->cmds[0][0] == '>' || msh->cmds[0][0] == '<')
-	{
-		if (have_only_redirections(msh->cmds[0], -1)
-			|| (msh->cmds[0][0] == '<' && msh->cmds[0][1] != '<'
-			&& !msh->cmds[1]))
-		{
-			print_error(ERROR_REDIR, NULL, 1);
-			return (NO);
-		}
-	}
-	if (msh->parse.q != UNLOCK)
-	{
-		print_error(ERROR_QUOTE, NULL, 2);
-		return (NO);
 	}
 	return (YES);
 }
@@ -84,7 +72,7 @@ void	get_user_input(t_shell *msh, char *prompt)
 	prompt = ft_strjoin(prompt, ":$ ");
 	set_signal(STOP_RESTORE, NULL);
 	msh->user_input = readline(prompt);
-	if (msh->user_input && !only_spaces(msh->user_input))
+	if (msh->user_input && !have_only_spaces(msh->user_input, -1))
 		add_history(msh->user_input);
 	free(prompt);
 }

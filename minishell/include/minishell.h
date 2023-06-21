@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 23:53:54 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:55:45 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef struct s_shell
 void	get_user_input(t_shell *msh, char *prompt);
 int		have_only_redirections(char *s, int i);
 int		redirections_are_valid(t_shell *msh, int i);
-int		first_cmd_valid(t_shell *msh);
+int		have_only_spaces(char *s, int i);
 int		is_valid_input(char *s, int end);
 
 /*environment.c*/
@@ -145,6 +145,7 @@ void	back_slash(int sig);
 void	parse_input(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 int		split_input_in_cmds(t_shell *msh, char *s, int i);
+int		first_cmd_valid(t_shell *msh);
 
 /*commands_manager.c*/
 void	commands_manager(t_shell *msh, int i);
@@ -214,8 +215,5 @@ void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
 int		get_paths(t_shell *msh, char *tmp, int i);
 void	free_tokens(t_token *token);
-
-/*utils2.c*/
-int		only_spaces(char *s);
 
 #endif
