@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 12:18:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:24:18 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 	char	*tmp;
 
 	tmp = ft_strtrim(s, " ");
-	if (s[0] == '-' && s[1] == 'n')
+	while (s[i] == '-' && s[i + 1] == 'n')
 	{
 		msh->has_flag_n = 1;
 		i += 2;
+		while (s[i] == ' ')
+			i++;
 	}
 	while (s[i] == ' ')
 		i++;
