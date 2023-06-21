@@ -453,6 +453,10 @@ echo ~/test
 > /home/wcorrea-/test
 
 ### Trouble Cases
+```bash
+echo -n -n -n -n -n Hello World
+```
+> Hello World/home/wcorrea-$
 
 ```bash
 >
