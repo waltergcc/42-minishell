@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 17:19:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:45:07 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@
 # define STR_QUOTE "\'"
 # define STR_D_QUOTE "\""
 # define QUOTE_SET "\'\""
-# define CHARSET "?%*+,.-/#:@~ "
+# define CHARSET "?%*+,.-/#:@~ \t"
 # define N_HANDLE "&;(){}*\\"
+# define SPC " \t"
 
 # define ERROR_TITLE "minishell"
 # define ERROR_FORK "fork error"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:36:31 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 09:23:58 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:37:14 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,6 @@ size_t	strlen_at(const char *s, int c);
 char	*cpy_buffer(const char *s, size_t n);
 char	*find_chr(const char *s, int c);
 char	*merge_previous_and_current(char *s1, char const *s2);
+char	**ft_split2(char *str, char *charset);
 
 #endif

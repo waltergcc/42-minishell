@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 05:49:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:06:31 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 {
 	token->new = ft_substr(msh->tmp_cmd, token->start, token->size);
 	token->end = ft_strjoin(token->end, token->new);
-	token->position = search_position(token->end, " ", NULL, -1);
-	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
+	token->position = search_position(token->end, SPC, NULL, -1);
+	msh->token.print = ft_strtrim(&(token->end)[token->position], SPC);
 	msh->token.quote = UNLOCK;
 	msh->has_flag_n = NO;
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
 	if (token->end && token->end[0] != 0)
-		msh->tokens = ft_split(token->end, ' ');
+		msh->tokens = ft_split2(token->end, SPC);
 	if (msh->tokens && msh->tokens[1] && !ft_strncmp(msh->tokens[1], "cut", 3))
 		fix_cut_with_space_char(msh);
 	free_tokens(token);

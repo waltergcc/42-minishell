@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
+#    By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 01:34:02 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/22 09:24:34 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/22 17:36:20 by anvieira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ FT_STR = ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c \
 		ft_strtrim.c ft_substr.c ft_strstr.c ft_strncat.c \
 		ft_strclr.c ft_strequ.c ft_strncpy.c ft_strcmp.c \
 		ft_striter.c ft_strnequ.c ft_strcpy.c ft_strmap.c \
-		ft_strnew.c ft_strcat.c ft_strdel.c
+		ft_strnew.c ft_strcat.c ft_strdel.c ft_split2.c
 
 FT_PRINTF = ft_printf.c ft_print_std.c ft_print_hex.c ft_print_unsigned.c \
 		ft_print_address.c ft_check_flags.c ft_flags_utils.c ft_precision_print.c

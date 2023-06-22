@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_manager.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 19:20:05 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:29:07 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	close_control_flags(t_shell *msh)
 	}
 	if (msh->cat_case)
 	{
-		msh->tokens = ft_split("cat", ' ');
+		msh->tokens = ft_split2("cat", SPC);
 		create_child_process(msh, msh->fdin, msh->fdout);
 		free_split(msh->tokens, YES);
 	}

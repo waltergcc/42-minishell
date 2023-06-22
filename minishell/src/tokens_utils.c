@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 09:27:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:17:21 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	search_position(char *s, char *c, t_token *token, int i)
 			return (i + 1);
 		if (ft_isset(s[i], c) || s[i] == D_QUOTE
 			|| s[i] == QUOTE || (s[i] == '$' && token))
-		{
+		{	
 			if (token && (s[i + 1] == '$' || s[i] == '$'))
 				token->dollar_remain = 1;
 			return (i);
@@ -60,6 +60,8 @@ int	quotes_handler(t_shell *msh, char c, char *tmp, int j)
 			msh->token.quote = UNLOCK;
 		else
 		{
+			if (c == '\t' && msh->token.quote == UNLOCK)
+				c = ' ';
 			tmp[j] = c;
 			j++;
 		}
@@ -71,15 +73,15 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 {
 	char	*tmp;
 
-	tmp = ft_strtrim(s, " ");
+	tmp = ft_strtrim(s, SPC);
 	while (s[i] == '-' && s[i + 1] == 'n')
 	{
 		msh->has_flag_n = 1;
 		i += 2;
-		while (s[i] == ' ')
+		while (s[i] == ' ' || s[i] == '\t')
 			i++;
 	}
-	while (s[i] == ' ')
+	while (s[i] == ' ' || s[i] == '\t')
 		i++;
 	while (s[i])
 	{

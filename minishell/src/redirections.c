@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 16:37:41 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:32:51 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	start_heredoc(char *end)
 
 char	**double_redirect_in(t_shell *msh, char **file, int i)
 {
-	file = ft_split(&msh->cmds[i][2], ' ');
+	file = ft_split2(&msh->cmds[i][2], SPC);
 	start_heredoc(file[0]);
 	msh->fdin = open(file[0], O_RDONLY | O_CREAT, 0777);
 	msh->file_name = ft_strdup(file[0]);
@@ -65,12 +65,12 @@ void	redirect_in(t_shell *msh, int i, char **file, char *tmp)
 			file = double_redirect_in(msh, file, i);
 		else
 		{
-			file = ft_split(&msh->cmds[i][1], ' ');
+			file = ft_split2(&msh->cmds[i][1], SPC);
 			msh->fdin = open(file[0], O_RDONLY, 0777);
 			if (msh->fdin == -1 && !msh->file_error)
 				msh->file_error = ft_strdup(file[0]);
 		}
-		tmp = ft_strtrim(msh->tmp_cmd, " ");
+		tmp = ft_strtrim(msh->tmp_cmd, SPC);
 		if ((i == 0 && file[1]) || msh->parse.id == 1
 			|| (tmp[0] == '|' && ft_strlen(tmp) == 1))
 		{
@@ -91,12 +91,12 @@ void	redirect_out(t_shell *msh, int i, char *file)
 			close(msh->fdout);
 		if (msh->cmds[i] && msh->cmds[i][1] == '>')
 		{
-			file = ft_strtrim(&msh->cmds[i][2], " ");
+			file = ft_strtrim(&msh->cmds[i][2], SPC);
 			msh->fdout = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		}
 		else
 		{
-			file = ft_strtrim(&msh->cmds[i][1], " ");
+			file = ft_strtrim(&msh->cmds[i][1], SPC);
 			msh->fdout = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		free(file);

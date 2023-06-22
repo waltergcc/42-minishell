@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 09:34:13 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:24:44 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	start_parse_values(t_shell *msh)
 void	parse_input(t_shell *msh, char *s, int i)
 {
 	start_parse_values(msh);
-	s = ft_strtrim(s, " ");
+	s = ft_strtrim(s, SPC);
 	while (++i < (int)ft_strlen(s))
 	{
 		if (msh->parse.q == UNLOCK && (s[i] == D_QUOTE || s[i] == QUOTE))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 01:37:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 00:56:19 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:23:13 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	redirections_are_valid(t_shell *msh, int i)
 
 int	is_valid_input(char *s, int end)
 {
-	s = ft_strtrim(s, " ");
+	s = ft_strtrim(s, SPC);
 	if (!s[0] || s[0] == '|')
 	{
 		if (s[0] == '|')
