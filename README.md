@@ -560,5 +560,9 @@ export TEST.=test
 export TEST1="withdouble" TEST2='withsingle' TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8= TEST9 TEST10="" TEST11=too=many=equals TEST.12="    "
 ```
 > define this variables. Check with env
+```bash
+unset TEST1 TEST2 TEST3 TEST4 TEST5 TEST6 TEST7 TEST8 TEST9 TEST10 TEST11 TEST12
+```
+> unset all these variables that were valid
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester
