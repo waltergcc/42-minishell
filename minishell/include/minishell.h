@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 05:49:31 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 06:42:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define STR_D_QUOTE "\""
 # define QUOTE_SET "\'\""
 # define CHARSET "?%*+,.-/#:@~ "
+# define N_HANDLE "&;(){}*\\"
 
 # define ERROR_TITLE "minishell"
 # define ERROR_FORK "fork error"
@@ -120,6 +121,7 @@ typedef struct s_shell
 	int		error_flag;
 	int		cat_case;
 	int		exit_is_numeric;
+	int		unsupport;
 }			t_shell;
 
 /*input.c*/

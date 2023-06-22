@@ -469,6 +469,16 @@ echo $HOME/test
 > /home/wcorrea-/test
 
 ```bash
+;
+```
+> minishell: no support for operator `;'
+
+```bash
+*
+```
+> minishell: no support for operator `*'
+
+```bash
 >
 ```
 > minishell: syntax error near unexpected token `newline'

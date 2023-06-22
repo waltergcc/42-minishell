@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 00:55:21 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 06:42:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	first_cmd_valid(t_shell *msh)
 	if (msh->parse.q != UNLOCK)
 	{
 		print_error(ERROR_QUOTE, NULL, 2);
+		return (NO);
+	}
+	if (msh->unsupport)
+	{
+		printf("minishell: no support for operator `%c'\n", msh->unsupport);
+		g_exit = 2;
 		return (NO);
 	}
 	return (YES);
@@ -56,6 +62,8 @@ int	split_input_in_cmds(t_shell *msh, char *s, int i)
 			}
 		}
 	}
+	else if (is_charset(s[i], N_HANDLE, -1) && !msh->parse.q && !msh->unsupport)
+		msh->unsupport = s[i];
 	return (i);
 }
 
@@ -66,6 +74,7 @@ void	start_parse_values(t_shell *msh)
 	msh->parse.size = 0;
 	msh->parse.pipes = 0;
 	msh->parse.q = UNLOCK;
+	msh->unsupport = NO;
 	msh->is_last_redirection = NO;
 }
 
