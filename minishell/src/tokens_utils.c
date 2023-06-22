@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 23:55:08 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/22 04:38:36 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	search_position(char *s, char *c, t_token *token)
 		while (c[++j])
 		{
 			if (s[i] == c[j] || s[i] == D_QUOTE
-			|| s[i] == QUOTE || (s[i] == '$' && token))
+				|| s[i] == QUOTE || (s[i] == '$' && token))
 			{
 				if (token && (s[i + 1] == '$' || s[i] == '$'))
-				token->dollar_remain = 1;
+					token->dollar_remain = 1;
 				return (i);
 			}
 		}

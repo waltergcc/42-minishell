@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 21:49:26 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/22 04:41:36 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	get_dollar_sign(t_shell *msh, t_token *token)
 	token->new = ft_substr(msh->tmp_cmd, token->start, token->size - 1);
 	token->end = ft_strjoin(token->end, token->new);
 	free(token->new);
-	token->position = search_position(msh->tmp_cmd + token->i + 1, CHARSET, token);
+	token->position = search_position(msh->tmp_cmd + \
+		token->i + 1, CHARSET, token);
 	key = ft_substr(msh->tmp_cmd, token->i + 1, token->position);
 	if (msh->tmp_cmd[token->i + 1] != '?'
 		&& get_envinroment_content(msh, key, -1))

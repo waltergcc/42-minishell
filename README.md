@@ -459,6 +459,16 @@ echo -n -n -n -n -n Hello World
 > Hello World/home/wcorrea-$
 
 ```bash
+echo $HOME.test
+```
+> /home/wcorrea-.test
+
+```bash
+echo $HOME/test
+```
+> /home/wcorrea-/test
+
+```bash
 >
 ```
 > minishell: syntax error near unexpected token `newline'
