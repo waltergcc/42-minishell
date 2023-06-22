@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/19 08:58:34 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:49:26 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 {
 	token->new = ft_substr(msh->tmp_cmd, token->start, token->size);
 	token->end = ft_strjoin(token->end, token->new);
-	token->position = search_position(token->end, ' ', NULL);
+	token->position = search_position(token->end, " ", NULL);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
 	msh->token.quote = UNLOCK;
 	msh->has_flag_n = NO;
@@ -38,7 +38,7 @@ void	get_dollar_sign(t_shell *msh, t_token *token)
 	token->new = ft_substr(msh->tmp_cmd, token->start, token->size - 1);
 	token->end = ft_strjoin(token->end, token->new);
 	free(token->new);
-	token->position = search_position(msh->tmp_cmd + token->i + 1, ' ', token);
+	token->position = search_position(msh->tmp_cmd + token->i + 1, CHARSET, token);
 	key = ft_substr(msh->tmp_cmd, token->i + 1, token->position);
 	if (msh->tmp_cmd[token->i + 1] != '?'
 		&& get_envinroment_content(msh, key, -1))

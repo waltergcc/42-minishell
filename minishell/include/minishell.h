@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 00:55:45 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:52:06 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define ERROR_SUPPORT "Arguments and options aren't supported"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
 # define ERROR_SYNTAX "syntax error near unexpected token"
+# define CHARSET "?%*+,.-/#:@~ "
 
 extern int	g_exit;
 
@@ -183,7 +184,7 @@ void	check_quotes(t_shell *msh, t_token *token);
 
 /*tokens_utils.c*/
 t_token	*create_token(t_shell *msh);
-int		search_position(char *s, char c, t_token *token);
+int		search_position(char *s, char *c, t_token *token);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
 void	fix_cut_with_space_char(t_shell *msh);

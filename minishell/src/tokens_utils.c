@@ -6,28 +6,34 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 19:24:18 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:55:08 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	search_position(char *s, char c, t_token *token)
+int	search_position(char *s, char *c, t_token *token)
 {
 	int	i;
+	int	j;
 
 	i = -1;
+	j = -1;
 	while (s[++i])
 	{
-		if (s[i] == c || s[i] == D_QUOTE
-			|| s[i] == QUOTE || (s[i] == '$' && token))
-		{
-			if (token && (s[i + 1] == '$' || s[i] == '$'))
-				token->dollar_remain = 1;
-			return (i);
-		}
-		if (s[i] == '?')
+		if (s[i] == '?' && s[i - 1] == '$')
 			return (i + 1);
+		while (c[++j])
+		{
+			if (s[i] == c[j] || s[i] == D_QUOTE
+			|| s[i] == QUOTE || (s[i] == '$' && token))
+			{
+				if (token && (s[i + 1] == '$' || s[i] == '$'))
+				token->dollar_remain = 1;
+				return (i);
+			}
+		}
+		j = -1;
 	}
 	return (i);
 }
