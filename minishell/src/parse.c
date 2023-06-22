@@ -6,11 +6,22 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 06:42:14 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 09:34:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	have_forbidden(char *s, int n)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i] && i < n)
+		if (ft_isset(s[i], CHARSET))
+			return (YES);
+	return (NO);
+}
 
 int	first_cmd_valid(t_shell *msh)
 {
@@ -62,7 +73,7 @@ int	split_input_in_cmds(t_shell *msh, char *s, int i)
 			}
 		}
 	}
-	else if (is_charset(s[i], N_HANDLE, -1) && !msh->parse.q && !msh->unsupport)
+	else if (ft_isset(s[i], N_HANDLE) && !msh->parse.q && !msh->unsupport)
 		msh->unsupport = s[i];
 	return (i);
 }

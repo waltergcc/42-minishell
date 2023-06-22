@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 06:42:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 09:33:37 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	parse_input(t_shell *msh, char *s, int i);
 void	start_parse_values(t_shell *msh);
 int		split_input_in_cmds(t_shell *msh, char *s, int i);
 int		first_cmd_valid(t_shell *msh);
+int		have_forbidden(char *s, int n);
 
 /*commands_manager.c*/
 void	commands_manager(t_shell *msh, int i);
@@ -218,9 +219,5 @@ void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
 int		get_paths(t_shell *msh, char *tmp, int i);
 void	free_tokens(t_token *token);
-
-/*utils2.c*/
-int		is_charset(char c, char *set, int i);
-int		have_forbidden(char *s, int n);
 
 #endif

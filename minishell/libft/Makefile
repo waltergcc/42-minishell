@@ -6,14 +6,14 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 01:34:02 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/05/12 12:44:36 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/22 09:24:34 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 FT_IS = ft_isprint.c ft_isascii.c ft_isalnum.c ft_isdigit.c \
-		ft_isalpha.c
+		ft_isalpha.c ft_isset.c
 
 FT_TO = ft_tolower.c ft_toupper.c ft_atoi.c ft_itoa.c
 
