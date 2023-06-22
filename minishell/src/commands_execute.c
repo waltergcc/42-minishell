@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_execute.c                                  :+:      :+:    :+:   */
+/*   commands_execute.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 12:11:45 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:20:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ void	execute_builtin(t_shell *msh)
 	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
 		execute_pwd(msh, NULL);
 	if (!ft_strncmp(msh->tokens[0], "export", 6))
-		execute_export(msh, 0, NULL);
+	{
+		if (!msh->tokens[1])
+			print_error(EXPORT_NOTE, msh->tokens[0], 1);
+		else
+			execute_export(msh, 0, NULL);
+	}
 	if (!ft_strncmp(msh->tokens[0], "unset", 5))
 		execute_unset(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "env", 3))
