@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 19:22:12 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:37:41 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	start_heredoc(char *end)
 	{
 		free(line);
 		line = readline("heredoc> ");
+		if (!line)
+			break ;
 		if (ft_strlen(line) != ft_strlen(end))
 			ft_putendl_fd(line, fd);
 	}
