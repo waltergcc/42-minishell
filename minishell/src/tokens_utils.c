@@ -6,34 +6,25 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 04:38:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 05:51:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	search_position(char *s, char *c, t_token *token)
+int	search_position(char *s, char *c, t_token *token, int i)
 {
-	int	i;
-	int	j;
-
-	i = -1;
-	j = -1;
 	while (s[++i])
 	{
 		if (s[i] == '?' && s[i - 1] == '$')
 			return (i + 1);
-		while (c[++j])
+		if (is_charset(s[i], c, -1) || s[i] == D_QUOTE
+			|| s[i] == QUOTE || (s[i] == '$' && token))
 		{
-			if (s[i] == c[j] || s[i] == D_QUOTE
-				|| s[i] == QUOTE || (s[i] == '$' && token))
-			{
-				if (token && (s[i + 1] == '$' || s[i] == '$'))
-					token->dollar_remain = 1;
-				return (i);
-			}
+			if (token && (s[i + 1] == '$' || s[i] == '$'))
+				token->dollar_remain = 1;
+			return (i);
 		}
-		j = -1;
 	}
 	return (i);
 }

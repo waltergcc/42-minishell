@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 04:41:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 05:49:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 {
 	token->new = ft_substr(msh->tmp_cmd, token->start, token->size);
 	token->end = ft_strjoin(token->end, token->new);
-	token->position = search_position(token->end, " ", NULL);
+	token->position = search_position(token->end, " ", NULL, -1);
 	msh->token.print = ft_strtrim(&(token->end)[token->position], " ");
 	msh->token.quote = UNLOCK;
 	msh->has_flag_n = NO;
@@ -39,7 +39,7 @@ void	get_dollar_sign(t_shell *msh, t_token *token)
 	token->end = ft_strjoin(token->end, token->new);
 	free(token->new);
 	token->position = search_position(msh->tmp_cmd + \
-		token->i + 1, CHARSET, token);
+		token->i + 1, CHARSET, token, -1);
 	key = ft_substr(msh->tmp_cmd, token->i + 1, token->position);
 	if (msh->tmp_cmd[token->i + 1] != '?'
 		&& get_envinroment_content(msh, key, -1))
