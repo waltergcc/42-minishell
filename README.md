@@ -540,10 +540,14 @@ export =
 export =test
 ```
 > minishell: export: `=test': not a valid identifier
+```bash
+export TEST.=test
+```
+> minishell: export: `TEST.=test': not a valid identifier
 
 ### Crazy export test
 ```bash
-export TEST1="withdouble" TEST2='withsingle' TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8= TEST9 TEST10="" TEST11=too=many=equals TEST12="    "
+export TEST1="withdouble" TEST2='withsingle' TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8= TEST9 TEST10="" TEST11=too=many=equals TEST.12="    "
 ```
 > define this variables. Check with env
 ### Used tests

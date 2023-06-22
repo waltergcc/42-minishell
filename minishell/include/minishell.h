@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/21 23:52:06 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/22 05:37:43 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define STR_QUOTE "\'"
 # define STR_D_QUOTE "\""
 # define QUOTE_SET "\'\""
+# define CHARSET "?%*+,.-/#:@~ "
 
 # define ERROR_TITLE "minishell"
 # define ERROR_FORK "fork error"
@@ -56,7 +57,6 @@
 # define ERROR_SUPPORT "Arguments and options aren't supported"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
 # define ERROR_SYNTAX "syntax error near unexpected token"
-# define CHARSET "?%*+,.-/#:@~ "
 
 extern int	g_exit;
 
@@ -216,5 +216,9 @@ void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
 int		get_paths(t_shell *msh, char *tmp, int i);
 void	free_tokens(t_token *token);
+
+/*utils2.c*/
+int		is_charset(char c, char *set, int i);
+int		have_forbidden(char *s, int n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 16:03:08 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/22 05:32:29 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	execute_export(t_shell *msh, int i, char **tmp)
 
 	while (msh->tokens[++i])
 	{
-		while (msh->tokens[i] && msh->tokens[i][0] == '=')
+		while (msh->tokens[i] && (msh->tokens[i][0] == '='
+			|| have_forbidden(msh->tokens[i], strlen_at(msh->tokens[i], '='))))
 		{
 			printf("minishell: export: `%s': %s\n", msh->tokens[i], ERROR_EXP);
 			g_exit = 1;
