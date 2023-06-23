@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 17:45:07 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:21:46 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,14 @@ void	print_error_if_command_fail(t_shell *msh);
 void	redirect_out(t_shell *msh, int i, char *file);
 void	redirect_in(t_shell *msh, int i, char **file, char *tmp);
 char	**double_redirect_in(t_shell *msh, char **file, int i);
-void	start_heredoc(char *end);
 char	*new_command(int i, char **s);
+
+/*heredoc.c*/
+void	start_heredoc(char *end, t_shell *msh);
+int		has_expand(char *line, int i);
+int		search_variable_end(char *s, char *c, int i);
+char	*expand_line(char *line, t_shell *msh, t_token *exp, char *tail);
+void	get_expand_variable(char *line, t_shell *msh, t_token *exp);
 
 /*tokens.c*/
 void	get_tokens(t_shell *msh);
