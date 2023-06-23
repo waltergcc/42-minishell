@@ -388,6 +388,11 @@ cat << EOF
 ```
 > start the here document
 
+```bash
+cat << EOF | wc -l
+```
+> print the number of lines in the here document
+
 ### Pipes
 
 ```bash
