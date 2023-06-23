@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 17:32:51 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:04:05 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,21 @@ void	start_heredoc(char *end)
 {
 	char	*line;
 	int		fd;
-
+	
 	line = ft_strdup("");
 	fd = open(end, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	while (ft_strncmp(line, end, ft_strlen(end))
-		|| ft_strlen(line) != ft_strlen(end))
+	while ((ft_strncmp(line, end, ft_strlen(end))
+		|| ft_strlen(line) != ft_strlen(end)))
 	{
 		free(line);
-		line = readline("heredoc> ");
+		line = readline("> ");
 		if (!line)
+		{
+			printf("bash: warning: here-document at line");
+			printf(" delimited by end-of-file (wanted `%s')\n", end);
 			break ;
-		if (ft_strlen(line) != ft_strlen(end))
+		}
+		if (ft_strcmp(line, end))
 			ft_putendl_fd(line, fd);
 	}
 	close(fd);

@@ -10,3 +10,4 @@ minishell/src/checklist.txt
 .vscode/launch.json
 .vscode/settings.json
 .nfs*
+test*
