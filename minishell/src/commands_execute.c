@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/25 10:55:32 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/25 11:17:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	execute_builtin(t_shell *msh)
 {
-	if (!ft_strncmp(msh->tokens[0], "exit", 4) && !have_options(msh, 0))
+	if (!ft_strncmp(msh->tokens[0], "exit", 4))
 		execute_exit(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "echo", 4))
 		execute_echo(msh);

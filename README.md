@@ -148,6 +148,10 @@ exit 42
 ```
 > exit the minishell with return code 42
 ```bash
+exit -42
+```
+> exit the minishell with return code 214
+```bash
 exit 42 10
 ```
 > minishell: exit: too many arguments
@@ -287,6 +291,10 @@ export NEW_VAR=$USER
 export NEW_VAR="with unclosed quotes
 ```
 > minishell: unclosed quotes
+```bash
+export -p NEW_VAR
+```
+> minishell: export: options aren't supported
 
 
 ### unset
@@ -295,6 +303,10 @@ export NEW_VAR="with unclosed quotes
 unset NEW_VAR
 ```
 > remove the environment variable
+```bash
+unset -n NEW_VAR
+```
+> minishell: unset: options aren't supported
 
 ### cd
 
@@ -334,6 +346,11 @@ cd -
 pwd
 ```
 > /home/wcorrea-/workplace/common_core/minishell/minishell
+
+```bash
+pwd -L
+```
+> minishell: pwd: options aren't supported
 
 ### Relative Path
 
