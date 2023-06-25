@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:26:45 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/23 20:27:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/25 10:11:50 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	search_variable_end(char *s, char *c, int i)
 	{
 		if (s[i] == '?' && s[i - 1] == '$')
 			return (i + 1);
-		if (ft_isset(s[i], c) || s[i] == '$')
+		if (ft_isset(s[i], c) || ft_isset(s[i], QUOTE_SET) || s[i] == '$')
 			return (i);
 	}
 	return (i);
