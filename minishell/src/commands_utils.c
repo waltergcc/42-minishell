@@ -6,11 +6,24 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:02:02 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 12:04:27 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/25 10:55:40 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	have_options(t_shell *msh, int i)
+{
+	while (msh->tokens[++i])
+	{
+		if (msh->tokens[i][0] == '-')
+		{
+			print_error(ERROR_OPTIONS, msh->tokens[0], 2);
+			return (YES);
+		}
+	}
+	return (NO);
+}
 
 void	check_if_is_builtin(t_shell *msh, char *cmd)
 {

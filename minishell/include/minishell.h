@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/23 20:21:46 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/25 10:55:23 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 # define ERROR_NUM "numeric argument required"
 # define ERROR_ARG "too many arguments"
 # define ERROR_SUPPORT "Arguments and options aren't supported"
+# define ERROR_OPTIONS "options aren't supported"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
 # define ERROR_SYNTAX "syntax error near unexpected token"
 # define EXPORT_NOTE "too few argumnts"
@@ -172,6 +173,7 @@ void	check_first_cmd(t_shell *msh);
 void	implicit_cat(t_shell *msh, int i);
 void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	print_error_if_command_fail(t_shell *msh);
+int		have_options(t_shell *msh, int i);
 
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i, char *file);

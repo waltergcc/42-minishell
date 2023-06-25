@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 17:20:06 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/25 10:55:32 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	execute_builtin(t_shell *msh)
 {
-	if (!ft_strncmp(msh->tokens[0], "exit", 4))
+	if (!ft_strncmp(msh->tokens[0], "exit", 4) && !have_options(msh, 0))
 		execute_exit(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "echo", 4))
 		execute_echo(msh);
-	if (!ft_strncmp(msh->tokens[0], "pwd", 3))
+	if (!ft_strncmp(msh->tokens[0], "pwd", 3) && !have_options(msh, 0))
 		execute_pwd(msh, NULL);
-	if (!ft_strncmp(msh->tokens[0], "export", 6))
+	if (!ft_strncmp(msh->tokens[0], "export", 6) && !have_options(msh, 0))
 	{
 		if (!msh->tokens[1])
 			print_error(EXPORT_NOTE, msh->tokens[0], 1);
 		else
 			execute_export(msh, 0, NULL);
 	}
-	if (!ft_strncmp(msh->tokens[0], "unset", 5))
+	if (!ft_strncmp(msh->tokens[0], "unset", 5) && !have_options(msh, 0))
 		execute_unset(msh, 0);
 	if (!ft_strncmp(msh->tokens[0], "env", 3))
 		execute_env(msh, -1);
