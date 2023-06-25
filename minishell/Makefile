@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/25 10:52:49 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/25 11:46:11 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJS = ${SRC:.c=.o}
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror# -g -fsanitize=address
 INCLUDE = -I include
 MAKE = make -C
 LIBFT_PATH = libft
