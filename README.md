@@ -268,6 +268,10 @@ echo '$?'
 env
 ```
 > print the environment variables
+```bash
+env PATH
+```
+> minishell: env: Arguments and options aren't supported
 
 ### export
 

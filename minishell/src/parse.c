@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:32:00 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 17:24:44 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/25 11:42:13 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	have_forbidden(char *s, int n)
 
 	i = -1;
 	while (s[++i] && i < n)
-		if (ft_isset(s[i], CHARSET))
+		if (ft_isset(s[i], CHARSET) || ft_isset(s[i], QUOTE_SET))
 			return (YES);
 	return (NO);
 }
