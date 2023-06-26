@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_manager.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 17:29:07 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:09:14 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	command_handler(t_shell *msh)
 {
 	msh->tmp_cmd = ft_strdup(msh->cmds[msh->id]);
 	check_redirections(msh);
-	if (!msh->error_flag && (msh->control == COMMON || msh->control == SPECIAL))
+	if (!msh->error_flag && !msh->ctrlc
+		&& (msh->control == COMMON || msh->control == SPECIAL))
 	{
 		if (msh->is_first_time && msh->control == SPECIAL)
 		{
@@ -58,11 +59,7 @@ void	command_handler(t_shell *msh)
 		free_split(msh->tokens, YES);
 		free(msh->token.print);
 	}
-	if (msh->file_name && msh->file_name[0] != '\0')
-	{	
-		unlink(msh->file_name);
-		free(msh->file_name);
-	}
+	clean_handler(msh);
 }
 
 void	init_control_flags(t_shell *msh, int i)
@@ -70,6 +67,7 @@ void	init_control_flags(t_shell *msh, int i)
 	msh->id = 0;
 	msh->cat_case = NO;
 	msh->is_last_redirection = NO;
+	msh->ctrlc = NO;
 	msh->control = NO_START;
 	msh->is_first_time = YES;
 	check_first_cmd(msh);

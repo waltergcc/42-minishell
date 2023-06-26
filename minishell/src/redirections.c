@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 02:51:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/23 19:34:07 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:08:56 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,25 @@ char	*new_command(int i, char **file)
 
 char	**double_redirect_in(t_shell *msh, char **file, int i)
 {
+	pid_t	pid;
+
 	file = ft_split2(&msh->cmds[i][2], SPC);
-	start_heredoc(file[0], msh);
+	pid = fork();
+	if (pid < 0)
+		print_error(ERROR_FORK, NULL, 127);
+	else if (pid == 0)
+	{
+		set_signal(HEREDOC, msh);
+		start_heredoc(file[0], msh);
+		exit(g_exit);
+	}
+	else
+	{
+		set_signal(HEREDOC_PAUSE, msh);
+		wait(NULL);
+	}
+	if (g_exit == 130)
+		msh->ctrlc = YES;
 	msh->fdin = open(file[0], O_RDONLY | O_CREAT, 0777);
 	msh->file_name = ft_strdup(file[0]);
 	msh->is_append++;

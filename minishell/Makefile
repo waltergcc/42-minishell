@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/25 11:46:11 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/26 12:24:08 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = src/main.c \
 		src/signals.c \
 		src/redirections.c src/heredoc.c\
 		src/tokens.c src/tokens_utils.c \
-		src/commands_manager.c src/commands_execute.c src/commands_utils.c \
+		src/commands_manager.c src/commands_execute.c src/commands_utils.c src/commands_utils_2.c\
 		src/builtins_basic.c src/builtins_complex.c src/builtins_utils.c \
 		src/utils.c
 
@@ -27,7 +27,7 @@ OBJS = ${SRC:.c=.o}
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror# -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I include
 MAKE = make -C
 LIBFT_PATH = libft

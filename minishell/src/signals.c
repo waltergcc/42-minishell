@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:26:51 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:49:50 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:08:51 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,8 @@ void	set_signal(int sg, t_shell *msh)
 		printf("exit\n");
 		clean_exit(msh, BUILTIN_EXIT);
 	}
+	if (sg == HEREDOC)
+		signal(SIGINT, child_signal_handler);
+	if (sg == HEREDOC_PAUSE)
+		signal(SIGINT, child_signal_handler2);
 }
