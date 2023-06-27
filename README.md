@@ -215,9 +215,35 @@ expr $? + $?
 ### Double Quotes
 
 ```bash
+"/bin/ls"
+```
+> execute ls
+
+```bash
+""ls""
+```
+> execute ls
+
+```bash
+""ls -l""
+```
+> execute ls with details
+
+```bash
+"""ls -l"""
+```
+> minishell: ls -l: command not found
+
+```bash
+"echo Hello World"
+```
+> minishell: echo Hello World: command not found
+
+```bash
 echo "Hello World"
 ```
 > Hello World
+
 ```bash
 echo "with       spaces"
 ```
@@ -236,6 +262,31 @@ echo "
 > minishell: unclosed quotes
 
 ### Single Quotes
+
+```bash
+'/bin/ls'
+```
+> execute ls
+
+```bash
+''ls''
+```
+> execute ls
+
+```bash
+''ls -l''
+```
+> execute ls with details
+
+```bash
+'''ls -l'''
+```
+> minishell: ls -l: command not found
+
+```bash
+'echo Hello World'
+```
+> minishell: echo Hello World: command not found
 
 ```bash
 echo 'Hello World'
