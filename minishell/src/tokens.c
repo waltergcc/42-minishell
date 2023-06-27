@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/27 21:26:20 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/27 23:27:15 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
 	if (token->end && token->end[0] != 0)
 		msh->tokens = split_tokens(token->end, 0, 0);
-		// msh->tokens = ft_split2(token->end, SPC);
 	free_tokens(token);
 	free(msh->tmp_cmd);
 	msh->tmp_cmd = NULL;

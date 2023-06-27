@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 09:05:24 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/27 19:03:11 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/27 23:25:37 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ static void	charset_selector(char c, char **set, int i, int mode)
 	}
 }
 
+static void	join_with_token_after_equal(char *s, int *i, char *charset)
+{
+	charset_selector(s[*i], &charset, *i, BEGIN);
+	*i += 1;
+	while (s[*i] && !is_separator(s[*i], charset))
+		*i += 1;
+}
+
 static int	count_tokens(char *s)
 {
 	int		i;
@@ -65,6 +73,8 @@ static int	count_tokens(char *s)
 			count++;
 			while (s[i] && !is_separator(s[i], charset))
 				i++;
+			if (s[i - 1] == '=' && ft_isset(s[i], QUOTE_SET))
+				join_with_token_after_equal(s, &i, NULL);
 		}
 		else
 		{
@@ -83,6 +93,11 @@ static char	*token_splitter(char *s, char *charset)
 	i = 0;
 	while (s[i] && !is_separator(s[i], charset))
 		i++;
+	if (s[i - 1] == '=' && ft_isset(s[i], QUOTE_SET))
+	{
+		join_with_token_after_equal(s, &i, NULL);
+		charset_selector(s[i], &charset, i, END);
+	}
 	token = (char *)malloc(sizeof(char *) * (i + 1));
 	if (token == NULL)
 		return (NULL);
@@ -91,6 +106,15 @@ static char	*token_splitter(char *s, char *charset)
 	{
 		token[i] = s[i];
 		i++;
+	}
+	if (s[i - 1] == '=' && ft_isset(s[i], QUOTE_SET))
+	{
+		charset_selector(s[i], &charset, i, BEGIN);
+		while (s[i + 1] && !is_separator(s[i + 1], charset))
+		{
+			token[i] = s[i + 1];
+			i++;
+		}
 	}
 	token[i] = '\0';
 	return (token);
@@ -112,6 +136,8 @@ char	**split_tokens(char *s, int i, int j)
 			tokens[j] = token_splitter(&s[i], charset);
 			while (s[i] && !is_separator(s[i], charset))
 				i++;
+			if (s[i - 1] == '=' && ft_isset(s[i], QUOTE_SET))
+				join_with_token_after_equal(s, &i, NULL);
 			j++;
 		}
 		else
