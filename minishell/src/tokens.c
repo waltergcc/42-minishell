@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:30 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 18:06:31 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/27 23:35:57 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	close_current_tokens(t_shell *msh, t_token *token)
 	msh->has_flag_n = NO;
 	fix_quotes_to_print(msh, msh->token.print, 0, 0);
 	if (token->end && token->end[0] != 0)
-		msh->tokens = ft_split2(token->end, SPC);
-	if (msh->tokens && msh->tokens[1] && !ft_strncmp(msh->tokens[1], "cut", 3))
-		fix_cut_with_space_char(msh);
+		msh->tokens = split_tokens(token->end, 0, 0, NULL);
 	free_tokens(token);
 	free(msh->tmp_cmd);
 	msh->tmp_cmd = NULL;
