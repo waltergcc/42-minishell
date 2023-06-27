@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 18:17:21 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:26:50 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,27 +96,4 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 	tmp[j] = '\0';
 	free(msh->token.print);
 	msh->token.print = tmp;
-}
-
-void	fix_cut_with_space_char(t_shell *msh)
-{
-	int	i;
-
-	if (!ft_strncmp(msh->tokens[0], "|", 1)
-		&& !ft_strncmp(msh->tokens[1], "cut", 3)
-		&& !ft_strncmp(msh->tokens[2], "-d", 2)
-		&& !ft_strncmp(msh->tokens[3], STR_D_QUOTE, 1)
-		&& !ft_strncmp(msh->tokens[4], STR_D_QUOTE, 1))
-	{
-		free(msh->tokens[3]);
-		free(msh->tokens[4]);
-		msh->tokens[3] = ft_strdup(" ");
-		i = 4;
-		while (msh->tokens[i])
-		{
-			msh->tokens[i] = msh->tokens[i + 1];
-			i++;
-		}
-		msh->tokens[i] = NULL;
-	}
 }

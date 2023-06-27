@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/27 19:05:35 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:26:27 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,6 @@ t_token	*create_token(t_shell *msh);
 int		search_position(char *s, char *c, t_token *token, int i);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
-void	fix_cut_with_space_char(t_shell *msh);
 
 /*tokens_split.c*/
 char	**split_tokens(char *s, int i, int j);
