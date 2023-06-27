@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 05:32:29 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/27 23:59:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,7 @@ void	execute_export(t_shell *msh, int i, char **tmp)
 		if (!ft_strchr(msh->tokens[i], '='))
 			continue ;
 		current_position = i;
-		if (ft_strchr(msh->tokens[i], D_QUOTE))
-			tmp = split_export_token(msh, &i, tmp, D_QUOTE);
-		else if (ft_strchr(msh->tokens[i], QUOTE))
-			tmp = split_export_token(msh, &i, tmp, QUOTE);
-		else
-			tmp = split_export_token(msh, &i, tmp, UNLOCK);
+		tmp = split_export_token(msh, &i, tmp);
 		check_and_set_envinroment_var(msh, tmp, current_position);
 	}
 	g_exit = 0;

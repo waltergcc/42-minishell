@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/27 23:35:36 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/27 23:59:01 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,8 +234,7 @@ void	remove_environment_var(t_shell *msh, int i, int j);
 void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd);
 void	update_last_pwd(t_shell *msh, char *pwd);
 int		is_valid_exit(t_shell *msh, int i, int tokens);
-char	*get_export_with_quotes(t_shell *msh, int *i, char q, char *content);
-char	**split_export_token(t_shell *msh, int *i, char **tmp, char q);
+char	**split_export_token(t_shell *msh, int *i, char **tmp);
 
 /*utils.c*/
 void	print_error(char *msg, char *key, int exit_code);
