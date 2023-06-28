@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_complex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/22 05:32:29 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:20:04 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,48 @@ void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 	new = NULL;
 }
 
+void ordenate_keys()
+{
+	int i;
+	int j;
+	char *tmp;
+	
+	init_ex();
+	i = 0;
+	while (msh->keys[i])
+	{
+		j = i + 1;
+		while (msh->keys_ex[j])
+		{
+			if (ft_strcmp(msh->keys_ex[i], msh->keys_ex[j]) > 0)
+			{
+				tmp = msh->keys_ex[i];
+				msh->keys_ex[i] = msh->keys_ex[j];
+				msh->keys_ex[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	export_empty(t_shell *msh, int i)
+{
+	ordenate_keys(msh);
+	while (msh->keys_ex[++i])
+	{
+		if (get_envinroment_content(msh, msh->keys_ex[i], -1))
+		{
+			
+			printf("EXPORT %s=\"%s\"\n", msh->keys_ex[i],
+				get_envinroment_content(msh, msh->keys_ex[i], -1));
+		}
+		else
+			printf("EXPORT %s\n", msh->keys[i]);
+	}
+	
+}
+
 void	execute_export(t_shell *msh, int i, char **tmp)
 {
 	int	current_position;
@@ -91,6 +133,8 @@ void	execute_export(t_shell *msh, int i, char **tmp)
 			break ;
 		if (!ft_strchr(msh->tokens[i], '='))
 			continue ;
+		else
+			export_empty(msh, -1);
 		current_position = i;
 		if (ft_strchr(msh->tokens[i], D_QUOTE))
 			tmp = split_export_token(msh, &i, tmp, D_QUOTE);

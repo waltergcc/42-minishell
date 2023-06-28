@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/26 12:08:12 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:18:22 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_envp
 	char	**envp;
 	char	**key;
 	char	**content;
+	char	**key_ex;
+	char	**content_ex;
 	int		size;
 	int		index;
 }			t_envp;
@@ -149,6 +151,7 @@ void	set_signal(int sg, t_shell *msh);
 void	reset_prompt(int sg);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
+
 
 /*parse.c*/
 void	parse_input(t_shell *msh, char *s, int i);
