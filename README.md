@@ -632,6 +632,21 @@ export TEST.=test
 ```
 > minishell: export: `TEST.=test': not a valid identifier
 
+```bash
+export TEST=ABCD
+```
+> create a var TEST with content ABCD
+
+```bash
+export $TEST=1234
+```
+> create a var ABCD with content 1234
+
+```bash
+export $ABCD=more
+```
+> minishell: export: `1234=more': not a valid identifier
+
 ### Crazy export test
 ```bash
 export TEST1="withdouble" TEST2='withsingle' TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8= TEST9 TEST10="" TEST11=too=many=equals TEST.12="    "
