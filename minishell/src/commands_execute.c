@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/25 11:17:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:06:26 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ void	create_child_process(t_shell *msh, int in, int out)
 		}
 		else
 			waitpid(pid, &g_exit, WUNTRACED);
-		if (WIFEXITED(g_exit))
+		if (WIFSIGNALED(g_exit))
+			g_exit = WTERMSIG(g_exit) + 128;
+		else if (WIFEXITED(g_exit))
 			g_exit = WEXITSTATUS(g_exit);
 	}
 }

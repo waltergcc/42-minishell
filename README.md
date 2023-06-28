@@ -186,16 +186,19 @@ expr $? + $?
 ### Signals
 
 `ctrl-C` on empty prompt
-> display a new line with a new prompt
+> display a new line with a new prompt</br>
+> echo $? must display 130
 
 `ctrl-\` on empty prompt
 > do nothing
 
 `ctrl-D` on empty prompt
-> quit minishell
+> quit minishell</br>
+> echo $? must display 0
 
 `ctrl-C` after write some stuff
-> display a new line with a new prompt
+> display a new line with a new prompt</br>
+> echo $? must display 130
 
 `ctrl-\` after write some stuff
 > do nothing
@@ -204,13 +207,16 @@ expr $? + $?
 > do nothing
 
 `ctrl-C` in cat without arguments
-> ^C
+> ^C</br>
+> echo $? must display 130
 
 `ctrl-\` in cat without arguments
-> \Quit (core dumped)
+> \Quit (core dumped)</br>
+> echo $? must display 131
 
 `ctrl-D` in cat without arguments
-> close interactive mode
+> close interactive mode</br>
+> echo $? must display 0
 
 ### Double Quotes
 
