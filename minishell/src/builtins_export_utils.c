@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 09:25:34 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/29 12:48:01 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:21:33 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,17 @@ t_key	*stack_new(char **key, char **content, int index)
 	if (!first)
 		return (NULL);
 	first->key = ft_strdup(key[index]);
-	first->content = ft_strdup(content[index]);
+	if (content)
+		first->content = ft_strdup(content[index]);
+	else
+	{
+		first->content = NULL;
+	}
 	first->next = NULL;
 	return (first);
 }
 
-t_key	*fill_stack(int size, char **key, char **content)
+t_key	*fill_stack(int size, char **key, char **key_tmp, char **content)
 {
 	t_key	*header;
 	int		i;
@@ -74,6 +79,12 @@ t_key	*fill_stack(int size, char **key, char **content)
 			header = stack_new(key, content, i);
 		else
 			stack_add_bottom(&header, stack_new(key, content, i));
+		i++;
+	}
+	i = 0;
+	while (key_tmp[i])
+	{
+		stack_add_bottom(&header, stack_new(key_tmp, NULL, i));
 		i++;
 	}
 	return (header);

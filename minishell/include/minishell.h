@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 12:52:52 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:03:28 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_envp
 {
 	char	**envp;
 	char	**key;
+	char	*key_tmp[100];
 	t_key	*key_ex;
 	char	**content;
 	int		size;
@@ -240,7 +241,7 @@ void	export_without_args(t_shell *msh);
 
 /*builtins_export_utils.c*/
 t_key	*stack_new(char **key, char **content, int index);
-t_key	*fill_stack(int size, char **key, char **content);
+t_key	*fill_stack(int size, char **key, char **key_tmp, char **content);
 void	free_stack(t_key **stack);
 void	stack_add_bottom(t_key **header, t_key *new);
 void	ordenate_keys(t_key *header);
