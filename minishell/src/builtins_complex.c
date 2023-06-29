@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 10:06:25 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:25:28 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,33 @@ void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 	new = NULL;
 }
 
+int	check_keys(char **key, char ** key_tmp, char *token)
+{
+	int n;
+	
+	n = 0;
+	while(key[n])
+	{
+		if(ft_strcmp(key[n], token) == 0)
+			return (1);
+		n++;
+	}
+	n = 0;
+	while (key_tmp[n] != NULL)
+	{
+		if(ft_strcmp(key_tmp[n] , token) == 0)
+			return (1);
+		n++;
+	}
+	return (0);
+}
+
 void	execute_export(t_shell *msh, int i, char **tmp)
 {
 	int	current_position;
+	int n = 0;
+	msh->environment.key_tmp[0] = NULL;
+	
 
 	while (msh->tokens[++i])
 	{
@@ -90,7 +114,17 @@ void	execute_export(t_shell *msh, int i, char **tmp)
 		if (msh->tokens[i] == NULL)
 			break ;
 		if (!ft_strchr(msh->tokens[i], '='))
-			continue ;
+		{
+			if (check_keys(msh->environment.key, msh->environment.key_tmp, msh->tokens[i]))
+				continue ;
+			else
+				{
+					while(msh->environment.key_tmp[n] != NULL)
+						n++;
+					msh->environment.key_tmp[n] = ft_strdup(msh->tokens[i]);
+					break;
+				}
+		}
 		current_position = i;
 		tmp = split_export_token(msh, &i, tmp);
 		check_and_set_envinroment_var(msh, tmp, current_position);
