@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   builtins_export_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 09:25:34 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/29 11:30:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:48:01 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	free_stack(t_key_ex **stack)
+void	free_stack(t_key **stack)
 {
-	t_key_ex	*tmp;
+	t_key	*tmp;
 
 	if (!stack || !(*stack))
 		return ;
@@ -29,10 +29,10 @@ static void	free_stack(t_key_ex **stack)
 	*stack = NULL;
 }
 
-static void	stack_add_bottom(t_key_ex **header, t_key_ex *new)
+void	stack_add_bottom(t_key **header, t_key *new)
 {
-	t_key_ex	*tail;
-	t_key_ex	*tmp;
+	t_key	*tail;
+	t_key	*tmp;
 
 	tmp = *header;
 	if (!new)
@@ -48,11 +48,11 @@ static void	stack_add_bottom(t_key_ex **header, t_key_ex *new)
 	tail->next = new;
 }
 
-static t_key_ex	*stack_new(char **key, char **content, int index)
+t_key	*stack_new(char **key, char **content, int index)
 {
-	t_key_ex	*first;
+	t_key	*first;
 
-	first = (t_key_ex *)malloc(sizeof(t_key_ex));
+	first = (t_key *)malloc(sizeof(t_key));
 	if (!first)
 		return (NULL);
 	first->key = ft_strdup(key[index]);
@@ -61,10 +61,10 @@ static t_key_ex	*stack_new(char **key, char **content, int index)
 	return (first);
 }
 
-static t_key_ex	*fill_stack(int size, char **key, char **content)
+t_key	*fill_stack(int size, char **key, char **content)
 {
-	t_key_ex	*header;
-	int			i;
+	t_key	*header;
+	int		i;
 
 	header = NULL;
 	i = 0;
@@ -79,11 +79,11 @@ static t_key_ex	*fill_stack(int size, char **key, char **content)
 	return (header);
 }
 
-static void	ordenate_keys(t_key_ex *header)
+void	ordenate_keys(t_key *header)
 {
-	t_key_ex	*tmp;
-	t_key_ex	*tmp2;
-	char		*aux;
+	t_key	*tmp;
+	t_key	*tmp2;
+	char	*aux;
 
 	tmp = header;
 	while (tmp)
@@ -104,23 +104,4 @@ static void	ordenate_keys(t_key_ex *header)
 		}
 		tmp = tmp->next;
 	}
-}
-
-void	export_empty(t_shell *msh)
-{
-	t_key_ex	*tmp;
-
-	msh->environment.key_ex = fill_stack(msh->environment.size,
-			msh->environment.key, msh->environment.content);
-	ordenate_keys(msh->environment.key_ex);
-	tmp = msh->environment.key_ex;
-	while (tmp)
-	{
-		ft_putstr_fd("export ", msh->fdout);
-		ft_putstr_fd(tmp->key, msh->fdout);
-		ft_putchar_fd('=', msh->fdout);
-		ft_putendl_fd(tmp->content, msh->fdout);
-		tmp = tmp->next;
-	}
-	free_stack(&msh->environment.key_ex);
 }

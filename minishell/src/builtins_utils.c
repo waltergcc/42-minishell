@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 10:12:09 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:46:22 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,23 @@ int	is_valid_exit(t_shell *msh, int i, int tokens)
 	g_exit = ft_atoi(msh->tokens[1]);
 	msh->exit_is_numeric = YES;
 	return (YES);
+}
+
+void	export_without_args(t_shell *msh)
+{
+	t_key	*tmp;
+
+	msh->environment.key_ex = fill_stack(msh->environment.size,
+			msh->environment.key, msh->environment.content);
+	ordenate_keys(msh->environment.key_ex);
+	tmp = msh->environment.key_ex;
+	while (tmp)
+	{
+		ft_putstr_fd("export ", msh->fdout);
+		ft_putstr_fd(tmp->key, msh->fdout);
+		ft_putchar_fd('=', msh->fdout);
+		ft_putendl_fd(tmp->content, msh->fdout);
+		tmp = tmp->next;
+	}
+	free_stack(&msh->environment.key_ex);
 }

@@ -333,6 +333,11 @@ env PATH
 ### export
 
 ```bash
+export
+```
+> print the exported environment variables
+
+```bash
 export NEW_VAR=42
 ```
 > add NEW_VAR with content 42
@@ -542,6 +547,11 @@ echo -n -n -n -n -n Hello World
 > Hello World/home/wcorrea-$
 
 ```bash
+echo -nnnnnnnnn Hello World
+```
+> Hello World/home/wcorrea-$
+
+```bash
 echo $HOME.test
 ```
 > /home/wcorrea-.test
@@ -637,6 +647,11 @@ export =test
 export TEST.=test
 ```
 > minishell: export: `TEST.=test': not a valid identifier
+
+```bash
+export 1TEST=test
+```
+> minishell: export: `1TEST=test': not a valid identifier
 
 ```bash
 export TEST=ABCD

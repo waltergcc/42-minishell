@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 11:26:00 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:52:52 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,21 @@
 # define EXPORT_NOTE "too few argumnts"
 
 extern int	g_exit;
-typedef struct s_key_ex
+typedef struct s_key
 {
-	char		*key;
-	char		*content;
-	void		*next;
-}			t_key_ex;
+	char	*key;
+	char	*content;
+	void	*next;
+}			t_key;
 typedef struct s_envp
 {
-	char		**envp;
-	char		**key;
-	t_key_ex	*key_ex;
-	char		**content;
-	int			size;
-	int			index;
-}				t_envp;
+	char	**envp;
+	char	**key;
+	t_key	*key_ex;
+	char	**content;
+	int		size;
+	int		index;
+}			t_envp;
 typedef struct s_parse
 {
 	int		id;
@@ -187,12 +187,6 @@ void	check_if_is_builtin(t_shell *msh, char *cmd);
 void	print_error_if_command_fail(t_shell *msh);
 int		have_options(t_shell *msh, int i);
 
-/*commands_utils_2.c*/
-void	clean_handler(t_shell *msh);
-void	child_signal_handler(int sig);
-void	child_signal_handler2(int sig);
-char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
-
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i, char *file);
 void	redirect_in(t_shell *msh, int i, char **file, char *tmp);
@@ -218,6 +212,7 @@ t_token	*create_token(t_shell *msh);
 int		search_position(char *s, char *c, t_token *token, int i);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
+int		verify_flag_n(t_shell *msh, char *s, int i);
 
 /*tokens_split.c*/
 char	**split_tokens(char *s, int i, int j, char	*charset);
@@ -241,6 +236,14 @@ void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd);
 void	update_last_pwd(t_shell *msh, char *pwd);
 int		is_valid_exit(t_shell *msh, int i, int tokens);
 char	**split_export_token(t_shell *msh, int *i, char **tmp);
+void	export_without_args(t_shell *msh);
+
+/*builtins_export_utils.c*/
+t_key	*stack_new(char **key, char **content, int index);
+t_key	*fill_stack(int size, char **key, char **content);
+void	free_stack(t_key **stack);
+void	stack_add_bottom(t_key **header, t_key *new);
+void	ordenate_keys(t_key *header);
 
 /*utils.c*/
 void	print_error(char *msg, char *key, int exit_code);
@@ -248,6 +251,11 @@ void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
 int		get_paths(t_shell *msh, char *tmp, int i);
 void	free_tokens(t_token *token);
-void	export_empty(t_shell *msh);
+
+/*utils_extra.c*/
+void	clean_handler(t_shell *msh);
+void	child_signal_handler(int sig);
+void	child_signal_handler2(int sig);
+char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
 
 #endif
