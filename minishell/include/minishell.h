@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/27 23:59:01 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:50:40 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int		have_options(t_shell *msh, int i);
 void	clean_handler(t_shell *msh);
 void	child_signal_handler(int sig);
 void	child_signal_handler2(int sig);
+char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
 
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i, char *file);

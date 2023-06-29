@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 11:57:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:50:10 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ void	create_environment(t_shell *msh, char **envp, char **tmp, int i)
 	key_content_malloc(&msh->environment, msh->environment.size);
 	while (msh->environment.envp[++i])
 	{
-		tmp = ft_split(msh->environment.envp[i], '=');
+		tmp = split_environment_vars(msh, &i, tmp);
 		msh->environment.key[i] = ft_strdup(tmp[0]);
-		if (tmp[1])
-			msh->environment.content[i] = ft_strdup(tmp[1]);
-		else
-			msh->environment.content[i] = ft_strdup("");
+		msh->environment.content[i] = ft_strdup(tmp[1]);
 		free_split(tmp, YES);
 		tmp = NULL;
 	}
