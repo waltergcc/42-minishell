@@ -7,10 +7,6 @@
       "request": "launch",
       "program": "${workspaceFolder}/minishell/minishell",
       "args": [
-        "poem.txt",
-        "cat",
-        "wc -l",
-        "out.txt"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

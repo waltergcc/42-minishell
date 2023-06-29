@@ -22,6 +22,9 @@
 # define YES 1
 # define NO 0
 
+# define BEGIN 1
+# define END 0
+
 # define NOT_NUM 2
 # define EXIT_ARG 0
 # define BUILTIN_EXIT 1
@@ -45,6 +48,7 @@
 # define CHARSET "?%*+,.-/#:@~ \t"
 # define N_HANDLE "&;(){}*\\"
 # define SPC " \t"
+# define SPC_QUOTES " \t\'\""
 
 # define ERROR_TITLE "minishell"
 # define ERROR_FORK "fork error"
@@ -187,6 +191,7 @@ int		have_options(t_shell *msh, int i);
 void	clean_handler(t_shell *msh);
 void	child_signal_handler(int sig);
 void	child_signal_handler2(int sig);
+char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
 
 /*redirections.c*/
 void	redirect_out(t_shell *msh, int i, char *file);
@@ -213,7 +218,9 @@ t_token	*create_token(t_shell *msh);
 int		search_position(char *s, char *c, t_token *token, int i);
 int		quotes_handler(t_shell *msh, char c, char *tmp, int j);
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j);
-void	fix_cut_with_space_char(t_shell *msh);
+
+/*tokens_split.c*/
+char	**split_tokens(char *s, int i, int j, char	*charset);
 
 /*builtins_basic.c*/
 void	execute_echo(t_shell *msh);
@@ -233,7 +240,6 @@ void	remove_environment_var(t_shell *msh, int i, int j);
 void	update_envinroment_pwds(t_shell *msh, char *to_update, char *pwd);
 void	update_last_pwd(t_shell *msh, char *pwd);
 int		is_valid_exit(t_shell *msh, int i, int tokens);
-char	*get_export_with_quotes(t_shell *msh, int *i, char q, char *content);
 char	**split_export_token(t_shell *msh, int *i, char **tmp);
 
 /*utils.c*/

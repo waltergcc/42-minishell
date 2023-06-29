@@ -124,7 +124,9 @@ void	create_child_process(t_shell *msh, int in, int out)
 		}
 		else
 			waitpid(pid, &g_exit, WUNTRACED);
-		if (WIFEXITED(g_exit))
+		if (WIFSIGNALED(g_exit))
+			g_exit = WTERMSIG(g_exit) + 128;
+		else if (WIFEXITED(g_exit))
 			g_exit = WEXITSTATUS(g_exit);
 	}
 }

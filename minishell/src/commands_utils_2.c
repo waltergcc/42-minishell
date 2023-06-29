@@ -6,11 +6,29 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:06:57 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/26 12:08:45 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:50:22 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**split_environment_vars(t_shell *msh, int *i, char **tmp)
+{
+	char	*content;
+	int		key_size;
+	int		content_size;
+
+	key_size = ft_strchr(msh->environment.envp[*i], '=') \
+		- msh->environment.envp[*i];
+	content_size = ft_strlen(msh->environment.envp[*i]) - (key_size + 1);
+	content = ft_substr(msh->environment.envp[*i], key_size + 1, content_size);
+	tmp = (char **)malloc(sizeof(char *) * 3);
+	tmp[0] = ft_substr(msh->environment.envp[*i], 0, key_size);
+	tmp[1] = ft_strtrim(content, QUOTE_SET);
+	tmp[2] = NULL;
+	free(content);
+	return (tmp);
+}
 
 void	child_signal_handler2(int sig)
 {

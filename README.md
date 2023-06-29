@@ -186,16 +186,19 @@ expr $? + $?
 ### Signals
 
 `ctrl-C` on empty prompt
-> display a new line with a new prompt
+> display a new line with a new prompt</br>
+> echo $? must display 130
 
 `ctrl-\` on empty prompt
 > do nothing
 
 `ctrl-D` on empty prompt
-> quit minishell
+> quit minishell</br>
+> echo $? must display 0
 
 `ctrl-C` after write some stuff
-> display a new line with a new prompt
+> display a new line with a new prompt</br>
+> echo $? must display 130
 
 `ctrl-\` after write some stuff
 > do nothing
@@ -204,20 +207,49 @@ expr $? + $?
 > do nothing
 
 `ctrl-C` in cat without arguments
-> ^C
+> ^C</br>
+> echo $? must display 130
 
 `ctrl-\` in cat without arguments
-> \Quit (core dumped)
+> \Quit (core dumped)</br>
+> echo $? must display 131
 
 `ctrl-D` in cat without arguments
-> close interactive mode
+> close interactive mode</br>
+> echo $? must display 0
 
 ### Double Quotes
+
+```bash
+"/bin/ls"
+```
+> execute ls
+
+```bash
+""ls""
+```
+> execute ls
+
+```bash
+""ls -l""
+```
+> execute ls with details
+
+```bash
+"""ls -l"""
+```
+> minishell: ls -l: command not found
+
+```bash
+"echo Hello World"
+```
+> minishell: echo Hello World: command not found
 
 ```bash
 echo "Hello World"
 ```
 > Hello World
+
 ```bash
 echo "with       spaces"
 ```
@@ -236,6 +268,31 @@ echo "
 > minishell: unclosed quotes
 
 ### Single Quotes
+
+```bash
+'/bin/ls'
+```
+> execute ls
+
+```bash
+''ls''
+```
+> execute ls
+
+```bash
+''ls -l''
+```
+> execute ls with details
+
+```bash
+'''ls -l'''
+```
+> minishell: ls -l: command not found
+
+```bash
+'echo Hello World'
+```
+> minishell: echo Hello World: command not found
 
 ```bash
 echo 'Hello World'
@@ -580,6 +637,21 @@ export =test
 export TEST.=test
 ```
 > minishell: export: `TEST.=test': not a valid identifier
+
+```bash
+export TEST=ABCD
+```
+> create a var TEST with content ABCD
+
+```bash
+export $TEST=1234
+```
+> create a var ABCD with content 1234
+
+```bash
+export $ABCD=more
+```
+> minishell: export: `1234=more': not a valid identifier
 
 ### Crazy export test
 ```bash

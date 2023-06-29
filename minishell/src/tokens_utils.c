@@ -18,7 +18,7 @@ int	search_position(char *s, char *c, t_token *token, int i)
 	{
 		if (s[i] == '?' && s[i - 1] == '$')
 			return (i + 1);
-		if (ft_isset(s[i], c) || s[i] == D_QUOTE
+		if (ft_isset(s[i], c) || s[i] == '=' || s[i] == D_QUOTE
 			|| s[i] == QUOTE || (s[i] == '$' && token))
 		{	
 			if (token && (s[i + 1] == '$' || s[i] == '$'))
@@ -112,27 +112,4 @@ void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 	tmp[j] = '\0';
 	free(msh->token.print);
 	msh->token.print = tmp;
-}
-
-void	fix_cut_with_space_char(t_shell *msh)
-{
-	int	i;
-
-	if (!ft_strncmp(msh->tokens[0], "|", 1)
-		&& !ft_strncmp(msh->tokens[1], "cut", 3)
-		&& !ft_strncmp(msh->tokens[2], "-d", 2)
-		&& !ft_strncmp(msh->tokens[3], STR_D_QUOTE, 1)
-		&& !ft_strncmp(msh->tokens[4], STR_D_QUOTE, 1))
-	{
-		free(msh->tokens[3]);
-		free(msh->tokens[4]);
-		msh->tokens[3] = ft_strdup(" ");
-		i = 4;
-		while (msh->tokens[i])
-		{
-			msh->tokens[i] = msh->tokens[i + 1];
-			i++;
-		}
-		msh->tokens[i] = NULL;
-	}
 }

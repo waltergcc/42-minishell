@@ -12,25 +12,6 @@
 
 #include "minishell.h"
 
-char	*get_export_with_quotes(t_shell *msh, int *i, char q, char *content)
-{
-	*i += 1;
-	while (msh->tokens[*i] && !ft_strchr(msh->tokens[*i], q))
-	{
-		content = ft_strjoin(content, " ");
-		content = ft_strjoin(content, msh->tokens[*i]);
-		*i += 1;
-	}
-	if (msh->tokens[*i] && (ft_strchr(msh->tokens[*i], q)))
-	{
-		content = ft_strjoin(content, " ");
-		content = ft_strjoin(content, msh->tokens[*i]);
-	}
-	if (!msh->tokens[*i])
-		*i -= 1;
-	return (content);
-}
-
 char	**split_export_token(t_shell *msh, int *i, char **tmp)
 {
 	char	*content;
