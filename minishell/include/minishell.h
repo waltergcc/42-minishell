@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 11:50:40 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:26:00 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,21 @@
 # define EXPORT_NOTE "too few argumnts"
 
 extern int	g_exit;
-
+typedef struct s_key_ex
+{
+	char		*key;
+	char		*content;
+	void		*next;
+}			t_key_ex;
 typedef struct s_envp
 {
-	char	**envp;
-	char	**key;
-	char	**content;
-	int		size;
-	int		index;
-}			t_envp;
-
+	char		**envp;
+	char		**key;
+	t_key_ex	*key_ex;
+	char		**content;
+	int			size;
+	int			index;
+}				t_envp;
 typedef struct s_parse
 {
 	int		id;
@@ -243,5 +248,6 @@ void	free_split(char **str, int free_str);
 void	clean_exit(t_shell *msh, int mode);
 int		get_paths(t_shell *msh, char *tmp, int i);
 void	free_tokens(t_token *token);
+void	export_empty(t_shell *msh);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_execute.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/28 19:06:26 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 03:54:57 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	execute_builtin(t_shell *msh)
 	if (!ft_strncmp(msh->tokens[0], "export", 6) && !have_options(msh, 0))
 	{
 		if (!msh->tokens[1])
-			print_error(EXPORT_NOTE, msh->tokens[0], 1);
+			export_empty(msh);
 		else
 			execute_export(msh, 0, NULL);
 	}

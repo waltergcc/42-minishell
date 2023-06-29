@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/28 10:20:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:43:32 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,34 @@ int	quotes_handler(t_shell *msh, char c, char *tmp, int j)
 	return (j);
 }
 
+int	verify_flag_n(t_shell *msh, char *s, int i)
+{
+	int	start;
+
+	start = i;
+	while (s[i] == '-' && s[i + 1] == 'n')
+	{
+		msh->has_flag_n++;
+		i += 2;
+		while (s[i] == ' ' || s[i] == '\t' || s[i] == 'n')
+				i++;
+		if (s[i - 1] == 'n' && (s[i] != ' ' && s[i] != '\t'
+				&& s[i] != 'n' && s[i] != '\0'))
+		{
+			if (msh->has_flag_n == 1)
+				msh->has_flag_n = 0;
+			return (start);
+		}
+	}	
+	return (i);
+}
+
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 {
 	char	*tmp;
 
 	tmp = ft_strtrim(s, SPC);
-	while (s[i] == '-' && s[i + 1] == 'n')
-	{
-		msh->has_flag_n = 1;
-		i += 2;
-		while (s[i] == ' ' || s[i] == '\t')
-			i++;
-	}
+	i = verify_flag_n(msh, s, i);
 	while (s[i] == ' ' || s[i] == '\t')
 		i++;
 	while (s[i])
