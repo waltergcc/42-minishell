@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/20 16:03:18 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:12:09 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_export_with_quotes(t_shell *msh, int *i, char q, char *content)
 	return (content);
 }
 
-char	**split_export_token(t_shell *msh, int *i, char **tmp, char q)
+char	**split_export_token(t_shell *msh, int *i, char **tmp)
 {
 	char	*content;
 	int		key_size;
@@ -42,8 +42,6 @@ char	**split_export_token(t_shell *msh, int *i, char **tmp, char q)
 	content = ft_substr(msh->tokens[*i], key_size + 1, content_size);
 	tmp = (char **)malloc(sizeof(char *) * 3);
 	tmp[0] = ft_substr(msh->tokens[*i], 0, key_size);
-	if (q && ft_strchr(msh->tokens[*i], q) == ft_strrchr(msh->tokens[*i], q))
-		content = get_export_with_quotes(msh, i, q, content);
 	tmp[1] = ft_strtrim(content, QUOTE_SET);
 	tmp[2] = NULL;
 	free(content);

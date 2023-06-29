@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/28 04:49:17 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:43:32 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,28 +68,28 @@ int	quotes_handler(t_shell *msh, char c, char *tmp, int j)
 	}
 	return (j);
 }
-int		verify_flag_n(t_shell *msh, char *s, int i)
+
+int	verify_flag_n(t_shell *msh, char *s, int i)
 {
+	int	start;
+
+	start = i;
 	while (s[i] == '-' && s[i + 1] == 'n')
 	{
-		int start;
-		
-		start = i;
 		msh->has_flag_n++;
 		i += 2;
 		while (s[i] == ' ' || s[i] == '\t' || s[i] == 'n')
 				i++;
-		if (s[i - 1] == 'n' && (s[i] != ' ' && s[i] != '\t' && s[i] != 'n' && s[i] != '\0'))
+		if (s[i - 1] == 'n' && (s[i] != ' ' && s[i] != '\t'
+				&& s[i] != 'n' && s[i] != '\0'))
 		{
-				if(msh->has_flag_n == 1)
-					msh->has_flag_n = 0;
-				return (start);
+			if (msh->has_flag_n == 1)
+				msh->has_flag_n = 0;
+			return (start);
 		}
 	}	
 	return (i);
 }
-	
-	
 
 void	fix_quotes_to_print(t_shell *msh, char *s, int i, int j)
 {
