@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:53:17 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 14:47:33 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:18:04 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@ void	command_handler(t_shell *msh)
 		}
 		get_tokens(msh);
 		if (msh->tokens && msh->tokens[0])
+		{
 			check_if_is_builtin(msh, msh->tokens[0]);
-		if (msh->fdin != -1 && msh->tokens && msh->tokens[0])
-			create_child_process(msh, msh->fdin, msh->fdout);
-		if (msh->tokens && msh->tokens[0])
+			if (msh->fdin != -1 && msh->tokens && msh->tokens[0])
+				create_child_process(msh, msh->fdin, msh->fdout);
 			free_split(msh->tokens, YES);
+			msh->tokens = NULL;
+		}
 		free(msh->token.print);
 	}
 	clean_handler(msh);
