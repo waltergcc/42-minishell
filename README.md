@@ -541,6 +541,12 @@ echo ~/test
 > /home/wcorrea-/test
 
 ### Trouble Cases
+
+```bash
+$EMPTYVAR
+```
+> show a new prompt line
+
 ```bash
 echo -n -n -n -n -n Hello World
 ```
