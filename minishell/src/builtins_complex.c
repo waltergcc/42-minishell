@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 16:53:16 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:55:21 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 	free_split(new, YES);
 	new = NULL;
 }
-
-
 
 void	execute_export(t_shell *msh, int i, char **tmp)
 {
