@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:40:33 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/16 12:19:05 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:54:03 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	clean_exit(t_shell *msh, int mode)
 		free_split(msh->paths, YES);
 	free_split(msh->environment.key, YES);
 	free_split(msh->environment.content, YES);
+	free_split(msh->environment.key_tmp, NO);
 	free(msh->user_input);
 	free(msh->home);
 	free(msh->oldpwd);

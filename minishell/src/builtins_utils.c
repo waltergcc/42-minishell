@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 15:30:10 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:57:18 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	export_without_args(t_shell *msh)
 
 	msh->environment.key_ex = fill_stack(msh->environment.size,
 			msh->environment.key, msh->environment.key_tmp,
-			 msh->environment.content);
+			msh->environment.content);
 	ordenate_keys(msh->environment.key_ex);
 	tmp = msh->environment.key_ex;
 	while (tmp)
 	{
-		if(tmp->content != NULL)
+		if (tmp->content != NULL)
 		{
 			ft_putstr_fd("export ", msh->fdout);
 			ft_putstr_fd(tmp->key, msh->fdout);
@@ -93,10 +93,10 @@ void	export_without_args(t_shell *msh)
 			ft_putendl_fd(tmp->content, msh->fdout);
 		}
 		else
-			{
-				ft_putstr_fd("export ", msh->fdout);
-				ft_putendl_fd(tmp->key, msh->fdout);
-			}
+		{
+			ft_putstr_fd("export ", msh->fdout);
+			ft_putendl_fd(tmp->key, msh->fdout);
+		}
 		tmp = tmp->next;
 	}
 	free_stack(&msh->environment.key_ex);
