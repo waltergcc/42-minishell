@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 16:29:55 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:53:16 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,12 @@ void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 	new = NULL;
 }
 
-int	check_key(char **key, char **key_tmp, char *token, int i)
-{
-	while (key[++i])
-		if (ft_strcmp(key[i], token) == 0)
-			return (YES);
-	i = -1;
-	while (key_tmp[++i])
-		if (ft_strcmp(key_tmp[i], token) == 0)
-			return (YES);
-	return (NO);
-}
+
 
 void	execute_export(t_shell *msh, int i, char **tmp)
 {
 	int	current_position;
-	int	n;
 
-	n = 0;
-	msh->environment.key_tmp[0] = NULL;
 	while (msh->tokens[++i])
 	{
 		while (msh->tokens[i] && (msh->tokens[i][0] == '='
@@ -106,15 +93,8 @@ void	execute_export(t_shell *msh, int i, char **tmp)
 			break ;
 		if (!ft_strchr(msh->tokens[i], '='))
 		{
-			if (check_key(msh->environment.key, msh->environment.key_tmp, msh->tokens[i], -1))
-				continue ;
-			else
-			{
-				while (msh->environment.key_tmp[n] != NULL)
-					n++;
-				msh->environment.key_tmp[n] = ft_strdup(msh->tokens[i]);
-				break ;
-			}
+			check_tmp_key(msh, msh->tokens[i], -1, 0);
+			continue ;
 		}
 		current_position = i;
 		tmp = split_export_token(msh, &i, tmp);

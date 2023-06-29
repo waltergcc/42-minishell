@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands_utils_2.c                                 :+:      :+:    :+:   */
+/*   utils_extra.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:06:57 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 11:50:22 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:53:27 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ char	**split_environment_vars(t_shell *msh, int *i, char **tmp)
 	tmp[2] = NULL;
 	free(content);
 	return (tmp);
+}
+
+void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist)
+{
+	while (msh->environment.key[++i])
+		if (!ft_strcmp(msh->environment.key[i], token))
+			already_exist = YES;
+	i = -1;
+	while (msh->environment.key_tmp[++i])
+		if (!ft_strcmp(msh->environment.key_tmp[i], token))
+			already_exist = YES;
+	i = 0;
+	if (!already_exist)
+	{	
+		while (msh->environment.key_tmp[i])
+			i++;
+		msh->environment.key_tmp[i] = ft_strdup(token);
+	}
 }
 
 void	child_signal_handler2(int sig)

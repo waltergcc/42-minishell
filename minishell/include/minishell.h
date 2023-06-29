@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 15:03:28 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:53:37 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,5 +258,6 @@ void	clean_handler(t_shell *msh);
 void	child_signal_handler(int sig);
 void	child_signal_handler2(int sig);
 char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
+void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 11:50:10 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:39:24 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	create_environment(t_shell *msh, char **envp, char **tmp, int i)
 	}
 	msh->environment.key[i] = NULL;
 	msh->environment.content[i] = NULL;
+	msh->environment.key_tmp[0] = NULL;
 }
 
 void	set_environment_and_paths(t_shell *msh)
