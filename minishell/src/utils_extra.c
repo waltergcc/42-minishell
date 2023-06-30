@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_extra.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:06:57 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 16:53:27 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 02:07:33 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ char	**split_environment_vars(t_shell *msh, int *i, char **tmp)
 	return (tmp);
 }
 
+char	**ft_realloc_double(char **str, int size)
+{
+	char	**new_str;
+	int		i;
+
+	i = -1;
+	new_str = malloc(sizeof(char *) * (size + 1));
+	if (!new_str)
+		exit(EXIT_FAILURE);
+	while (str[++i])
+	{
+		new_str[i] = ft_strdup(str[i]);
+		free(str[i]);
+	}
+	free(str);
+	return (new_str);
+}
+
 void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist)
 {
 	while (msh->environment.key[++i])
@@ -39,12 +57,14 @@ void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist)
 	while (msh->environment.key_tmp[++i])
 		if (!ft_strcmp(msh->environment.key_tmp[i], token))
 			already_exist = YES;
-	i = 0;
 	if (!already_exist)
 	{	
-		while (msh->environment.key_tmp[i])
-			i++;
-		msh->environment.key_tmp[i] = ft_strdup(token);
+		msh->environment.size_tmp++;
+		msh->environment.key_tmp = ft_realloc_double(msh->environment.key_tmp,
+				msh->environment.size_tmp);
+		msh->environment.key_tmp[msh->environment.size_tmp - 1]
+			= ft_strdup(token);
+		msh->environment.key_tmp[msh->environment.size_tmp] = NULL;
 	}
 }
 

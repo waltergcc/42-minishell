@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:57:05 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 16:39:24 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/29 22:34:11 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void	create_environment(t_shell *msh, char **envp, char **tmp, int i)
 	}
 	msh->environment.key[i] = NULL;
 	msh->environment.content[i] = NULL;
+	msh->environment.key_tmp = malloc(sizeof(char *) * (1));
 	msh->environment.key_tmp[0] = NULL;
+	msh->environment.size_tmp = 0;
 }
 
 void	set_environment_and_paths(t_shell *msh)

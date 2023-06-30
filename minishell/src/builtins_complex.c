@@ -3,14 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_complex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 16:55:21 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 02:04:37 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	if_exist_key_tmp(t_shell *msh, char *token, int i)
+{
+	while (msh->environment.key_tmp[i])
+	{
+		if (strcmp(msh->environment.key_tmp[i], token) == 0)
+			return (YES);
+		i++;
+	}
+	return (NO);
+}
+
+void	remove_tmp_var(t_shell *msh, char *token, int i, int j)
+{
+	char	**new;
+
+	msh->environment.size_tmp--;
+	new = malloc(sizeof(char *) * (msh->environment.size_tmp + 1));
+	if (new == NULL)
+		return ;
+	while (msh->environment.key_tmp[i])
+	{
+		if (strcmp(msh->environment.key_tmp[i], token) == 0)
+			i++;
+		if (msh->environment.key_tmp[i] == NULL)
+		{
+			new[j] = NULL;
+			break ;
+		}
+		new[j] = ft_strdup(msh->environment.key_tmp[i]);
+		j++;
+		i++;
+	}
+	new[j] = NULL;
+	free_split(msh->environment.key_tmp, YES);
+	msh->environment.key_tmp = new;
+}
 
 void	remove_environment_var(t_shell *msh, int i, int j)
 {
@@ -70,6 +107,8 @@ void	check_and_set_envinroment_var(t_shell *msh, char **new, int i)
 			free_split(msh->paths, YES);
 		get_paths(msh, NULL, -1);
 	}
+	if (if_exist_key_tmp(msh, new[0], 0))
+		remove_tmp_var(msh, new[0], 0, 0);
 	free_split(new, YES);
 	new = NULL;
 }
@@ -114,6 +153,8 @@ void	execute_unset(t_shell *msh, int i)
 				msh->paths = NULL;
 			}
 		}
+		else if (if_exist_key_tmp(msh, msh->tokens[i], 0))
+			remove_tmp_var(msh, msh->tokens[i], 0, 0);
 	}
 	g_exit = 0;
 }

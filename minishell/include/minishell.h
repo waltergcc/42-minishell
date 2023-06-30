@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 16:53:37 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 02:09:02 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ typedef struct s_envp
 {
 	char	**envp;
 	char	**key;
-	char	*key_tmp[100];
+	char	**key_tmp;
 	t_key	*key_ex;
 	char	**content;
 	int		size;
+	int		size_tmp;
 	int		index;
 }			t_envp;
+
 typedef struct s_parse
 {
 	int		id;
@@ -259,5 +261,6 @@ void	child_signal_handler(int sig);
 void	child_signal_handler2(int sig);
 char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
 void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist);
+char	**ft_realloc_double(char **str, int size);
 
 #endif
