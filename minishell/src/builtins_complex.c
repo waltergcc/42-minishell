@@ -3,51 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_complex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:14 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/30 02:04:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/30 07:20:34 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	if_exist_key_tmp(t_shell *msh, char *token, int i)
-{
-	while (msh->environment.key_tmp[i])
-	{
-		if (strcmp(msh->environment.key_tmp[i], token) == 0)
-			return (YES);
-		i++;
-	}
-	return (NO);
-}
-
-void	remove_tmp_var(t_shell *msh, char *token, int i, int j)
-{
-	char	**new;
-
-	msh->environment.size_tmp--;
-	new = malloc(sizeof(char *) * (msh->environment.size_tmp + 1));
-	if (new == NULL)
-		return ;
-	while (msh->environment.key_tmp[i])
-	{
-		if (strcmp(msh->environment.key_tmp[i], token) == 0)
-			i++;
-		if (msh->environment.key_tmp[i] == NULL)
-		{
-			new[j] = NULL;
-			break ;
-		}
-		new[j] = ft_strdup(msh->environment.key_tmp[i]);
-		j++;
-		i++;
-	}
-	new[j] = NULL;
-	free_split(msh->environment.key_tmp, YES);
-	msh->environment.key_tmp = new;
-}
 
 void	remove_environment_var(t_shell *msh, int i, int j)
 {

@@ -6,7 +6,7 @@
 #    By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 10:15:08 by wcorrea-          #+#    #+#              #
-#    Updated: 2023/06/29 12:52:06 by wcorrea-         ###   ########.fr        #
+#    Updated: 2023/06/30 07:19:19 by wcorrea-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = src/main.c \
 		src/redirections.c src/heredoc.c \
 		src/tokens.c src/tokens_utils.c src/tokens_split.c \
 		src/commands_manager.c src/commands_execute.c src/commands_utils.c \
-		src/builtins_basic.c src/builtins_complex.c src/builtins_utils.c src/builtins_export_utils.c \
+		src/builtins_basic.c src/builtins_complex.c src/builtins_utils.c \
+		src/builtins_export_lists.c src/builtins_export_tmp.c \
 		src/utils.c src/utils_extra.c
 
 OBJS = ${SRC:.c=.o}

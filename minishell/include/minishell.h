@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/30 02:09:02 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/30 07:24:25 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,12 +241,18 @@ int		is_valid_exit(t_shell *msh, int i, int tokens);
 char	**split_export_token(t_shell *msh, int *i, char **tmp);
 void	export_without_args(t_shell *msh);
 
-/*builtins_export_utils.c*/
+/*builtins_export_lists.c*/
 t_key	*stack_new(char **key, char **content, int index);
 t_key	*fill_stack(int size, char **key, char **key_tmp, char **content);
 void	free_stack(t_key **stack);
 void	stack_add_bottom(t_key **header, t_key *new);
 void	ordenate_keys(t_key *header);
+
+/*builtins_export_tmp.c*/
+void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist);
+char	**ft_realloc_double(char **str, int size);
+int		if_exist_key_tmp(t_shell *msh, char *token, int i);
+void	remove_tmp_var(t_shell *msh, char *token, int i, int j);
 
 /*utils.c*/
 void	print_error(char *msg, char *key, int exit_code);
@@ -260,7 +266,5 @@ void	clean_handler(t_shell *msh);
 void	child_signal_handler(int sig);
 void	child_signal_handler2(int sig);
 char	**split_environment_vars(t_shell *msh, int *i, char **tmp);
-void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist);
-char	**ft_realloc_double(char **str, int size);
 
 #endif
