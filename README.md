@@ -679,20 +679,30 @@ export $ABCD=more
 > minishell: export: `1234=more': not a valid identifier
 
 ```bash
-export a_test
+export a_test b_test
 ```
-> create a tmp var a_test without content
+> create tmp vars without content
 
 ```bash
 unset a_test
 ```
 > remove the tmp var a_test
 
-### Crazy export test
+```bash
+export b_test=1234
+```
+> transform the tmp var b_test in a environment var with content 1234
+
+```bash
+unset b_test
+```
+> remove the environment var b_test
+
 ```bash
 export TEST1="withdouble" TEST2 TEST3=wihoutquotes TEST4="with spaces and expand $USER" TEST5="ok, but it has more" TEST6= TEST7='with single $PATH' = TEST8 9TEST9 TEST10="" TEST11=too=many=equals TEST.12="    " TEST13='withsingle' TEST14/
 ```
-> define this variables. Check with env
+> test to export enviroment and tmp vars with different cases. Check thhe difference with env and export commands
+
 ```bash
 unset TEST1 TEST2 TEST3 TEST4 TEST5 TEST6 TEST7 TEST8 9TEST9 TEST10 TEST11 TEST.12 TEST13 TEST14/
 ```
