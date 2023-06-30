@@ -362,6 +362,10 @@ export -p NEW_VAR
 ```
 > minishell: export: options aren't supported
 
+```bash
+export NEW_VAR="   -l  |"
+```
+> replace the content of NEW_VAR to '   -l  |'
 
 ### unset
 
