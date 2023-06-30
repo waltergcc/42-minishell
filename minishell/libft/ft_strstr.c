@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:55:02 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/03/18 18:10:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:00 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ char	*ft_strstr(const char *haystack, const char *needle)
 			if (needle[j + 1] == '\0')
 				return ((char *)&haystack[i]);
 			++j;
-		}	
+		}
 		++i;
-	}	
+	}
 	return (NULL);
 }

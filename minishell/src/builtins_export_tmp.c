@@ -6,11 +6,21 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 07:19:37 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/30 07:23:39 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:09:06 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	export_output(t_shell *msh, t_key *tmp)
+{
+	ft_putstr_fd("export ", msh->fdout);
+	ft_putstr_fd(tmp->key, msh->fdout);
+	ft_putchar_fd('=', msh->fdout);
+	ft_putchar_fd(D_QUOTE, msh->fdout);
+	ft_putstr_fd(tmp->content, msh->fdout);
+	ft_putendl_fd(STR_D_QUOTE, msh->fdout);
+}
 
 int	if_exist_key_tmp(t_shell *msh, char *token, int i)
 {
@@ -77,7 +87,7 @@ void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist)
 		if (!ft_strcmp(msh->environment.key_tmp[i], token))
 			already_exist = YES;
 	if (!already_exist)
-	{	
+	{
 		msh->environment.size_tmp++;
 		msh->environment.key_tmp = ft_realloc_double(msh->environment.key_tmp,
 				msh->environment.size_tmp);

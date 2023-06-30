@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 12:41:27 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 10:43:32 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:41:48 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	search_position(char *s, char *c, t_token *token, int i)
 			return (i + 1);
 		if (ft_isset(s[i], c) || s[i] == '=' || s[i] == D_QUOTE
 			|| s[i] == QUOTE || (s[i] == '$' && token))
-		{	
+		{
 			if (token && (s[i + 1] == '$' || s[i] == '$'))
 				token->dollar_remain = 1;
 			return (i);
@@ -79,7 +79,7 @@ int	verify_flag_n(t_shell *msh, char *s, int i)
 		msh->has_flag_n++;
 		i += 2;
 		while (s[i] == ' ' || s[i] == '\t' || s[i] == 'n')
-				i++;
+			i++;
 		if (s[i - 1] == 'n' && (s[i] != ' ' && s[i] != '\t'
 				&& s[i] != 'n' && s[i] != '\0'))
 		{
@@ -87,7 +87,7 @@ int	verify_flag_n(t_shell *msh, char *s, int i)
 				msh->has_flag_n = 0;
 			return (start);
 		}
-	}	
+	}
 	return (i);
 }
 

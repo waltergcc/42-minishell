@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:23:36 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/30 07:24:25 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:09:16 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ void	check_tmp_key(t_shell *msh, char *token, int i, int already_exist);
 char	**ft_realloc_double(char **str, int size);
 int		if_exist_key_tmp(t_shell *msh, char *token, int i);
 void	remove_tmp_var(t_shell *msh, char *token, int i, int j);
+void	export_output(t_shell *msh, t_key *tmp);
 
 /*utils.c*/
 void	print_error(char *msg, char *key, int exit_code);

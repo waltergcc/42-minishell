@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:06:57 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/30 07:21:38 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:43:28 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	child_signal_handler(int sig)
 void	clean_handler(t_shell *msh)
 {
 	if (msh->file_name && msh->file_name[0] != '\0')
-	{	
+	{
 		unlink(msh->file_name);
 		free(msh->file_name);
 	}

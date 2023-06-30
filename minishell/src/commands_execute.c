@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:15:15 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 12:37:54 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:40:42 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	execute_command(t_shell *msh, int i, char *cmd_path)
 	{
 		g_exit = execve(msh->tokens[0], &msh->tokens[0], msh->environment.envp);
 		while (msh->paths && msh->paths[i] != NULL)
-		{	
+		{
 			cmd_path = ft_strdup(msh->paths[i]);
 			if (msh->tokens[0][0] == '|' && msh->tokens[1])
 			{

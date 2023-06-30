@@ -6,7 +6,7 @@
 /*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:55:23 by wcorrea-          #+#    #+#             */
-/*   Updated: 2023/06/29 15:57:18 by wcorrea-         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:08:53 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,7 @@ void	export_without_args(t_shell *msh)
 	while (tmp)
 	{
 		if (tmp->content != NULL)
-		{
-			ft_putstr_fd("export ", msh->fdout);
-			ft_putstr_fd(tmp->key, msh->fdout);
-			ft_putchar_fd('=', msh->fdout);
-			ft_putendl_fd(tmp->content, msh->fdout);
-		}
+			export_output(msh, tmp);
 		else
 		{
 			ft_putstr_fd("export ", msh->fdout);
