@@ -3,6 +3,17 @@
 This is a shell implementation called Minishell. It is a command-line interpreter that provides a basic shell environment and supports various features such as command execution, input parsing, redirections, pipes, environment variables, built-in commands, and signal handling.
 
 This project was developed in colaboration with [teroVF](https://github.com/teroVF).
+
+## Words of Wisdom
+### Focus on the requirement :dart:
+Please implement only what the subject explicitly requests. Anything that is not requested is not a requirement, and each additional implementation increases development time and adds unnecessary complexity to the project.
+
+### Perform extensive testing :microscope:
+This project has many points of attention that have arisen during development. All of these points have been included in the tests on this page. While not exhaustive, they provide a starting point for things that should work and things that should not. [Check the tests](#tests)
+
+### Study other shells :mag:
+Our reference shell is Bash, but running certain commands in other shells may produce different results and help us better understand why certain things happen. Use Bash as a reference, but be open to examining the workings of other shells.
+
 ## Features
 	
 - **Prompt display:** Minishell displays a prompt when waiting for a new command.
@@ -50,7 +61,7 @@ Once running, you can enter commands and interact with the shell.
 - Minishell does not interpret unclosed quotes or special characters that are not required by the subject, such as backslashes `\` or semicolons `;`.
 - The readline() function used in Minishell may cause memory leaks, but the code written specifically for this project should not have memory leaks.
 
-## Evaluation tests
+## Tests
 
 ### Check -Wall -Wextra -Werror
 
@@ -404,11 +415,6 @@ cd
 cd notexist
 ```
 > minishell: cd: notexist: No such file or directory
-```bash
-cd -
-```
-> go to the previous directory
-
 
 ### pwd
 
@@ -605,18 +611,7 @@ echo $HOME/test
 |
 ```
 > minishell: syntax error near unexpected token `|'
-```bash
-<< EOF
-```
-> start the here document
-```bash
-> file
-```
-> create a file
-```bash
->> file
-```
-> append to a file
+
 ```bash
 d|
 ```
@@ -707,5 +702,27 @@ export TEST1="withdouble" TEST2 TEST3=wihoutquotes TEST4="with spaces and expand
 unset TEST1 TEST2 TEST3 TEST4 TEST5 TEST6 TEST7 TEST8 9TEST9 TEST10 TEST11 TEST.12 TEST13 TEST14/
 ```
 > unset all these variables that were valid
+
+### Not required but done
+
+```bash
+cd -
+```
+> go to the previous directory
+
+```bash
+<< EOF
+```
+> start the here document
+```bash
+> file
+```
+> create a file
+```bash
+>> file
+```
+> append to a file
+
+### Grade: 100/100
 ### Used tests
 - minishell_tester: https://github.com/kichkiro/minishell_tester
